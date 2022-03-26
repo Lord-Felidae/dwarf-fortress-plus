@@ -1,0 +1,1780 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Quickfort Blueprint Guide &#8212; DFHack 0.47.05-r4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dfhack.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/dfhack-icon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="About DFHack" href="../index-about.html" />
+    <link rel="prev" title="Quickfort Library Guide" href="quickfort-library-guide.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/dfhack-logo.png" alt="Logo"/>
+    <h3 class="logo logo-name">Home</h3>
+  </a>
+</p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Guides</a><ul>
+      <li>Previous: <a href="quickfort-library-guide.html" title="previous chapter">Quickfort Library Guide</a></li>
+      <li>Next: <a href="../index-about.html" title="next chapter">About DFHack</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quickfort Blueprint Guide</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#creating-blueprints">Creating blueprints</a><ul>
+<li><a class="reference internal" href="#area-expansion-syntax">Area expansion syntax</a></li>
+<li><a class="reference internal" href="#automatic-area-expansion">Automatic area expansion</a></li>
+<li><a class="reference internal" href="#multilevel-blueprints">Multilevel blueprints</a></li>
+<li><a class="reference internal" href="#dig-priorities">Dig priorities</a></li>
+<li><a class="reference internal" href="#marker-mode">Marker mode</a></li>
+<li><a class="reference internal" href="#stockpiles-and-zones">Stockpiles and zones</a><ul>
+<li><a class="reference internal" href="#stockpile-bins-barrels-and-wheelbarrows">Stockpile bins, barrels, and wheelbarrows</a></li>
+<li><a class="reference internal" href="#zone-detailed-configuration">Zone detailed configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#minecart-tracks">Minecart tracks</a><ul>
+<li><a class="reference internal" href="#constructed-tracks">Constructed tracks</a></li>
+<li><a class="reference internal" href="#carved-tracks">Carved tracks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modeline-markers">Modeline markers</a><ul>
+<li><a class="reference internal" href="#blueprint-labels">Blueprint labels</a></li>
+<li><a class="reference internal" href="#start-positions">Start positions</a></li>
+<li><a class="reference internal" href="#hiding-blueprints">Hiding blueprints</a></li>
+<li><a class="reference internal" href="#messages">Messages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#meta-blueprints">Meta blueprints</a><ul>
+<li><a class="reference internal" href="#meta-markers">Meta markers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-blueprint-modes">Other blueprint modes</a><ul>
+<li><a class="reference internal" href="#notes-blueprints">Notes blueprints</a></li>
+<li><a class="reference internal" href="#aliases-blueprints">Aliases blueprints</a></li>
+<li><a class="reference internal" href="#ignore-blueprints">Ignore blueprints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#packaging-a-set-of-blueprints">Packaging a set of blueprints</a></li>
+<li><a class="reference internal" href="#buildingplan-integration">Buildingplan integration</a></li>
+<li><a class="reference internal" href="#generating-manager-orders">Generating manager orders</a><ul>
+<li><a class="reference internal" href="#extra-manager-orders">Extra Manager Orders</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tips-and-tricks">Tips and tricks</a></li>
+<li><a class="reference internal" href="#caveats-and-limitations">Caveats and limitations</a></li>
+<li><a class="reference internal" href="#dreamfort-case-study-a-practical-guide-to-advanced-blueprint-design">Dreamfort case study: a practical guide to advanced blueprint design</a><ul>
+<li><a class="reference internal" href="#the-surface-level-how-to-manage-complexity">The surface level: how to manage complexity</a></li>
+<li><a class="reference internal" href="#the-farming-level-fun-with-stockpiles">The farming level: fun with stockpiles</a></li>
+<li><a class="reference internal" href="#the-industry-level-when-not-to-use-aliases">The industry level: when not to use aliases</a></li>
+<li><a class="reference internal" href="#the-services-level-handling-multi-level-dig-blueprints">The services level: handling multi-level dig blueprints</a></li>
+<li><a class="reference internal" href="#the-guildhall-level-avoiding-smoothing-issues">The guildhall level: avoiding smoothing issues</a></li>
+<li><a class="reference internal" href="#the-beds-levels-multi-level-meta-blueprints">The beds levels: multi level meta blueprints</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#links">Links</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="quickfort-blueprint-guide">
+<span id="quickfort-user-guide"></span><span id="id1"></span><h1>Quickfort Blueprint Guide<a class="headerlink" href="#quickfort-blueprint-guide" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../_auto/base.html#quickfort"><span class="std std-ref">Quickfort</span></a> is a DFHack script that helps you build fortresses from
+“blueprint” .csv and .xlsx files. Many applications exist to edit these files,
+such as MS Excel and <a class="reference external" href="https://sheets.new">Google Sheets</a>. Most layout and
+building-oriented DF commands are supported through the use of multiple files or
+spreadsheets, each describing a different phase of DF construction: designation,
+building, placing stockpiles/zones, and setting configuration.</p>
+<p>The original idea came from <a class="reference external" href="https://dwarffortresswiki.org/User:Valdemar">Valdemar’s</a> auto-designation
+macro. Joel Thornton reimplemented the core logic in Python and extended its
+functionality with <a class="reference external" href="https://github.com/joelpt/quickfort">Quickfort 2.0</a>. This
+DFHack-native implementation, called “DFHack Quickfort” or just “quickfort”,
+builds upon Quickfort 2.0’s formats and features. Any blueprint that worked in
+Python Quickfort 2.0 should work with DFHack Quickfort. DFHack Quickfort
+interacts with Dwarf Fortress memory structures directly, allowing for
+instantaneous blueprint application, error checking and recovery, and many other
+advanced features.</p>
+<p>This guide focuses on DFHack Quickfort’s capabilities and teaches players how
+to understand and create blueprint files. Some of the text was originally
+written by Joel Thornton, reused here with his permission.</p>
+<p>For those just looking to apply existing blueprints, check out the <a class="reference internal" href="../_auto/base.html#quickfort"><span class="std std-ref">quickfort
+command’s documentation</span></a> for syntax. There are many ready-to-use
+blueprints available in the <code class="docutils literal notranslate"><span class="pre">blueprints/library</span></code> subfolder in your DFHack
+installation. Browse them on your computer or
+<a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library">online</a>, or run <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span> <span class="pre">-l</span></code> at the
+<code class="docutils literal notranslate"><span class="pre">[DFHack]#</span></code> prompt to list them, and then <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">run</span></code> to apply them to
+your fort!</p>
+<p>Before you become an expert at writing blueprints, though, you should know that
+the easiest way to make a quickfort blueprint is to build your plan “for real”
+in Dwarf Fortress and then export your map using the DFHack <a class="reference internal" href="../Plugins.html#blueprint"><span class="std std-ref">blueprint</span></a> plugin.
+You can apply those blueprints as-is in your next fort, or you can fine-tune
+them with additional features from this guide.</p>
+<p>See the <a class="reference internal" href="#links">Links</a> section for more information and online resources.</p>
+<div class="contents local topic" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#features" id="id2">Features</a></p></li>
+<li><p><a class="reference internal" href="#creating-blueprints" id="id3">Creating blueprints</a></p>
+<ul>
+<li><p><a class="reference internal" href="#area-expansion-syntax" id="id4">Area expansion syntax</a></p></li>
+<li><p><a class="reference internal" href="#automatic-area-expansion" id="id5">Automatic area expansion</a></p></li>
+<li><p><a class="reference internal" href="#multilevel-blueprints" id="id6">Multilevel blueprints</a></p></li>
+<li><p><a class="reference internal" href="#dig-priorities" id="id7">Dig priorities</a></p></li>
+<li><p><a class="reference internal" href="#marker-mode" id="id8">Marker mode</a></p></li>
+<li><p><a class="reference internal" href="#stockpiles-and-zones" id="id9">Stockpiles and zones</a></p></li>
+<li><p><a class="reference internal" href="#minecart-tracks" id="id10">Minecart tracks</a></p></li>
+<li><p><a class="reference internal" href="#modeline-markers" id="id11">Modeline markers</a></p></li>
+<li><p><a class="reference internal" href="#meta-blueprints" id="id12">Meta blueprints</a></p></li>
+<li><p><a class="reference internal" href="#other-blueprint-modes" id="id13">Other blueprint modes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#packaging-a-set-of-blueprints" id="id14">Packaging a set of blueprints</a></p></li>
+<li><p><a class="reference internal" href="#buildingplan-integration" id="id15">Buildingplan integration</a></p></li>
+<li><p><a class="reference internal" href="#generating-manager-orders" id="id16">Generating manager orders</a></p>
+<ul>
+<li><p><a class="reference internal" href="#extra-manager-orders" id="id17">Extra Manager Orders</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#tips-and-tricks" id="id18">Tips and tricks</a></p></li>
+<li><p><a class="reference internal" href="#caveats-and-limitations" id="id19">Caveats and limitations</a></p></li>
+<li><p><a class="reference internal" href="#dreamfort-case-study-a-practical-guide-to-advanced-blueprint-design" id="id20">Dreamfort case study: a practical guide to advanced blueprint design</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-surface-level-how-to-manage-complexity" id="id21">The surface level: how to manage complexity</a></p></li>
+<li><p><a class="reference internal" href="#the-farming-level-fun-with-stockpiles" id="id22">The farming level: fun with stockpiles</a></p></li>
+<li><p><a class="reference internal" href="#the-industry-level-when-not-to-use-aliases" id="id23">The industry level: when not to use aliases</a></p></li>
+<li><p><a class="reference internal" href="#the-services-level-handling-multi-level-dig-blueprints" id="id24">The services level: handling multi-level dig blueprints</a></p></li>
+<li><p><a class="reference internal" href="#the-guildhall-level-avoiding-smoothing-issues" id="id25">The guildhall level: avoiding smoothing issues</a></p></li>
+<li><p><a class="reference internal" href="#the-beds-levels-multi-level-meta-blueprints" id="id26">The beds levels: multi level meta blueprints</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#links" id="id27">Links</a></p></li>
+</ul>
+</div>
+<section id="features">
+<h2><a class="toc-backref" href="#id2">Features</a><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>General</p>
+<ul>
+<li><p>Manages blueprints to handle all phases of DF construction</p></li>
+<li><p>Supports .csv and multi-worksheet .xlsx blueprint files</p></li>
+<li><p>Near-instant application, even for very large and complex blueprints</p></li>
+<li><p>Blueprints can span multiple z-levels</p></li>
+<li><p>You can package all blueprints and aliases needed for an entire fortress
+in a single file for easy sharing</p></li>
+<li><p>“meta” blueprints that simplify the application of sequences of blueprints</p></li>
+<li><p>Undo functionality for dig, build, place, and zone blueprints</p></li>
+<li><p>Automatic cropping of blueprints so you don’t get errors if the blueprint
+extends off the map</p></li>
+<li><p>Can generate manager orders for everything required by a build blueprint</p></li>
+<li><p>Includes a library of ready-to-use blueprints</p></li>
+<li><p>Verbose output mode for blueprint debugging</p></li>
+</ul>
+</li>
+<li><p>Dig mode</p>
+<ul>
+<li><p>Supports all types of designations, including dumping/forbidding items and
+setting traffic settings</p></li>
+<li><p>Supports setting dig priorities</p></li>
+<li><p>Supports applying dig blueprints in marker mode</p></li>
+<li><p>Handles carving arbitrarily complex minecart tracks, including tracks that
+cross other tracks</p></li>
+</ul>
+</li>
+<li><p>Build mode</p>
+<ul>
+<li><p>Fully integrated with DFHack buildingplan: you can place buildings before
+manufacturing building materials and you can use the buildingplan UI for
+setting materials preferences</p></li>
+<li><p>Designate entire constructions in mid-air without having to wait for each
+tile to become supported</p></li>
+<li><p>Automatic expansion of building footprints to their minimum dimensions, so
+only the center tile of a multi-tile building needs to be recorded in the
+blueprint</p></li>
+<li><p>Tile occupancy and validity checking so, for example, buildings that
+cannot be placed on a target tile will be skipped instead of messing up
+the blueprint. Blueprints that are only partially applied for any reason
+(e.g. you need to dig out some more tiles) can be safely reapplied to
+build the remaining buildings.</p></li>
+<li><p>Relaxed rules for farm plot and road placement: you can still place the
+building even if an invalid tile (e.g. stone tiles for farm plots) splits
+the designated area into two disconnected parts</p></li>
+<li><p>Intelligent boundary detection for adjacent buildings of the same type
+(e.g. a 6x6 block of <code class="docutils literal notranslate"><span class="pre">wj</span></code> cells will be correctly split into 4 jeweler’s
+workshops)</p></li>
+</ul>
+</li>
+<li><p>Place and zone modes</p>
+<ul>
+<li><p>Define stockpiles and zones of shape, not just rectangles</p></li>
+<li><p>Configurable numbers of bins, barrels and wheelbarrows assigned to created
+stockpiles</p></li>
+<li><p>Automatic splitting of stockpiles and zones that exceed maximum dimension
+limits</p></li>
+<li><p>Fully configurable zone settings, such as pit/pond and hospital supply
+counts</p></li>
+</ul>
+</li>
+<li><p>Query mode</p>
+<ul>
+<li><p>Send arbitrary keystroke sequences to the UI – <em>anything</em> you can do
+through the UI is supported</p></li>
+<li><p>Supports aliases to simplify frequent keystroke combos</p></li>
+<li><p>Includes a library of pre-made and tested aliases to simplify most common
+tasks, such as configuring stockpiles for important item types or creating
+named hauling routes for quantum stockpiles.</p></li>
+<li><p>Supports including aliases in other aliases for easy management of common
+subsequences</p></li>
+<li><p>Supports repeating key sequences a specified number of times</p></li>
+<li><p>Skips sending keys when the cursor is over a tile that does not have a
+stockpile or building, so missing buildings won’t desynchronize your
+blueprint</p></li>
+<li><p>Instant halting of query blueprint application when keystroke errors are
+detected, such as when a mistake in a key sequence leaves us stuck in a
+submenu, to make query blueprints easier to debug</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="creating-blueprints">
+<h2><a class="toc-backref" href="#id3">Creating blueprints</a><a class="headerlink" href="#creating-blueprints" title="Permalink to this headline">¶</a></h2>
+<p>We recommend using a spreadsheet editor such as Excel, <a class="reference external" href="https://sheets.new">Google
+Sheets</a>, or <a class="reference external" href="https://www.libreoffice.org">LibreOffice</a>
+to edit blueprint files, but any text editor will do.</p>
+<p>The format of Quickfort-compatible blueprint files is straightforward. The first
+line (or upper-left cell) of the spreadsheet should look like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig</span>
+</pre></div>
+</div>
+<p>The keyword <code class="docutils literal notranslate"><span class="pre">dig</span></code> tells Quickfort we are going to be using the Designations
+menu in DF. The following “mode” keywords are understood:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Blueprint mode</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dig</p></td>
+<td><p>Designations menu (<kbd class="kbd docutils literal notranslate">d</kbd>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>build</p></td>
+<td><p>Build menu (<kbd class="kbd docutils literal notranslate">b</kbd>)</p></td>
+</tr>
+<tr class="row-even"><td><p>place</p></td>
+<td><p>Place stockpiles menu (<kbd class="kbd docutils literal notranslate">p</kbd>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>zone</p></td>
+<td><p>Activity zones menu (<kbd class="kbd docutils literal notranslate">i</kbd>)</p></td>
+</tr>
+<tr class="row-even"><td><p>query</p></td>
+<td><p>Set building tasks/prefs menu (<kbd class="kbd docutils literal notranslate">q</kbd>)</p></td>
+</tr>
+</tbody>
+</table>
+<p>If no modeline appears in the first cell, Quickfort assumes that it’s looking at
+a <code class="docutils literal notranslate"><span class="pre">#dig</span></code> blueprint.</p>
+<p>There are also other modes that don’t directly correspond to Dwarf Fortress
+menus, but we’ll talk about those <a class="reference internal" href="#quickfort-other-modes"><span class="std std-ref">later</span></a>.</p>
+<p>If you like, you may enter a comment after the mode keyword. This comment will
+appear in the output of <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> when run from the <code class="docutils literal notranslate"><span class="pre">DFHack#</span></code> prompt.
+You can use this space for explanations, attribution, etc.</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig grand dining room</span>
+</pre></div>
+</div>
+<p>Below this line begin entering keys in each spreadsheet cell that represent what
+you want designated in the corresponding game map tile. For example, we could
+dig out a 4x4 room like so (spaces are used as column separators here for
+readability, but a real .csv file would have commas):</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig</span>
+d d d d #
+d d d d #
+d d d d #
+d d d d #
+<span class="c1"># # # # #</span>
+</pre></div>
+</div>
+<p>Note the <kbd class="kbd docutils literal notranslate">#</kbd> symbols at the right end of each row and below the last row.
+These are completely optional, but can be helpful to make the row and column
+positions clear.</p>
+<p>Once the dwarves have that dug out, let’s build a walled-in bedroom within our
+dug-out area:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build</span>
+Cw Cw Cw Cw #
+Cw b  h  Cw #
+Cw       Cw #
+Cw Cw    Cw #
+<span class="c1">#  #  #  #  #</span>
+</pre></div>
+</div>
+<p>Note my generosity - in addition to the bed (<kbd class="kbd docutils literal notranslate">b</kbd>) I’ve built a chest
+(<kbd class="kbd docutils literal notranslate">c</kbd>) here for the dwarf as well. You must use the full series of keys
+needed to build something in each cell, e.g. <kbd class="kbd docutils literal notranslate">C</kbd><kbd class="kbd docutils literal notranslate">w</kbd> indicates we
+should enter DF’s constructions submenu (<kbd class="kbd docutils literal notranslate">C</kbd>) and select walls (<kbd class="kbd docutils literal notranslate">w</kbd>).</p>
+<p>I’d also like to place a booze stockpile in the 2 unoccupied tiles in the room.</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place Place a food stockpile</span>
+` ` ` ` #
+` ~ ~ ` #
+` f f ` #
+` `   ` #
+<span class="c1"># # # # #</span>
+</pre></div>
+</div>
+<p>This illustration may be a little hard to understand. The two <kbd class="kbd docutils literal notranslate">f</kbd>
+characters are in row 3, columns 2 and 3. All the other cells are empty. QF
+considers both <kbd class="kbd docutils literal notranslate">`</kbd> (backtick – the character under the tilde) and
+<kbd class="kbd docutils literal notranslate">~</kbd> (tilde) characters within cells to be empty cells; this can help with
+multilayer or fortress-wide blueprint layouts as “chalk lines”.</p>
+<p>QF is smart enough to recognize this as a 2x1 food stockpile, and creates it as
+such rather than as two 1x1 food stockpiles. Quickfort treats any connected
+region of identical designations as a single entity. The tiles can be connected
+orthogonally or diagonally, just as long as they are touching.</p>
+<p>Lastly, let’s turn the bed into a bedroom and set the food stockpile to hold
+only booze.</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query</span>
+` ` ` ` #
+` r&amp;  ` #
+` booze #
+` ` ` ` #
+<span class="c1"># # # # #</span>
+</pre></div>
+</div>
+<p>In row 2, column 2 we have <code class="docutils literal notranslate"><span class="pre">r&amp;</span></code>. This sends the <kbd class="kbd docutils literal notranslate">r</kbd> key to DF when the
+cursor is over the bed, causing us to “make room” and <kbd class="kbd docutils literal notranslate">Enter</kbd>, represented
+by special <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> alias, to indicate that we’re done setting the size (the
+default room size is fine here).</p>
+<p>In column 2, row 3 we have <code class="docutils literal notranslate"><span class="pre">booze</span></code>. This is one of many alias keywords defined
+in the included <a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/quickfort/aliases-common.txt">aliases library</a>.
+This particular alias sets a food stockpile to accept only booze. It sends the
+keys needed to navigate DF’s stockpile settings menu, and then it sends an
+Escape character to exit back to the map. It is important to exit out of any
+menus that you enter while in query mode so that the cursor can move to the next
+tile when it is done with the current tile.</p>
+<p>If there weren’t an alias named <code class="docutils literal notranslate"><span class="pre">booze</span></code> then the literal characters
+<kbd class="kbd docutils literal notranslate">b</kbd><kbd class="kbd docutils literal notranslate">o</kbd><kbd class="kbd docutils literal notranslate">o</kbd><kbd class="kbd docutils literal notranslate">z</kbd><kbd class="kbd docutils literal notranslate">e</kbd> would have been sent, so be sure to
+spell those aliases correctly!</p>
+<p>You can save a lot of time and effort by using aliases instead of adding all
+key seqences directly to your blueprints. For more details, check out the
+<a class="reference internal" href="quickfort-alias-guide.html#quickfort-alias-guide"><span class="std std-ref">Quickfort Alias Guide</span></a>. You can also see examples of
+aliases being used in the query blueprints in the
+<a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library">DFHack blueprint library</a>. You can create
+your own aliases by adding them to <a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/dfhack-config/quickfort/aliases.txt">dfhack-config/quickfort/aliases.txt</a>
+in your DFHack folder or you can add them
+<a class="reference internal" href="#quickfort-aliases-blueprints"><span class="std std-ref">directly to your blueprint files</span></a>.</p>
+<section id="area-expansion-syntax">
+<h3><a class="toc-backref" href="#id4">Area expansion syntax</a><a class="headerlink" href="#area-expansion-syntax" title="Permalink to this headline">¶</a></h3>
+<p>In Quickfort, the following blueprints are equivalent:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig a 3x3 area</span>
+d d d #
+d d d #
+d d d #
+<span class="c1"># # # #</span>
+
+<span class="c1">#dig the same area with d(3x3) specified in row 1, col 1</span>
+d(3x3)#
+` ` ` #
+` ` ` #
+<span class="c1"># # # #</span>
+</pre></div>
+</div>
+<p>The second example uses Quickfort’s “area expansion syntax”, which takes the
+form:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>keys(WxH)
+</pre></div>
+</div>
+<p>Note that area expansion syntax can only specify rectangular areas. If you want
+to create extent-based structures (e.g. farm plots or stockpiles) in different
+shapes, use the first format above. For example:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place A single L shaped food stockpile</span>
+f f ` ` #
+f f ` ` #
+f f f f #
+f f f f #
+<span class="c1"># # # # #</span>
+</pre></div>
+</div>
+<p>Area expansion syntax also sets boundaries, which can be useful if you want
+adjacent, but separate, stockpiles of the same type:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place Two touching but separate food stockpiles</span>
+f(2x2)  #
+~ ~ ` ` #
+f(4x2)  #
+~ ~ ~ ~ #
+<span class="c1"># # # # #</span>
+</pre></div>
+</div>
+<p>As mentioned previously, <kbd class="kbd docutils literal notranslate">~</kbd> characters are ignored as comment characters
+and can be used for visualizing the blueprint layout. This blueprint can be
+equivalently written as:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place Two touching but separate food stockpiles</span>
+f(2x2)  #
+~ ~ ` ` #
+f f f f #
+f f f f #
+<span class="c1"># # # # #</span>
+</pre></div>
+</div>
+<p>since the area expansion syntax of the upper stockpile prevents it from
+combining with the lower, freeform syntax stockpile.</p>
+<p>Area expansion syntax can also be used for buildings which have an adjustable
+size, like bridges. The following blueprints are equivalent:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build a 4x2 bridge from row 1, col 1</span>
+ga(4x2)  `  #
+`  `  `  `  #
+<span class="c1">#  #  #  #  #</span>
+
+<span class="c1">#build a 4x2 bridge from row 1, col 1</span>
+ga ga ga ga #
+ga ga ga ga #
+<span class="c1">#  #  #  #  #</span>
+</pre></div>
+</div>
+</section>
+<section id="automatic-area-expansion">
+<h3><a class="toc-backref" href="#id5">Automatic area expansion</a><a class="headerlink" href="#automatic-area-expansion" title="Permalink to this headline">¶</a></h3>
+<p>Buildings larger than 1x1, like workshops, can be represented in any of three
+ways. You can designate just their center tile with empty cells around it to
+leave room for the footprint, like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build a mason workshop in row 2, col 2 that will occupy the 3x3 area</span>
+` `  ` #
+` wm ` #
+` `  ` #
+<span class="c1"># #  # #</span>
+</pre></div>
+</div>
+<p>Or you can fill out the entire footprint like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build a mason workshop</span>
+wm wm wm #
+wm wm wm #
+wm wm wm #
+<span class="c1">#  #  #  #</span>
+</pre></div>
+</div>
+<p>This format may be verbose for regular workshops, but it can be very helpful for
+laying out structures like screw pump towers and waterwheels, whose “center
+point” can be non-obvious.</p>
+<p>Finally, you can use area expansion syntax to represent the workshop:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build a mason workshop</span>
+wm(3x3)  #
+`  `  `  #
+`  `  `  #
+<span class="c1">#  #  #  #</span>
+</pre></div>
+</div>
+<p>This style can be convenient for laying out multiple buildings of the same type.
+If you are building a large-scale block factory, for example, this will create
+20 mason workshops all in a row:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build line of 20 mason workshops</span>
+wm(60x3)
+</pre></div>
+</div>
+<p>Quickfort will intelligently break large areas of the same designation into
+appropriately-sized chunks.</p>
+</section>
+<section id="multilevel-blueprints">
+<h3><a class="toc-backref" href="#id6">Multilevel blueprints</a><a class="headerlink" href="#multilevel-blueprints" title="Permalink to this headline">¶</a></h3>
+<p>Multilevel blueprints are accommodated by separating Z-levels of the blueprint
+with <code class="docutils literal notranslate"><span class="pre">#&gt;</span></code> (go down one z-level) or <code class="docutils literal notranslate"><span class="pre">#&lt;</span></code> (go up one z-level) at the end of
+each floor.</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig Stairs leading down to a small room below</span>
+j  `  `  #
+`  `  `  #
+`  `  `  #
+<span class="c1">#&gt; #  #  #</span>
+u  d  d  #
+d  d  d  #
+d  d  d  #
+<span class="c1">#  #  #  #</span>
+</pre></div>
+</div>
+<p>The marker must appear in the first column of the row to be recognized, just
+like a modeline.</p>
+<p>You can go up or down multiple levels by adding a number after the <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>. For example:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig Two double-level quarries</span>
+r(10x10)
+<span class="c1">#&gt;2</span>
+r(10x10)
+</pre></div>
+</div>
+</section>
+<section id="dig-priorities">
+<span id="quickfort-dig-priorities"></span><h3><a class="toc-backref" href="#id7">Dig priorities</a><a class="headerlink" href="#dig-priorities" title="Permalink to this headline">¶</a></h3>
+<p>DF designation priorities are supported for <code class="docutils literal notranslate"><span class="pre">#dig</span></code> blueprints. The full syntax
+is <code class="docutils literal notranslate"><span class="pre">[letter][number][expansion]</span></code>, where if the <code class="docutils literal notranslate"><span class="pre">letter</span></code> is not specified,
+<code class="docutils literal notranslate"><span class="pre">d</span></code> is assumed, and if <code class="docutils literal notranslate"><span class="pre">number</span></code> is not specified, <code class="docutils literal notranslate"><span class="pre">4</span></code> is assumed (the
+default priority). So each of these blueprints is equivalent:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig dig the interior of the room at high priority</span>
+d  d  d  d  d  #
+d  d1 d1 d1 d  #
+d  d1 d1 d1 d  #
+d  d1 d1 d1 d  #
+d  d  d  d  d  #
+<span class="c1">#  #  #  #  #  #</span>
+
+<span class="c1">#dig dig the interior of the room at high priority</span>
+d  d  d  d  d  #
+d  d1(3x3)  d  #
+d  `  `  `  d  #
+d  `  `  `  d  #
+d  d  d  d  d  #
+<span class="c1">#  #  #  #  #  #</span>
+
+<span class="c1">#dig dig the interior of the room at high priority</span>
+4  4  4  4  4  #
+4  1  1  1  4  #
+4  1  1  1  4  #
+4  1  1  1  4  #
+4  4  4  4  4  #
+<span class="c1">#  #  #  #  #  #</span>
+</pre></div>
+</div>
+</section>
+<section id="marker-mode">
+<h3><a class="toc-backref" href="#id8">Marker mode</a><a class="headerlink" href="#marker-mode" title="Permalink to this headline">¶</a></h3>
+<p>Marker mode is useful for when you want to plan out your digging, but you don’t
+want to dig everything just yet. In <code class="docutils literal notranslate"><span class="pre">#dig</span></code> mode, you can add a <kbd class="kbd docutils literal notranslate">m</kbd> before
+any other designation letter to indicate that the tile should be designated in
+marker mode. For example, to dig out the perimeter of a room, but leave the
+center of the room marked for digging later:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig</span>
+d  d  d  d d #
+d md md md d #
+d md md md d #
+d md md md d #
+d  d  d  d d #
+<span class="c1">#  #  #  # # #</span>
+</pre></div>
+</div>
+<p>Then you can use “Toggle Standard/Marking” (<kbd class="kbd docutils literal notranslate">d</kbd><kbd class="kbd docutils literal notranslate">M</kbd>) to convert the
+center tiles to regular designations at your leisure.</p>
+<p>To apply an entire dig blueprint in marker mode, regardless of what the
+blueprint itself says, you can set the global quickfort setting
+<code class="docutils literal notranslate"><span class="pre">force_marker_mode</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> before you apply the blueprint.</p>
+<p>Note that the in-game UI setting “Standard/Marker Only” (<kbd class="kbd docutils literal notranslate">d</kbd><kbd class="kbd docutils literal notranslate">m</kbd>) does
+not have any effect on quickfort.</p>
+</section>
+<section id="stockpiles-and-zones">
+<h3><a class="toc-backref" href="#id9">Stockpiles and zones</a><a class="headerlink" href="#stockpiles-and-zones" title="Permalink to this headline">¶</a></h3>
+<p>It is very common to have stockpiles that accept multiple categories of items or
+zones that permit more than one activity. Although it is perfectly valid to
+declare a single-purpose stockpile or zone and then modify it with a <code class="docutils literal notranslate"><span class="pre">#query</span></code>
+blueprint, quickfort also supports directly declaring all the types in the
+<code class="docutils literal notranslate"><span class="pre">#place</span></code> and <code class="docutils literal notranslate"><span class="pre">#zone</span></code> blueprints. For example, to declare a 20x10 stockpile
+that accepts both corpses and refuse, you could write:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place refuse heap</span>
+yr(20x10)
+</pre></div>
+</div>
+<p>And similarly, to declare a zone that is a pasture, a fruit picking area, and a
+meeting area all at once:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#zone main pasture and picnic area</span>
+nmg(10x10)
+</pre></div>
+</div>
+<p>The order of the individual letters doesn’t matter. If you want to configure the
+stockpile from scratch in a <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint, you can place unconfigured
+“custom” stockpiles with (<kbd class="kbd docutils literal notranslate">c</kbd>). It is more efficient, though, to place
+stockpiles using the keys that represent the categories of items that you want
+to store, and then only use a <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint if you need fine-grained
+customization.</p>
+<section id="stockpile-bins-barrels-and-wheelbarrows">
+<span id="quickfort-place-containers"></span><h4>Stockpile bins, barrels, and wheelbarrows<a class="headerlink" href="#stockpile-bins-barrels-and-wheelbarrows" title="Permalink to this headline">¶</a></h4>
+<p>Quickfort has global settings for default values for the number of bins,
+barrels, and wheelbarrows assigned to stockpiles, but these numbers can be set
+for individual stockpiles as well.</p>
+<p>To set the number of bins, barrels, or wheelbarrows, just add a number after the
+letter that indicates what type of stockpile it is. For example:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place a stone stockpile with 5 wheelbarrows</span>
+s5(3x3)
+
+<span class="c1">#place a bar, ammo, weapon, and armor stockpile with 20 bins</span>
+bzpd20(5x5)
+</pre></div>
+</div>
+<p>If the specified number exceeds the number of available stockpile tiles, the
+number of available tiles is used. For wheelbarrows, that limit is reduced by 1
+to ensure there is at least one non-wheelbarrow tile available in the stockpile.
+Otherwise no stone would ever be brought to the stockpile since all tiles would
+be occupied by wheelbarrows!</p>
+<p>Quickfort figures out which container type is being set by looking at the letter
+that comes just before the number. For example <code class="docutils literal notranslate"><span class="pre">zf10</span></code> means 10 barrels in a
+stockpile that accepts both ammo and food, whereas <code class="docutils literal notranslate"><span class="pre">z10f</span></code> means 10 bins. If
+the stockpile category doesn’t usually use any container type, like refuse or
+corpses, wheelbarrows are assumed:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place a corpse stockpile with 3 wheelbarrows</span>
+y3(3x3)
+</pre></div>
+</div>
+<p>Note that if you are not using expansion syntax, each tile of the stockpile must
+have the same text. Otherwise the stockpile boundaries will not be detected
+properly:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place a non-rectangular animal stockpile with 5 wheelbarrows</span>
+a5,a5,a5,a5
+a5,  ,  ,a5
+a5,  ,  ,a5
+a5,a5,a5,a5
+</pre></div>
+</div>
+<p>Running <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">orders</span></code> on a <code class="docutils literal notranslate"><span class="pre">#place</span></code> blueprint with explicitly set
+container/wheelbarrow counts will enqueue manager orders for the specified
+number of containers or wheelbarrows, even if that number exceeds the in-game
+size of the stockpile. For example, <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">orders</span></code> on the following
+blueprint will enqueue 10 rock pots, even though the stockpile only has 9
+tiles:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place</span>
+f10(3x3)
+</pre></div>
+</div>
+</section>
+<section id="zone-detailed-configuration">
+<h4>Zone detailed configuration<a class="headerlink" href="#zone-detailed-configuration" title="Permalink to this headline">¶</a></h4>
+<p>Detailed configuration for zones, such as the pit/pond toggle, can also be set
+by mimicking the hotkeys used to set them. Note that gather flags default to
+true, so specifying them in a blueprint will turn the toggles off. If you need
+to set configuration from multiple zone subscreens, separate the key sections
+with <kbd class="kbd docutils literal notranslate">^</kbd>. Note the special syntax for setting hospital supply levels, which
+have no in-game hotkeys:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#zone a combination hospital and shrub (but not fruit) gathering zone</span>
+gGtf^hH{hospital buckets=5 splints=20}(10x10)
+</pre></div>
+</div>
+<p>The valid hospital settings (and their maximum values) are:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>thread   (1500000)
+cloth    (1000000)
+splints  (100)
+crutches (100)
+plaster  (15000)
+buckets  (100)
+soap     (15000)
+</pre></div>
+</div>
+<p>To toggle the <code class="docutils literal notranslate"><span class="pre">active</span></code> flag for zones, add an <kbd class="kbd docutils literal notranslate">a</kbd> character to the
+string. For example, to create a <em>disabled</em> pond zone (that you later intend to
+carefully fill with 3-depth water for a dwarven bathtub):</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#zone disabled pond zone</span>
+apPf(1x3)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="minecart-tracks">
+<h3><a class="toc-backref" href="#id10">Minecart tracks</a><a class="headerlink" href="#minecart-tracks" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to produce minecart tracks, and they are handled very
+differently by the game. You can carve them into hard natural floors or you can
+construct them out of building materials. Constructed tracks are conceptually
+simpler, so we’ll start with them.</p>
+<section id="constructed-tracks">
+<h4>Constructed tracks<a class="headerlink" href="#constructed-tracks" title="Permalink to this headline">¶</a></h4>
+<p>Quickfort supports the designation of track stops and rollers in <code class="docutils literal notranslate"><span class="pre">#build</span></code>
+blueprints. You can build a track stop with <kbd class="kbd docutils literal notranslate">C</kbd><kbd class="kbd docutils literal notranslate">S</kbd> and some number of
+<kbd class="kbd docutils literal notranslate">d</kbd> and <kbd class="kbd docutils literal notranslate">a</kbd> characters for selecting dump direction and friction. You
+can build a roller with <kbd class="kbd docutils literal notranslate">M</kbd><kbd class="kbd docutils literal notranslate">r</kbd> and some number of <kbd class="kbd docutils literal notranslate">s</kbd> and
+<kbd class="kbd docutils literal notranslate">q</kbd> characters for direction and speed. However, this can get confusing
+very quickly and is very difficult to read in a blueprint. Moreover, constructed
+track segments don’t even have keys associated with them at all!</p>
+<p>To solve this problem, Quickfort provides the following keywords for use in
+build blueprints:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>-- Track segments --
+trackN
+trackS
+trackE
+trackW
+trackNS
+trackNE
+trackNW
+trackSE
+trackSW
+trackEW
+trackNSE
+trackNSW
+trackNEW
+trackSEW
+trackNSEW
+
+-- Track/ramp segments --
+trackrampN
+trackrampS
+trackrampE
+trackrampW
+trackrampNS
+trackrampNE
+trackrampNW
+trackrampSE
+trackrampSW
+trackrampEW
+trackrampNSE
+trackrampNSW
+trackrampNEW
+trackrampSEW
+trackrampNSEW
+
+-- Horizontal and vertical roller segments --
+rollerH
+rollerV
+rollerNS
+rollerSN
+rollerEW
+rollerWE
+
+Note: append up to four &#39;q&#39; characters to roller keywords to set roller
+speed. E.g. a roller that propels from East to West at the slowest speed can
+be specified with &#39;rollerEWqqqq&#39;.
+
+-- Track stops that (optionally) dump to the N/S/E/W --
+trackstop
+trackstopN
+trackstopS
+trackstopE
+trackstopW
+
+Note: append up to four &#39;a&#39; characters to trackstop keywords to set friction
+amount. E.g. a stop that applies the smallest amount of friction can be
+specified with &#39;trackstopaaaa&#39;.
+</pre></div>
+</div>
+<p>As an example, you can create an E-W track with stops at each end that dump to
+their outside directions with the following blueprint:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build Example track</span>
+trackstopW trackEW trackEW trackEW trackstopE
+</pre></div>
+</div>
+<p>Note that the <strong>only</strong> way to build track and track/ramp segments is with the
+keywords. The UI method of using <kbd class="kbd docutils literal notranslate">+</kbd> and <kbd class="kbd docutils literal notranslate">-</kbd> keys to select the track
+type from a list does not work since DFHack Quickfort doesn’t actually send keys
+to the UI to build buildings. The text in your spreadsheet cells is mapped
+directly onto DFHack API calls. Only <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints send actual keycodes
+to the UI.</p>
+</section>
+<section id="carved-tracks">
+<h4>Carved tracks<a class="headerlink" href="#carved-tracks" title="Permalink to this headline">¶</a></h4>
+<p>In the game, you carve a minecart track by specifying a beginning and ending
+tile and the game “adds” the designation to the tiles in between. You cannot
+designate single tiles because DF needs a multi-tile track to figure out which
+direction the track should go on each tile. For example to carve two track
+segments that cross each other, you might use the cursor to designate a line of
+three vertical tiles like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>` start here ` #
+` `          ` #
+` end here   ` #
+<span class="c1"># #          # #</span>
+</pre></div>
+</div>
+<p>Then to carve the cross, you’d do a horizonal segment:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>`          ` `        #
+start here ` end here #
+`          ` `        #
+<span class="c1">#          # #        #</span>
+</pre></div>
+</div>
+<p>This will result in a carved track that would be equivalent to a constructed
+track of the form:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build</span>
+`      trackS    `      #
+trackE trackNSEW trackW #
+`      trackN    `      #
+<span class="c1">#      #         #      #</span>
+</pre></div>
+</div>
+<p>Quickfort supports both styles of specification for carving tracks with <code class="docutils literal notranslate"><span class="pre">#dig</span></code>
+blueprints. You can use the “additive” style to carve tracks in segments or you
+can use the aliases to specify the track tile by tile. To designate track
+segments, use area expansion syntax with a height or width of 1:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig</span>
+`      T(1x3) ` #
+T(3x1) `      ` #
+`      `      ` #
+<span class="c1">#      #      # #</span>
+</pre></div>
+</div>
+<p>“But wait!”, I can hear you say, “How do you designate a track corner that opens
+to the South and East? You can’t put both T(1xH) and T(Wx1) in the same cell!”
+This is true, but you can specify both width and height greater than 1, and for
+tracks, QF interprets it as an upper-left corner extending to the right W tiles
+and down H tiles. For example, to carve a track in a closed ring, you’d write:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig</span>
+T(3x3) ` T(1x3) #
+`      ` `      #
+T(3x1) ` `      #
+<span class="c1">#      # #      #</span>
+</pre></div>
+</div>
+<p>Or, using the aliases:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig</span>
+trackSE trackEW trackSW #
+trackNS `       trackNS #
+trackNE trackEW trackNW #
+<span class="c1">#       #       #       #</span>
+</pre></div>
+</div>
+<p>The aliases can also be used to designate a solid block of track. This is
+epecially useful for obliterating low-quality engravings so you can re-smooth
+and re-engrave with higher quality. For example, you could use the following
+sequence of blueprints to ensure a 10x10 floor area contains only masterwork
+engravings:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig smooth floor</span>
+s(10x10)
+<span class="c1">#dig engrave floor</span>
+e(10x10)
+<span class="c1">#dig erase low-quality engravings</span>
+trackNSEW(10x10)
+</pre></div>
+</div>
+<p>The tracks only remove low-quality engravings since quickfort won’t designate
+masterwork engravings for destruction unless forced by a commandline
+parameter. You would run (and let your dwarves complete the jobs for) the
+sequence of blueprints until no tiles are designated by the “erase” blueprint.</p>
+</section>
+</section>
+<section id="modeline-markers">
+<span id="quickfort-modeline"></span><h3><a class="toc-backref" href="#id11">Modeline markers</a><a class="headerlink" href="#modeline-markers" title="Permalink to this headline">¶</a></h3>
+<p>The modeline has some additional optional components that we haven’t talked
+about yet. You can:</p>
+<ul class="simple">
+<li><p>give a blueprint a label by adding a <code class="docutils literal notranslate"><span class="pre">label()</span></code> marker</p></li>
+<li><p>set a cursor offset and/or start hint by adding a <code class="docutils literal notranslate"><span class="pre">start()</span></code> marker</p></li>
+<li><p>hide a blueprint from being listed with a <code class="docutils literal notranslate"><span class="pre">hidden()</span></code> marker</p></li>
+<li><p>register a message to be displayed after the blueprint is successfully
+applied</p></li>
+</ul>
+<p>The full modeline syntax, when all optional elements are specified, is:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#mode label(mylabel) start(X;Y;STARTCOMMENT) hidden() message(mymessage) comment</span>
+</pre></div>
+</div>
+<p>Note that all elements are optional except for the initial <code class="docutils literal notranslate"><span class="pre">#mode</span></code> (though, as
+mentioned in the first section, if a modeline doesn’t appear at all in the first
+cell of a spreadsheet, the blueprint is interpreted as a <code class="docutils literal notranslate"><span class="pre">#dig</span></code> blueprint with
+no optional markers). Here are a few examples of modelines with optional
+elements before we discuss them in more detail:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig start(3; 3; Center tile of a 5-tile square) Regular blueprint comment</span>
+<span class="c1">#build label(noblebedroom) start(10;15)</span>
+<span class="c1">#query label(configstockpiles) No explicit start() means cursor is at upper left corner</span>
+<span class="c1">#meta label(digwholefort) start(center of stairs on surface)</span>
+<span class="c1">#dig label(digdining) hidden() managed by the digwholefort meta blueprint</span>
+<span class="c1">#zone label(pastures) message(remember to assign animals to the new pastures)</span>
+</pre></div>
+</div>
+<section id="blueprint-labels">
+<span id="quickfort-label"></span><h4>Blueprint labels<a class="headerlink" href="#blueprint-labels" title="Permalink to this headline">¶</a></h4>
+<p>Labels are displayed in the <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> output and are used for
+addressing specific blueprints when there are multiple blueprints in a single
+file or spreadsheet sheet (see <a class="reference internal" href="#packaging-a-set-of-blueprints">Packaging a set of blueprints</a> below). If a
+blueprint has no label, the label becomes the ordinal of the blueprint’s
+position in the file or sheet. For example, the label of the first blueprint
+will be “1” if it is not otherwise set, the label of the second blueprint will
+be “2” if it is not otherwise set, etc. Labels that are explicitly defined must
+start with a letter to ensure the auto-generated labels don’t conflict with
+user-defined labels.</p>
+</section>
+<section id="start-positions">
+<span id="quickfort-start"></span><h4>Start positions<a class="headerlink" href="#start-positions" title="Permalink to this headline">¶</a></h4>
+<p>Start positions specify a cursor offset for a particular blueprint, simplifying
+the task of blueprint alignment. This is very helpful for blueprints that are
+based on a central staircase, but it comes in handy whenever a blueprint has an
+obvious “center”. For example:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build start(2;2;center of workshop) label(masonw) a mason workshop</span>
+wm wm wm #
+wm wm wm #
+wm wm wm #
+<span class="c1">#  #  #  #</span>
+</pre></div>
+</div>
+<p>will build the workshop <em>centered</em> on the cursor, not down and to the right of
+the cursor.</p>
+<p>The two numbers specify the column and row (or X and Y offset) where the cursor
+is expected to be when you apply the blueprint. Position <code class="docutils literal notranslate"><span class="pre">1;1</span></code> is the top left
+cell. The optional comment will show up in the <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> output and
+should contain information about where to position the cursor. If the start
+position is <code class="docutils literal notranslate"><span class="pre">1;1</span></code>, you can omit the numbers and just add a comment describing
+where to put the cursor. This is also useful for meta blueprints that don’t
+actually care where the cursor is, but that refer to other blueprints that have
+fully-specified <code class="docutils literal notranslate"><span class="pre">start()</span></code> markers. For example, a meta blueprint that refers
+to the <code class="docutils literal notranslate"><span class="pre">masonw</span></code> blueprint above could look like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#meta start(center of workshop) a mason workshop</span>
+/masonw
+</pre></div>
+</div>
+<p>You can use semicolons, commas, or spaces to separate the elements of the
+<code class="docutils literal notranslate"><span class="pre">start()</span></code> marker, whatever is most convenient.</p>
+</section>
+<section id="hiding-blueprints">
+<span id="quickfort-hidden"></span><h4>Hiding blueprints<a class="headerlink" href="#hiding-blueprints" title="Permalink to this headline">¶</a></h4>
+<p>A blueprint with a <code class="docutils literal notranslate"><span class="pre">hidden()</span></code> marker won’t appear in <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> output
+unless the <code class="docutils literal notranslate"><span class="pre">--hidden</span></code> flag is specified. The primary reason for hiding a
+blueprint (rather than, say, deleting it or moving it out of the <code class="docutils literal notranslate"><span class="pre">blueprints/</span></code>
+folder) is if a blueprint is intended to be run as part of a larger sequence
+managed by a <a class="reference internal" href="#quickfort-meta"><span class="std std-ref">meta blueprint</span></a>.</p>
+</section>
+<section id="messages">
+<span id="quickfort-message"></span><h4>Messages<a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h4>
+<p>A blueprint with a <code class="docutils literal notranslate"><span class="pre">message()</span></code> marker will display a message after the
+blueprint is applied with <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">run</span></code>. This is useful for reminding
+players to take manual steps that cannot be automated, like assigning minecarts
+to a route, or listing the next step in a series of blueprints. For long or
+multi-part messages, you can embed newlines:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>&quot;<span class="c1">#meta label(surface1) message(This would be a good time to start digging the industry level.</span>
+Once the area is clear, continue with /surface2.) clear the embark site and set up pastures&quot;
+</pre></div>
+</div>
+<p>The quotes surrounding the cell text are only necessary if you are writing a
+.csv file by hand. Spreadsheet applications will surround multi-line text with
+quotes automatically when they save/export the file.</p>
+</section>
+</section>
+<section id="meta-blueprints">
+<span id="quickfort-meta"></span><h3><a class="toc-backref" href="#id12">Meta blueprints</a><a class="headerlink" href="#meta-blueprints" title="Permalink to this headline">¶</a></h3>
+<p>Meta blueprints are blueprints that control how other blueprints are applied.
+For example, meta blueprints can bundle a group of other blueprints so that they
+can be run with a single command. They can also encode logic, like rotating the
+blueprint or duplicating it across a specified number of z-levels.</p>
+<p>A common scenario where meta blueprints are useful is when you have several
+phases to link together. For example you might:</p>
+<ol class="arabic simple">
+<li><p>Apply a dig blueprint to designate dig areas</p></li>
+<li><p>Wait for miners to dig</p></li>
+<li><p><strong>Apply a build buildprint</strong> to designate buildings</p></li>
+<li><p><strong>Apply a place buildprint</strong> to designate stockpiles</p></li>
+<li><p><strong>Apply a query blueprint</strong> to configure stockpiles</p></li>
+<li><p>Wait for buildings to get built</p></li>
+<li><p>Apply a different query blueprint to configure rooms</p></li>
+</ol>
+<p>Those three “apply”s in the middle might as well get done in one command instead
+of three. A <code class="docutils literal notranslate"><span class="pre">#meta</span></code> blueprint can help with that. A meta blueprint refers to
+other blueprints in the same file by their label (see the <a class="reference internal" href="#modeline-markers">Modeline markers</a>
+section above) in the same format used by the <a class="reference internal" href="../_auto/base.html#quickfort"><span class="std std-ref">quickfort</span></a> command:
+<code class="docutils literal notranslate"><span class="pre">&lt;sheet</span> <span class="pre">name&gt;/&lt;label&gt;</span></code>, or just <code class="docutils literal notranslate"><span class="pre">/&lt;label&gt;</span></code> for blueprints in .csv files or
+blueprints in the same spreadsheet sheet as the <code class="docutils literal notranslate"><span class="pre">#meta</span></code> blueprint that
+references them.</p>
+<p>A few examples might make this clearer. Say you have a .csv file with blueprints
+that prepare bedrooms for your dwarves:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig label(bed1) dig out the rooms</span>
+...
+<span class="c1">#build label(bed2) build the furniture</span>
+...
+<span class="c1">#place label(bed3) add food stockpiles</span>
+...
+<span class="c1">#query label(bed4) configure stockpiles</span>
+...
+<span class="c1">#query label(bed5) set the built beds as rooms</span>
+...
+</pre></div>
+</div>
+<p>Note how I’ve given them all labels so we can address them safely. If I hadn’t
+given them labels, they would receive default labels of “1”, “2”, “3”, etc, but
+those labels would change if I ever add more blueprints at the top. This is not
+a problem if we’re just running the blueprints individually from the
+<code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> command, but meta blueprints need a label name that isn’t
+going to change over time.</p>
+<p>So let’s add a meta blueprint to this file that will combine the middle three
+blueprints into one:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>&quot;<span class="c1">#meta label(bed234) combines build, place, and stockpile config blueprints&quot;</span>
+/bed2
+/bed3
+/bed4
+</pre></div>
+</div>
+<p>Now your sequence is shortened to:</p>
+<ol class="arabic simple">
+<li><p>Apply dig blueprint to designate dig areas</p></li>
+<li><p>Wait for miners to dig</p></li>
+<li><p><strong>Apply meta buildprint</strong> to build buildings and designate/configure
+stockpiles</p></li>
+<li><p>Wait for buildings to get built</p></li>
+<li><p>Apply the final query blueprint to configure the room</p></li>
+</ol>
+<p>You can use meta blueprints to lay out your fortress at a larger scale as well.
+The <code class="docutils literal notranslate"><span class="pre">#&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">#&gt;</span></code> notation is valid in meta blueprints, so you can, for
+example, store the dig blueprints for all the levels of your fortress in
+different sheets in a spreadsheet, and then use a meta blueprint to designate
+your entire fortress for digging at once. For example, say you have a .xlsx
+spreadsheet with the following layout:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Sheet name</p></th>
+<th class="head"><p>Contents</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dig_farming</p></td>
+<td><p>one #dig blueprint, no label</p></td>
+</tr>
+<tr class="row-odd"><td><p>dig_industry</p></td>
+<td><p>one #dig blueprint, no label</p></td>
+</tr>
+<tr class="row-even"><td><p>dig_dining</p></td>
+<td><p>four #dig blueprints, with labels “main”, “basement”,
+“waterway”, and “cistern”</p></td>
+</tr>
+<tr class="row-odd"><td><p>dig_guildhall</p></td>
+<td><p>one #dig blueprint, no label</p></td>
+</tr>
+<tr class="row-even"><td><p>dig_suites</p></td>
+<td><p>one #dig blueprint, no label</p></td>
+</tr>
+<tr class="row-odd"><td><p>dig_bedrooms</p></td>
+<td><p>one #dig blueprint, no label</p></td>
+</tr>
+</tbody>
+</table>
+<p>We can add a sheet named “dig_all” with the following contents (we’re expecting
+a big fort, so we’re digging 5 levels of bedrooms):</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#meta dig the whole fortress</span>
+dig_farming/1
+<span class="c1">#&gt;</span>
+dig_industry/1
+<span class="c1">#&gt;</span>
+dig_dining/main
+<span class="c1">#&gt;</span>
+dig_dining/basement
+<span class="c1">#&gt;</span>
+dig_dining/waterway
+<span class="c1">#&gt;</span>
+dig_dining/cistern
+<span class="c1">#&gt;</span>
+dig_guildhall/1
+<span class="c1">#&gt;</span>
+dig_suites/1
+<span class="c1">#&gt;</span>
+dig_bedrooms/1 repeat(down 5)
+</pre></div>
+</div>
+<p>Note that for blueprints without an explicit label, we still need to address
+them by their auto-generated numeric label.</p>
+<p>It’s worth repeating that <code class="docutils literal notranslate"><span class="pre">#meta</span></code> blueprints can only refer to blueprints that
+are defined in the same file. This means that all blueprints that a meta
+blueprint needs to run must be in sheets within the same .xlsx spreadsheet or
+concatenated into the same .csv file.</p>
+<p>You can then hide the blueprints that you now manage with the meta blueprint
+from <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> by adding a <code class="docutils literal notranslate"><span class="pre">hidden()</span></code> marker to their modelines. That
+way the output of <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> won’t be cluttered by blueprints that you
+don’t need to run directly. If you ever <em>do</em> need to access the meta-managed
+blueprints individually, you can still see them with
+<code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span> <span class="pre">--hidden</span></code>.</p>
+<section id="meta-markers">
+<h4>Meta markers<a class="headerlink" href="#meta-markers" title="Permalink to this headline">¶</a></h4>
+<p>You can tag referenced blueprints with markers to modify how they are applied.
+These markers are similar to <a class="reference internal" href="#modeline-markers">Modeline markers</a>, but are only usable in meta
+blueprints. Here’s a quick list of examples, with more details below:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Example</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>repeat(down 10)</p></td>
+<td><p>Repeats a blueprint down z-levels 10 times</p></td>
+</tr>
+<tr class="row-odd"><td><p>shift(0 10)</p></td>
+<td><p>Adds 10 to the y coordinate of each blueprint tile</p></td>
+</tr>
+<tr class="row-even"><td><p>transform(cw flipv)</p></td>
+<td><p>Rotates a blueprint clockwise and then flips it vertically</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Repeating blueprints</strong></p>
+<p>Syntax: repeat(&lt;direction&gt;[, ]&lt;number&gt;)</p>
+<p>The direction can be <code class="docutils literal notranslate"><span class="pre">up</span></code> or <code class="docutils literal notranslate"><span class="pre">down</span></code>, and the repetition works even for
+blueprints that are themselves multi-level. For example:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#meta label(2beds) dig 2 levels of bedrooms</span>
+dig_bedrooms/1 repeat(down 2)
+
+<span class="c1">#meta label(6beds) dig 6 levels of bedrooms</span>
+/2beds repeat(down 3)
+</pre></div>
+</div>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> for short, instead of <code class="docutils literal notranslate"><span class="pre">up</span></code> and <code class="docutils literal notranslate"><span class="pre">down</span></code>. The comma
+or space between the direction and the number is optional as well. The following
+lines are all equivalent:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>/2beds repeat(down 3)
+/2beds repeat(down, 3)
+/2beds repeat(&gt;3)
+</pre></div>
+</div>
+<p><strong>Shifting blueprints</strong></p>
+<p>Syntax: shift(&lt;x shift&gt;[[,] &lt;y shift&gt;])</p>
+<p>The values can be positive or negative. Negative values for x shift to the left,
+positive to the right. Negative values for y shift up, positive down. Note the
+semantics for the y axis are opposite compared to regular graphs on paper. This
+is because the y coordinates in the DF game map start a 0 at the top and
+increase as they go down.</p>
+<p><strong>Transforming blueprints</strong></p>
+<p>Syntax: transform(&lt;transformation&gt;[[,] &lt;transformation&gt;…])</p>
+<p>Applies a geometric transformation to the blueprint. The supported
+transformations are:</p>
+<dl class="field-list simple">
+<dt class="field-odd">rotcw or cw</dt>
+<dd class="field-odd"><p>Rotates the blueprint 90 degrees clockwise.</p>
+</dd>
+<dt class="field-even">rotccw or ccw</dt>
+<dd class="field-even"><p>Rotates the blueprint 90 degrees counterclockwise.</p>
+</dd>
+<dt class="field-odd">fliph</dt>
+<dd class="field-odd"><p>Flips the blueprint horizontally (left edge becomes right edge).</p>
+</dd>
+<dt class="field-even">flipv</dt>
+<dd class="field-even"><p>Flips the blueprint vertically (top edge becomes bottom edge).</p>
+</dd>
+</dl>
+<p>If you specify more than one transformation, they will be applied in the order
+they appear in.</p>
+<p>If you use both <code class="docutils literal notranslate"><span class="pre">shift()</span></code> and <code class="docutils literal notranslate"><span class="pre">transform()</span></code> markers on the same blueprint,
+shifting is applied after all transformations are complete. If you want shifting
+to be applied before the transformations, or in between transformations, you can
+use nested meta blueprints. For example, the following blueprint will shift the
+<code class="docutils literal notranslate"><span class="pre">/hallway</span></code> blueprint to the right by 20 units and then rotate it clockwise:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#meta label(shift_right) hidden()</span>
+/hallway shift(20)
+<span class="c1">#meta label(rotate_after_shift)</span>
+/shift_right transform(cw)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="other-blueprint-modes">
+<span id="quickfort-other-modes"></span><h3><a class="toc-backref" href="#id13">Other blueprint modes</a><a class="headerlink" href="#other-blueprint-modes" title="Permalink to this headline">¶</a></h3>
+<p>There are a few additional blueprint modes that become useful when you are
+sharing your blueprints with others or managing complex blueprint sets. Instead
+of mapping tile positions to keystroke sequences like the basic modes do, these
+“blueprints” have specialized, higher-level uses:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Blueprint mode</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>notes</p></td>
+<td><p>Display long messages, such as help text or blueprint
+walkthroughs</p></td>
+</tr>
+<tr class="row-odd"><td><p>aliases</p></td>
+<td><p>Define aliases used by other <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints in the same
+file</p></td>
+</tr>
+<tr class="row-even"><td><p>ignore</p></td>
+<td><p>Hide a section from quickfort, useful for scratch space or
+personal notes</p></td>
+</tr>
+</tbody>
+</table>
+<section id="notes-blueprints">
+<span id="quickfort-notes"></span><h4>Notes blueprints<a class="headerlink" href="#notes-blueprints" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes you just want to record some information about your blueprints, such
+as when to apply them, what preparations you need to make, or what the
+blueprints contain. The <a class="reference internal" href="#quickfort-message"><span class="std std-ref">message()</span></a> modeline marker is
+useful for small, single-line messages, but a <code class="docutils literal notranslate"><span class="pre">#notes</span></code> blueprint is more
+convenient for long messages or messages that span many lines. The lines in a
+<code class="docutils literal notranslate"><span class="pre">#notes</span></code> blueprint are output as if they were contained within one large
+multi-line <code class="docutils literal notranslate"><span class="pre">message()</span></code> marker. For example, the following two blueprints
+result in the same output:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>&quot;<span class="c1">#meta label(help) message(This is the help text for the blueprint set</span>
+contained in this file.
+
+More info here...) blueprint set walkthough&quot;
+
+<span class="c1">#notes label(help) blueprint set walkthrough</span>
+This is the help text for the blueprint set
+contained in this file
+
+More info here...
+</pre></div>
+</div>
+<p>The quotes around the <code class="docutils literal notranslate"><span class="pre">#meta</span></code> modeline allow newlines in a single cell’s text.
+Each line of the <code class="docutils literal notranslate"><span class="pre">#notes</span></code> “blueprint”, however, is in a separate cell,
+allowing for much easier viewing and editing.</p>
+</section>
+<section id="aliases-blueprints">
+<span id="quickfort-aliases-blueprints"></span><h4>Aliases blueprints<a class="headerlink" href="#aliases-blueprints" title="Permalink to this headline">¶</a></h4>
+<p>You can define your custom aliases in an <code class="docutils literal notranslate"><span class="pre">#aliases</span></code> blueprint. In contrast to
+the aliases that you define in <a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/dfhack-config/quickfort/aliases.txt">dfhack-config/quickfort/aliases.txt</a>,
+which are visible to all blueprints, aliases defined in <code class="docutils literal notranslate"><span class="pre">#aliases</span></code> blueprints
+are only visible to blueprints defined in the same .csv or .xlsx file. If you
+want to share your blueprint with others, defining your aliases in an
+<code class="docutils literal notranslate"><span class="pre">#aliases</span></code> blueprint will make the blueprint much easier for others to use.</p>
+<p>Although we’re calling them “blueprints”, <code class="docutils literal notranslate"><span class="pre">#aliases</span></code> blueprints are not actual
+blueprints, and they don’t show up when you run <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code>. The aliases
+are just automatically read in when you run any <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint that is
+defined in the same file.</p>
+<p>Aliases can be in either of two formats, and you can mix formats freely within
+the same <code class="docutils literal notranslate"><span class="pre">#aliases</span></code> section. The first format is the same as what is used in
+the <code class="docutils literal notranslate"><span class="pre">aliases.txt</span></code> files:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#aliases</span>
+aliasname: aliasdefinition
+</pre></div>
+</div>
+<p>Aliases in this format must appear in the first column of a row.</p>
+<p>The second format has the alias name in the first column and the alias
+definition in the second column, with no colon separator:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#aliases</span>
+aliasname,aliasdefinition
+</pre></div>
+</div>
+<p>There can be multiple #aliases sections defined in a .csv file or .xlsx
+spreadsheet. The aliases are simply combined into one list. If an alias is
+defined multiple times, the last definition wins.</p>
+<p>See the <a class="reference internal" href="quickfort-alias-guide.html#quickfort-alias-guide"><span class="std std-ref">Quickfort Alias Guide</span></a> for help with the alias definition syntax.</p>
+</section>
+<section id="ignore-blueprints">
+<h4>Ignore blueprints<a class="headerlink" href="#ignore-blueprints" title="Permalink to this headline">¶</a></h4>
+<p>If you don’t want some data to be visible to quickfort at all, use an
+<code class="docutils literal notranslate"><span class="pre">#ignore</span></code> blueprint. All lines until the next modeline in the file or sheet
+will be completely ignored. This can be useful for personal notes, scratch
+space, or temporarily “commented out” blueprints.</p>
+</section>
+</section>
+</section>
+<section id="packaging-a-set-of-blueprints">
+<span id="quickfort-packaging"></span><h2><a class="toc-backref" href="#id14">Packaging a set of blueprints</a><a class="headerlink" href="#packaging-a-set-of-blueprints" title="Permalink to this headline">¶</a></h2>
+<p>A complete specification for a section of your fortress may contain 5 or more
+separate blueprints, one for each “phase” of construction (dig, build, place
+stockpiles, designate zones, and query adjustments).</p>
+<p>To manage all the separate blueprints, it is often convenient to keep related
+blueprints in a single file. For .xlsx spreadsheets, you can keep each blueprint
+in a separate sheet. Online spreadsheet applications like <a class="reference external" href="https://sheets.new">Google
+Sheets</a> make it easy to work with multiple related
+blueprints, and, as a bonus, they retain any formatting you’ve set, like column
+sizes and coloring.</p>
+<p>For both .csv files and .xlsx spreadsheets you can also add as many blueprints
+as you want in a single file or sheet. Just add a modeline in the first column
+to indicate the start of a new blueprint. Instead of multiple .csv files, you
+can concatenate them into one single file. This is especially useful when you
+are sharing your blueprints with others. A single file is much easier to manage
+than a directory of files.</p>
+<p>For example, you can write multiple blueprints in one file like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#dig label(bed1)</span>
+d d d d #
+d d d d #
+d d d d #
+d d d d #
+<span class="c1"># # # # #</span>
+<span class="c1">#build label(bed2)</span>
+b   f h #
+        #
+        #
+n       #
+<span class="c1"># # # # #</span>
+<span class="c1">#place label(bed3)</span>
+        #
+f(2x2)  #
+        #
+        #
+<span class="c1"># # # # #</span>
+<span class="c1">#query label(bed4)</span>
+        #
+booze   #
+        #
+        #
+<span class="c1"># # # # #</span>
+<span class="c1">#query label(bed5)</span>
+r{+ 3}&amp; #
+        #
+        #
+        #
+<span class="c1"># # # # #</span>
+</pre></div>
+</div>
+<p>Of course, you could still choose to keep your blueprints in separate files and
+just give related blueprints similar names:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>bedroom.1.dig.csv
+bedroom.2.build.csv
+bedroom.3.place.csv
+bedroom.4.query.csv
+bedroom.5.query2.csv
+</pre></div>
+</div>
+<p>The naming and organization is completely up to you.</p>
+</section>
+<section id="buildingplan-integration">
+<h2><a class="toc-backref" href="#id15">Buildingplan integration</a><a class="headerlink" href="#buildingplan-integration" title="Permalink to this headline">¶</a></h2>
+<p>Buildingplan is a DFHack plugin that keeps building construction jobs in a
+suspended state until the materials required for the job are available. This
+prevents a building designation from being canceled when a dwarf picks up the
+job but can’t find the materials.</p>
+<p>As long as the <a class="reference internal" href="../Plugins.html#buildingplan"><span class="std std-ref">buildingplan</span></a> plugin is enabled, quickfort will use it to manage
+construction. The buildingplan plugin has an <a class="reference internal" href="../Plugins.html#buildingplan-settings"><span class="std std-ref">“enabled” setting</span></a> for each building type, but those settings only apply
+to buildings created through the buildingplan user interface. In addition,
+buildingplan has a “quickfort_mode” setting for compatibility with legacy Python
+Quickfort. This setting has no effect on DFHack Quickfort, which will use
+buildingplan to manage everything designated in a <code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprint
+regardless of the buildingplan UI settings.</p>
+<p>However, quickfort <em>does</em> use <a class="reference internal" href="../Plugins.html#buildingplan-filters"><span class="std std-ref">buildingplan’s filters</span></a>
+for each building type. For example, you can use the buildingplan UI to set the
+type of stone you want your walls made out of. Or you can specify that all
+buildingplan-managed tables must be of Masterful quality. The current filter
+settings are saved with planned buildings when the <code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprint is run.
+This means you can set the filters the way you want for one blueprint, run the
+blueprint, and then freely change them again for the next blueprint, even if the
+first set of buildings haven’t been built yet.</p>
+<p>Note that buildings are still constructed immediately if you already have the
+materials. However, with buildingplan you now have the freedom to apply
+<code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprints before you manufacture the resources. The construction
+jobs will be fulfilled whenever the materials become available.</p>
+<p>Since it can be difficult to figure out exactly what source materials you need
+for a <code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprint, quickfort supplies the <code class="docutils literal notranslate"><span class="pre">orders</span></code> command. It
+enqueues manager orders for everything that the buildings in a <code class="docutils literal notranslate"><span class="pre">#build</span></code>
+blueprint require. See the next section for more details on this.</p>
+<p>Alternately, if you know you only need a few types of items, the <a class="reference internal" href="../Plugins.html#workflow"><span class="std std-ref">workflow</span></a>
+plugin can be configured to build those items continuously for as long as they
+are needed.</p>
+<p>If the buildingplan plugin is not enabled, run <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">orders</span></code> first and
+make sure all manager orders are fulfilled before applying a <code class="docutils literal notranslate"><span class="pre">#build</span></code>
+blueprint. Otherwise you will get job cancellation spam when the buildings can’t
+be built with available materials.</p>
+</section>
+<section id="generating-manager-orders">
+<h2><a class="toc-backref" href="#id16">Generating manager orders</a><a class="headerlink" href="#generating-manager-orders" title="Permalink to this headline">¶</a></h2>
+<p>Quickfort can generate manager orders to make sure you have the proper items in
+stock for a <code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprint.</p>
+<p>Many items can be manufactured from different source materials. Orders will
+always choose rock when it can, then wood, then cloth, then iron. You can always
+remove orders that don’t make sense for your fort and manually enqueue a similar
+order more to your liking. For example, if you want silk ropes instead of cloth
+ropes, make a new manager order for an appropriate quantity of silk ropes, and
+then remove the generated cloth rope order.</p>
+<p>Anything that requires generic building materials (workshops, constructions,
+etc.) will result in an order for a rock block. One “Make rock blocks” job
+produces four blocks per boulder, so the number of jobs ordered will be the
+number of blocks you need divided by four (rounded up). You might end up with a
+few extra blocks, but not too many.</p>
+<p>If you want your constructions to be in a consistent color, be sure to choose a
+rock type for all of your ‘Make rock blocks’ orders by selecting the order and
+hitting <kbd class="kbd docutils literal notranslate">d</kbd>. You might want to set the rock type for other non-block orders
+to something different if you fear running out of the type of rock that you want
+to use for blocks. You should also set the <a class="reference internal" href="../Plugins.html#buildingplan"><span class="std std-ref">buildingplan</span></a> material filter for
+construction building types to that type of rock as well so other random blocks
+you might have lying around aren’t used.</p>
+<section id="extra-manager-orders">
+<h3><a class="toc-backref" href="#id17">Extra Manager Orders</a><a class="headerlink" href="#extra-manager-orders" title="Permalink to this headline">¶</a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprints, there are a few building types that will generate
+extra manager orders for related materials:</p>
+<ul class="simple">
+<li><p>Track stops will generate an order for a minecart</p></li>
+<li><p>Traction benches will generate orders for a table, mechanism, and rope</p></li>
+<li><p>Levers will generate an order for an extra two mechanisms for connecting the
+lever to a target</p></li>
+<li><p>Cage traps will generate an order for a cage</p></li>
+</ul>
+<p>Stockpiles in <code class="docutils literal notranslate"><span class="pre">#place</span></code> blueprints that <a class="reference internal" href="#quickfort-place-containers"><span class="std std-ref">specify wheelbarrow or container
+counts</span></a> will generate orders for the appropriate
+number of bins, pots, or wheelbarrows.</p>
+</section>
+</section>
+<section id="tips-and-tricks">
+<h2><a class="toc-backref" href="#id18">Tips and tricks</a><a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>During blueprint application, especially query blueprints, don’t click the
+mouse on the DF window or type any keys. They can change the state of the
+game while the blueprint is being applied, resulting in strange errors.</p></li>
+<li><p>After digging out an area, you may wish to smooth and/or engrave the area
+before starting the build phase, as dwarves may be unable to access walls or
+floors that are behind/under built objects.</p></li>
+<li><p>If you are designating more than one level for digging at a time, you can
+make your miners more efficient by using marker mode on all levels but one.
+This prevents your miners from digging out a few tiles on one level, then
+running down/up the stairs to do a few tiles on an adjacent level. With only
+one level “live” and all other levels in marker mode, your miners can
+concentrate on one level at a time. You just have to remember to “unmark” a
+new level when your miners are done with their current one.</p></li>
+<li><p>As of DF 0.34.x, it is no longer possible to build doors (<kbd class="kbd docutils literal notranslate">d</kbd>) at the
+same time that you build adjacent walls (<kbd class="kbd docutils literal notranslate">C</kbd><kbd class="kbd docutils literal notranslate">w</kbd>). Doors must now be
+built <em>after</em> adjacent walls are constructed. This does not affect the more
+common case where walls exist as a side-effect of having dug-out a room in a
+<code class="docutils literal notranslate"><span class="pre">#dig</span></code> blueprint.</p></li>
+</ul>
+</section>
+<section id="caveats-and-limitations">
+<h2><a class="toc-backref" href="#id19">Caveats and limitations</a><a class="headerlink" href="#caveats-and-limitations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>If you use the <code class="docutils literal notranslate"><span class="pre">jugs</span></code> alias in your <code class="docutils literal notranslate"><span class="pre">#query</span></code>-mode blueprints, be aware
+that there is no way to differentiate jugs from other types of tools in the
+game. Therefore, <code class="docutils literal notranslate"><span class="pre">jugs</span></code> stockpiles will also take nest boxes and other
+tools. The only workaround is not to have other tools lying around in your
+fort.</p></li>
+<li><p>Likewise for the <code class="docutils literal notranslate"><span class="pre">bags</span></code> alias. The game does not differentiate between
+empty and full bags, so you’ll get bags of gypsum power and sand in your bags
+stockpile unless you avoid collecting sand and are careful to assign all your
+gypsum to your hospital.</p></li>
+<li><p>Weapon traps and upright spear/spike traps can currently only be built with a
+single weapon.</p></li>
+<li><p>Pressure plates can be built, but they cannot be usefully configured yet.</p></li>
+<li><p>Building instruments is not yet supported.</p></li>
+<li><p>DFHack Quickfort is relatively new, and there are bound to be bugs! Please
+report them at the <a class="reference external" href="https://github.com/DFHack/dfhack/issues/">DFHack issue tracker</a> so they can be addressed.</p></li>
+</ul>
+</section>
+<section id="dreamfort-case-study-a-practical-guide-to-advanced-blueprint-design">
+<h2><a class="toc-backref" href="#id20">Dreamfort case study: a practical guide to advanced blueprint design</a><a class="headerlink" href="#dreamfort-case-study-a-practical-guide-to-advanced-blueprint-design" title="Permalink to this headline">¶</a></h2>
+<p>While syntax definitions and toy examples will certainly get you started with
+your blueprints, it may not be clear how all the quickfort features fit together
+or what the best practices are, especially for large and complex blueprint sets.
+This section walks through the “Dreamfort” blueprints found in the DFHack
+blueprint library, highlighting design choices and showcasing practical
+techniques that can help you create better blueprints. Note that this is not a
+guide for how to design the best forts (there is plenty about that <a class="reference external" href="https://dwarffortresswiki.org/Design strategies">on the
+wiki</a>). This is essentially an extended tips and tricks
+section focused on how to make usable and useful quickfort blueprints that will
+save you time and energy.</p>
+<p>The Dreamfort blueprints we’ll be discussing are available in the library as
+<a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/dreamfort.csv">one large .csv file</a>
+or <a class="reference external" href="https://drive.google.com/drive/folders/1iS90EEVqUkxTeZiiukVj1pLloZqabKuP">online</a> as
+individual spreadsheets. Either the .csv file or the exported spreadsheet .xlsx
+files can be read and applied by quickfort, but for us humans, the online
+spreadsheets are much easier to work with. Each spreadsheet has a “Notes” sheet
+with some useful details. Flip through some of the spreadsheets and read the
+<a class="reference external" href="https://docs.google.com/spreadsheets/d/13PVZ2h3Mm3x_G1OXQvwKd7oIR2lK4A1Ahf6Om1kFigw/edit#gid=0">walkthrough</a>
+to get oriented. Also, if you haven’t built Dreamfort before, try an embark in a
+flat area and take it for a spin!</p>
+<p>Almost every quickfort feature is used somewhere in Dreamfort, so the blueprints
+are useful as practical examples. You can copy the blueprints and use them as
+starting points for your own, or just refer to them when you create something
+similar.</p>
+<p>In this case study, we’ll start by discussing the high level organization of the
+Dreamfort blueprint set, using the “surface” blueprints as an example. Then
+we’ll walk through the blueprints for each of the remaining fort levels in turn,
+calling out feature usage examples and explaining the parts that might not be
+obvious just from looking at them.</p>
+<section id="the-surface-level-how-to-manage-complexity">
+<h3>The <a class="reference external" href="https://docs.google.com/spreadsheets/d/1vlxOuDOTsjsZ5W45Ri1kJKgp3waFo8r505LfZVg5wkU">surface</a> level: how to manage complexity<a class="headerlink" href="#the-surface-level-how-to-manage-complexity" title="Permalink to this headline">¶</a></h3>
+<p>For smaller blueprints, packaging and usability are not really that important -
+just write it, run it, and you’re done. However, as your blueprints become
+larger and more detailed, there are some best practices that can help you deal
+with the added complexity. Dreamfort’s surface level is many steps long since
+there are trees to be cleared, holes to be dug, flooring to be laid, and
+furniture to be built, and each step requires the previous step to be completely
+finished before it can begin. Therefore, a lot of thought went into minimizing
+the toil associated with applying so many blueprints.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Use meta blueprints to script blueprint sequences and reduce the number of
+quickfort commands you have to run.</p>
+</div>
+<p>The single most effective way to make your blueprint sets easier to use is to
+group them with <a class="reference internal" href="#quickfort-meta"><span class="std std-ref">meta blueprints</span></a>. For the Dreamfort set of
+blueprints, each logical “step” generally takes more than one blueprint. For
+example, with <code class="docutils literal notranslate"><span class="pre">#meta</span></code> blueprints, setting up pastures with a <code class="docutils literal notranslate"><span class="pre">#zone</span></code>
+blueprint, placing starting stockpiles with a <code class="docutils literal notranslate"><span class="pre">#place</span></code> blueprint, building
+starting workshops with a <code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprint, and configuring the stockpiles
+with a <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint can all be done with a single command. Bundling
+blueprints with <code class="docutils literal notranslate"><span class="pre">#meta</span></code> blueprints reduced the number of steps in Dreamfort
+from 61 to 23, and it also made it much clearer to see which blueprints can be
+applied at once without unpausing the game. Check out dreamfort_surface’s “<a class="reference external" href="https://docs.google.com/spreadsheets/d/1vlxOuDOTsjsZ5W45Ri1kJKgp3waFo8r505LfZVg5wkU/edit#gid=972927200">meta</a>”
+sheet to see how much meta blueprints can simplify your life.</p>
+<p>You can define <a class="reference internal" href="#quickfort-packaging"><span class="std std-ref">as many blueprints as you want</span></a> on one
+sheet, but multi-blueprint sheets are especially useful when writing meta
+blueprints. It’s like having a bird’s eye view of your entire plan in one sheet.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Keep the blueprint list uncluttered by using <code class="docutils literal notranslate"><span class="pre">hidden()</span></code> markers.</p>
+</div>
+<p>If a blueprint is bundled into a meta blueprint, it does not need to appear in
+the <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> output since you won’t be running it directly. Add a
+<a class="reference internal" href="#quickfort-hidden"><span class="std std-ref">hidden() marker</span></a> to those blueprints to keep the list
+output tidy. You can still access hidden blueprints with <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span>
+<span class="pre">--hidden</span></code> if you need to – for example to reapply a partially completed
+<code class="docutils literal notranslate"><span class="pre">#build</span></code> blueprint – but now they won’t clutter up the normal blueprint list.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Name your blueprints with a common prefix so you can find them easily.</p>
+</div>
+<p>This goes for both the file name and the <a class="reference internal" href="#quickfort-label"><span class="std std-ref">modeline label()</span></a>.
+Searching and filtering is implemented for both the
+<code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span></code> command and the quickfort interactive dialog. If you give
+related blueprints a common prefix, it makes it easy to set the filters to
+display just the blueprints that you’re interested in. If you have a lot of
+blueprints, this can save you a lot of time. Dreamfort, of course, uses the
+“dreamfort” prefix for the files and sequence names for the labels, like
+“surface1”, “surface2”, “farming1”, etc. So if I’m in the middle of applying the
+surface blueprints, I’d set the filter to <code class="docutils literal notranslate"><span class="pre">dreamfort</span> <span class="pre">surface</span></code> to just display
+the relevant blueprints.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Add descriptive comments that remind you what the blueprint contains.</p>
+</div>
+<p>If you’ve been away from Dwarf Fortress for a while, it’s easy to forget what
+your blueprints actually do. Make use of <a class="reference internal" href="#quickfort-modeline"><span class="std std-ref">modeline comments</span></a> so your descriptions are visible in the blueprint list.
+If you use meta blueprints, all your comments can be conveniently edited on one
+sheet, like in surface’s meta sheet.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">message()</span></code> markers to remind yourself what to do next.</p>
+</div>
+<p><a class="reference internal" href="#quickfort-message"><span class="std std-ref">Messages</span></a> are displayed after a blueprint is applied. Good
+things to include in messages are:</p>
+<ul class="simple">
+<li><p>The name of the next blueprint to apply and when to run it</p></li>
+<li><p>Whether <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">orders</span></code> should be run for an upcoming step</p></li>
+<li><p>Any actions that you have to perform manually after running the blueprint,
+like assigning minecarts to hauling routes or pasturing animals after creating
+zones</p></li>
+</ul>
+<p>These things are just too easy to forget. Adding a <code class="docutils literal notranslate"><span class="pre">message()</span></code> can save you
+from time-wasting mistakes. Note that <code class="docutils literal notranslate"><span class="pre">message()</span></code> markers can still appear on
+the <code class="docutils literal notranslate"><span class="pre">hidden()</span></code> blueprints, and they’ll still get shown when the blueprint is
+run via a <code class="docutils literal notranslate"><span class="pre">#meta</span></code> blueprint. For an example of this, check out the <a class="reference external" href="https://docs.google.com/spreadsheets/d/1vlxOuDOTsjsZ5W45Ri1kJKgp3waFo8r505LfZVg5wkU/edit#gid=1226136256">zones
+sheet</a>
+where the pastures are defined.</p>
+</section>
+<section id="the-farming-level-fun-with-stockpiles">
+<h3>The <a class="reference external" href="https://docs.google.com/spreadsheets/d/1iuj807iGVk6vsfYY4j52v9_-wsszA1AnFqoxeoehByg">farming</a> level: fun with stockpiles<a class="headerlink" href="#the-farming-level-fun-with-stockpiles" title="Permalink to this headline">¶</a></h3>
+<p>It is usually convenient to store closely associated blueprints in the same
+spreadsheet. The farming level is very closely tied to the surface because the
+miasma vents have to perfectly line up with where they are needed. However,
+surface is a separate z-level and, more importantly, already has many many
+blueprints, so farming is split into a separate file.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Automate stockpile chains when you can, and write message() reminders when
+you can’t.</p>
+</div>
+<p>The farming level starts doing interesting things with <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints and
+stockpiles. Note the <a class="reference external" href="https://docs.google.com/spreadsheets/d/1iuj807iGVk6vsfYY4j52v9_-wsszA1AnFqoxeoehByg/edit#gid=486506218">careful customization</a> of the food stockpiles and the
+stockpile chains set up with the <code class="docutils literal notranslate"><span class="pre">give*</span></code> aliases. This is so when multiple
+stockpiles can hold the same item, the largest can keep the smaller ones filled.
+For example the <code class="docutils literal notranslate"><span class="pre">give2up</span></code> alias funnels seeds from the seeds feeder pile to
+the container-enabled seed storage pile. If you have multiple stockpiles holding
+the same type on different z-levels, though, this can be tricky to set up with a
+blueprint. Here, the jugs and pots stockpiles must be manually linked to the
+quantum stockpile on the industry level, since we can’t know beforehand how many
+z-levels away that is. Note how we call that out in the <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint’s
+<code class="docutils literal notranslate"><span class="pre">message()</span></code>.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Use aliases to set up hauling routes and quantum stockpiles.</p>
+</div>
+<p>Hauling routes are notoriously fiddly to set up, but they can be automated with
+blueprints. Check out the Southern area of the <code class="docutils literal notranslate"><span class="pre">#place</span></code> and <code class="docutils literal notranslate"><span class="pre">#query</span></code>
+blueprints for how the quantum refuse dump is configured with simple aliases
+from the alias library.</p>
+</section>
+<section id="the-industry-level-when-not-to-use-aliases">
+<h3>The <a class="reference external" href="https://docs.google.com/spreadsheets/d/1gvTJxxRxZ5V4vXkqwhL-qlr_lXCNt8176TK14m4kSOU">industry</a> level: when not to use aliases<a class="headerlink" href="#the-industry-level-when-not-to-use-aliases" title="Permalink to this headline">¶</a></h3>
+<p>The industry level is densely packed and has more complicated examples of
+stockpile configurations and quantum dumps. However, what I’d like to call out
+first are the key sequences that are <em>not</em> in aliases.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Don’t use aliases for ad-hoc cursor movements.</p>
+</div>
+<p>It may be tempting to put all query blueprint key sequences into aliases to make
+them easier to edit, keep them all in one place, and make them reusable, but
+some key sequences just aren’t very valuable as aliases.</p>
+<p><a class="reference external" href="https://docs.google.com/spreadsheets/d/1gvTJxxRxZ5V4vXkqwhL-qlr_lXCNt8176TK14m4kSOU/edit#gid=787640554">Check out</a>
+the Eastern (goods) and Northern (stone and gems) quantum stockpiles – cells
+I19 and R10. They give to the jeweler’s workshop to prevent the jeweler from
+using the gems held in reserve for strange moods. The keys are not aliased since
+they’re dependent on the relative positions of the tiles where they are
+interpreted, which is easiest to see in the blueprint itself. Also, if you move
+the workshop, it’s easier to fix the stockpile link right there in the blueprint
+instead of editing a separate alias definition.</p>
+<p>There are also good examples in the <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint for how to use the
+<code class="docutils literal notranslate"><span class="pre">permit</span></code> and <code class="docutils literal notranslate"><span class="pre">forbid</span></code> stockpile aliases.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Put all configuration that must be applied in a particular order in the
+same spreadsheet cell.</p>
+</div>
+<p>Most of the baseline aliases distributed with DFHack fall into one of three
+categories:</p>
+<ol class="arabic simple">
+<li><p>Make a stockpile accept only a particular item type in a category</p></li>
+<li><p>Permit an item type, but do not otherwise change the stockpile configuration</p></li>
+<li><p>Forbid an item type, but do not otherwise change the stockpile configuration</p></li>
+</ol>
+<p>If you have a stockpile that covers multiple tiles, it might seem natural to put
+one alias per spreadsheet cell. The aliases still all get applied to the
+stockpile, and with only one alias per cell, you can just type the alias name
+and avoid having to use the messier-looking <code class="docutils literal notranslate"><span class="pre">{aliasname}</span></code> syntax:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place Declare a food stockpile</span>
+f(3x3)
+<span class="c1">#query Incorrectly configure a food stockpile to accept tallow and dye</span>
+tallow
+permitdye
+</pre></div>
+</div>
+<p>However, in quickfort there are no guarantees about which cell will be
+processed first. In the example above, we obviously intend for the food
+stockpile to have tallow exclusively permitted, then to add dye. It could happen
+that the two aliases are applied in the opposite order, though, and we’d end up
+with dye being permitted, then everything (including dye) being forbidden, and,
+finally, tallow being enabled. To make sure you always get what you want, write
+order-sensitive aliases on the same line:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place Declare a food stockpile</span>
+f(3x3)
+<span class="c1">#query Properly configure a food stockpile to accept tallow and dye</span>
+{tallow}{permitdye}
+</pre></div>
+</div>
+<p>You can see a more complex example of this with the <code class="docutils literal notranslate"><span class="pre">meltables</span></code> stockpiles in
+the <a class="reference external" href="https://docs.google.com/spreadsheets/d/1gvTJxxRxZ5V4vXkqwhL-qlr_lXCNt8176TK14m4kSOU/edit#gid=787640554">lower right corner</a>
+of the industry level.</p>
+</section>
+<section id="the-services-level-handling-multi-level-dig-blueprints">
+<h3>The <a class="reference external" href="https://docs.google.com/spreadsheets/d/1IBy6_pGEe6WSBCLukDz_5I-4vi_mpHuJJyOp2j6SJlY">services</a> level: handling multi-level dig blueprints<a class="headerlink" href="#the-services-level-handling-multi-level-dig-blueprints" title="Permalink to this headline">¶</a></h3>
+<p>Services is a multi-level blueprint that includes a well cistern beneath the
+main level. Unwanted ramps caused by channeling are an annoyance, but we can
+avoid getting a ramp at the bottom of the cistern with careful use of <a class="reference internal" href="#quickfort-dig-priorities"><span class="std std-ref">dig
+priorities</span></a>.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Use dig priorities to control ramp creation.</p>
+</div>
+<p>We can <a class="reference external" href="https://docs.google.com/spreadsheets/d/1IBy6_pGEe6WSBCLukDz_5I-4vi_mpHuJJyOp2j6SJlY/edit#gid=962076234">ensure</a>
+the bottom level is carved out before the layer above is channelled by assigning
+the channel designations lower priorities (the <code class="docutils literal notranslate"><span class="pre">h5</span></code>s in the third layer –
+scroll down).</p>
+<p>An alternative is to have a follow-up blueprint that removes any undesired
+ramps. We did this on the
+<a class="reference external" href="https://docs.google.com/spreadsheets/d/1vlxOuDOTsjsZ5W45Ri1kJKgp3waFo8r505LfZVg5wkU/edit#gid=1790750180">surface</a>
+and
+<a class="reference external" href="https://docs.google.com/spreadsheets/d/1iuj807iGVk6vsfYY4j52v9_-wsszA1AnFqoxeoehByg/edit#gid=436537058">farming</a>
+levels with the miasma vents since it would be too complicated to synchronize
+the digging between the two layers.</p>
+</section>
+<section id="the-guildhall-level-avoiding-smoothing-issues">
+<h3>The <a class="reference external" href="https://docs.google.com/spreadsheets/d/1wwKcOpEW-v_kyEnFyXS0FTjvLwJsyWbCUmEGaXWxJyU">guildhall</a> level: avoiding smoothing issues<a class="headerlink" href="#the-guildhall-level-avoiding-smoothing-issues" title="Permalink to this headline">¶</a></h3>
+<p>The goal of this level is to provide rooms for <code class="docutils literal notranslate"><span class="pre">locations</span></code> like guildhalls,
+libraries, and temples. The value of these rooms is very important, so we are
+likely to smooth and engrave everything. To smooth or engrave a wall tile, a
+dwarf has to be adjacent to it, and since some furniture, like statues, block
+dwarves from entering a tile, where you put them affects what you can access.</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Don’t put statues in corners unless you want to smooth everything first.</p>
+</div>
+<p>In the guildhall level, the statues are placed so as not to block any wall
+corners. This gives the player freedom for choosing when to smooth. If a statue
+blocks a corner, or if a line of statues blocks a wall segment, it forces the
+player to smooth before building the statues. Otherwise they have to mess with
+temporarily removing statues to smooth the walls behind them.</p>
+</section>
+<section id="the-beds-levels-multi-level-meta-blueprints">
+<h3>The <a class="reference external" href="https://docs.google.com/spreadsheets/d/1QNHORq6YmYfuVVMP5yGAFCQluary_JbgZ-UXACqKs9g">beds</a> levels: multi level meta blueprints<a class="headerlink" href="#the-beds-levels-multi-level-meta-blueprints" title="Permalink to this headline">¶</a></h3>
+<p>The suites and apartments blueprints are straightforward. The only fancy bit
+here is the meta blueprint, which brings us to our final tip:</p>
+<div class="topic">
+<p class="topic-title">Tip</p>
+<p>Use meta blueprints to lay out multiple adjacent levels.</p>
+</div>
+<p>We couldn’t use this technique for the entire fortress since there is often an
+aquifer between the farming and industry levels, and we can’t know beforehand
+how many z-levels we need to skip. Here, though, we can at least provide the
+useful shortcut of designating all apartment levels at once. See the
+<a class="reference external" href="https://docs.google.com/spreadsheets/d/1QNHORq6YmYfuVVMP5yGAFCQluary_JbgZ-UXACqKs9g/edit#gid=1980526014">#meta</a>
+blueprint for how it applies the apartments on six z-levels using <code class="docutils literal notranslate"><span class="pre">#&gt;</span></code>
+between apartment blueprint references.</p>
+<p>That’s it! I hope this guide was useful to you. Please leave feedback on the
+forums if you have ideas on how this guide (or the dreamfort blueprints) can be
+improved!</p>
+</section>
+</section>
+<section id="links">
+<h2><a class="toc-backref" href="#id27">Links</a><a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
+<p><strong>Quickfort links:</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../_auto/base.html#quickfort"><span class="std std-ref">Quickfort command reference</span></a></p></li>
+<li><p><a class="reference internal" href="quickfort-alias-guide.html#quickfort-alias-guide"><span class="std std-ref">Quickfort alias guide</span></a></p></li>
+<li><p><a class="reference internal" href="quickfort-library-guide.html#quickfort-library-guide"><span class="std std-ref">Quickfort library guide</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library">Quickfort blueprints library</a></p></li>
+<li><p><a class="reference external" href="http://www.bay12forums.com/smf/index.php?topic=176889">Quickfort forum thread</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/issues/">DFHack issue tracker</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/scripts/tree/master/internal/quickfort">Quickfort source code</a></p></li>
+</ul>
+<p><strong>Related tools:</strong></p>
+<ul class="simple">
+<li><p>DFHack’s <a class="reference internal" href="../Plugins.html#blueprint"><span class="std std-ref">blueprint plugin</span></a> can generate blueprints from actual
+DF maps.</p></li>
+<li><p>DFHack’s <a class="reference internal" href="../Plugins.html#buildingplan"><span class="std std-ref">buildingplan plugin</span></a> sets material and quality
+constraints for quickfort-placed buildings.</p></li>
+<li><p><a class="reference external" href="http://joelpt.net/quickfort">Python Quickfort</a> is the previous,
+Python-based implementation that DFHack’s quickfort script was inspired by.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2015-2022, The DFHack Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/docs/guides/quickfort-user-guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

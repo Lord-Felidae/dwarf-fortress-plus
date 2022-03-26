@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Bugfixing Scripts &#8212; DFHack 0.47.05-r4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dfhack.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/dfhack-icon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GUI Scripts" href="gui.html" />
+    <link rel="prev" title="Development Scripts" href="devel.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/dfhack-logo.png" alt="Logo"/>
+    <h3 class="logo logo-name">Home</h3>
+  </a>
+</p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../Scripts.html">DFHack Scripts</a><ul>
+      <li>Previous: <a href="devel.html" title="previous chapter">Development Scripts</a></li>
+      <li>Next: <a href="gui.html" title="next chapter">GUI Scripts</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bugfixing Scripts</a><ul>
+<li><a class="reference internal" href="#fix-blood-del">fix/blood-del</a></li>
+<li><a class="reference internal" href="#fix-build-location">fix/build-location</a></li>
+<li><a class="reference internal" href="#fix-corrupt-equipment">fix/corrupt-equipment</a></li>
+<li><a class="reference internal" href="#fix-dead-units">fix/dead-units</a></li>
+<li><a class="reference internal" href="#fix-diplomats">fix/diplomats</a></li>
+<li><a class="reference internal" href="#fix-drop-webs">fix/drop-webs</a></li>
+<li><a class="reference internal" href="#fix-dry-buckets">fix/dry-buckets</a></li>
+<li><a class="reference internal" href="#fix-fat-dwarves">fix/fat-dwarves</a></li>
+<li><a class="reference internal" href="#fix-feeding-timers">fix/feeding-timers</a></li>
+<li><a class="reference internal" href="#fix-item-occupancy">fix/item-occupancy</a></li>
+<li><a class="reference internal" href="#fix-loyaltycascade">fix/loyaltycascade</a></li>
+<li><a class="reference internal" href="#fix-merchants">fix/merchants</a></li>
+<li><a class="reference internal" href="#fix-population-cap">fix/population-cap</a></li>
+<li><a class="reference internal" href="#fix-retrieve-units">fix/retrieve-units</a></li>
+<li><a class="reference internal" href="#fix-stable-temp">fix/stable-temp</a></li>
+<li><a class="reference internal" href="#fix-stuck-merchants">fix/stuck-merchants</a></li>
+<li><a class="reference internal" href="#fix-stuckdoors">fix/stuckdoors</a></li>
+<li><a class="reference internal" href="#fix-tile-occupancy">fix/tile-occupancy</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="bugfixing-scripts">
+<span id="scripts-fix"></span><h1>Bugfixing Scripts<a class="headerlink" href="#bugfixing-scripts" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">fix/*</span></code> scripts fix various bugs and issues, some of them obscure.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#fix-blood-del" id="id19">fix/blood-del</a></p></li>
+<li><p><a class="reference internal" href="#fix-build-location" id="id20">fix/build-location</a></p></li>
+<li><p><a class="reference internal" href="#fix-corrupt-equipment" id="id21">fix/corrupt-equipment</a></p></li>
+<li><p><a class="reference internal" href="#fix-dead-units" id="id22">fix/dead-units</a></p></li>
+<li><p><a class="reference internal" href="#fix-diplomats" id="id23">fix/diplomats</a></p></li>
+<li><p><a class="reference internal" href="#fix-drop-webs" id="id24">fix/drop-webs</a></p></li>
+<li><p><a class="reference internal" href="#fix-dry-buckets" id="id25">fix/dry-buckets</a></p></li>
+<li><p><a class="reference internal" href="#fix-fat-dwarves" id="id26">fix/fat-dwarves</a></p></li>
+<li><p><a class="reference internal" href="#fix-feeding-timers" id="id27">fix/feeding-timers</a></p></li>
+<li><p><a class="reference internal" href="#fix-item-occupancy" id="id28">fix/item-occupancy</a></p></li>
+<li><p><a class="reference internal" href="#fix-loyaltycascade" id="id29">fix/loyaltycascade</a></p></li>
+<li><p><a class="reference internal" href="#fix-merchants" id="id30">fix/merchants</a></p></li>
+<li><p><a class="reference internal" href="#fix-population-cap" id="id31">fix/population-cap</a></p></li>
+<li><p><a class="reference internal" href="#fix-retrieve-units" id="id32">fix/retrieve-units</a></p></li>
+<li><p><a class="reference internal" href="#fix-stable-temp" id="id33">fix/stable-temp</a></p></li>
+<li><p><a class="reference internal" href="#fix-stuck-merchants" id="id34">fix/stuck-merchants</a></p></li>
+<li><p><a class="reference internal" href="#fix-stuckdoors" id="id35">fix/stuckdoors</a></p></li>
+<li><p><a class="reference internal" href="#fix-tile-occupancy" id="id36">fix/tile-occupancy</a></p></li>
+</ul>
+</div>
+<section id="fix-blood-del">
+<span id="id1"></span><h2><a class="toc-backref" href="#id19">fix/blood-del</a><a class="headerlink" href="#fix-blood-del" title="Permalink to this headline">¶</a></h2>
+<p>Makes it so that future caravans won’t bring barrels full of blood, ichor, or goo.</p>
+</section>
+<section id="fix-build-location">
+<span id="id2"></span><h2><a class="toc-backref" href="#id20">fix/build-location</a><a class="headerlink" href="#fix-build-location" title="Permalink to this headline">¶</a></h2>
+<p>Fixes construction jobs that are stuck trying to build a wall while standing
+on the same exact tile (<a class="reference external" href="https://www.bay12games.com/dwarves/mantisbt/view.php?id=5991">Bug 5991</a>), designates the tile restricted traffic to
+hopefully avoid jamming it again, and unsuspends them.</p>
+</section>
+<section id="fix-corrupt-equipment">
+<span id="id3"></span><h2><a class="toc-backref" href="#id21">fix/corrupt-equipment</a><a class="headerlink" href="#fix-corrupt-equipment" title="Permalink to this headline">¶</a></h2>
+<p>Fixes some corruption that can occur in equipment lists, as in <a class="reference external" href="https://www.bay12games.com/dwarves/mantisbt/view.php?id=11014">Bug 11014</a>.</p>
+<p>Note that there have been several possible types of corruption identified:</p>
+<ol class="arabic simple">
+<li><p>Items that have been deleted without being removed from the equipment lists</p></li>
+<li><p>Items of the wrong type being stored in the equipment lists</p></li>
+<li><p>Items of the wrong type being assigned to squad members</p></li>
+</ol>
+<p>This script currently only fixes the first two, as they have been linked to the
+majority of crashes.</p>
+<p>Note that in some cases, multiple issues may be present, and may only be present
+for a short window of time before DF crashes. To address this, running this
+script with <a class="reference internal" href="base.html#repeat"><span class="std std-ref">repeat</span></a> is recommended. For example, to run this script every
+100 ticks:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>repeat -name fix-corrupt-equipment -time 100 -timeUnits ticks -command [ fix/corrupt-equipment ]
+</pre></div>
+</div>
+<p>To cancel it (which is likely safe if the script has not produced any output
+in some time, and if you have saved first):</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>repeat -cancel fix-corrupt-equipment
+</pre></div>
+</div>
+<p>Running this script with <a class="reference internal" href="base.html#repeat"><span class="std std-ref">repeat</span></a> on all saves is not recommended, as it can
+have overhead (sometimes over 0.1 seconds on a large save). In general, running
+this script with <a class="reference internal" href="base.html#repeat"><span class="std std-ref">repeat</span></a> is recommended if:</p>
+<ul class="simple">
+<li><p>You have experienced crashes likely caused by <a class="reference external" href="https://www.bay12games.com/dwarves/mantisbt/view.php?id=11014">Bug 11014</a>, and running this
+script a single time produces output but does not fix the crash</p></li>
+<li><p>You are running large military operations, or have sent squads out on raids</p></li>
+</ul>
+</section>
+<section id="fix-dead-units">
+<span id="id4"></span><h2><a class="toc-backref" href="#id22">fix/dead-units</a><a class="headerlink" href="#fix-dead-units" title="Permalink to this headline">¶</a></h2>
+<p>Removes uninteresting dead units from the unit list. Doesn’t seem to give any
+noticeable performance gain, but migrants normally stop if the unit list grows
+to around 3000 units, and this script reduces it back.</p>
+</section>
+<section id="fix-diplomats">
+<span id="id5"></span><h2><a class="toc-backref" href="#id23">fix/diplomats</a><a class="headerlink" href="#fix-diplomats" title="Permalink to this headline">¶</a></h2>
+<p>Adds a Diplomat position to all Elven civilizations, allowing them to negotiate
+tree cutting quotas - and you to violate them and start wars.
+This was vanilla behaviour until version 0.31.12, in which the “bug” was “fixed”.</p>
+</section>
+<section id="fix-drop-webs">
+<span id="id6"></span><h2><a class="toc-backref" href="#id24">fix/drop-webs</a><a class="headerlink" href="#fix-drop-webs" title="Permalink to this headline">¶</a></h2>
+<p>Turns floating webs into projectiles, causing them to fall down to a valid
+surface. This addresses <a class="reference external" href="https://www.bay12games.com/dwarves/mantisbt/view.php?id=595">Bug 595</a>.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">fix/drop-webs</span> <span class="pre">-all</span></code> to turn all webs into projectiles, causing webs to
+fall out of branches, etc.</p>
+<p>Use <a class="reference internal" href="base.html#clear-webs"><span class="std std-ref">clear-webs</span></a> to remove webs entirely.</p>
+</section>
+<section id="fix-dry-buckets">
+<span id="id7"></span><h2><a class="toc-backref" href="#id25">fix/dry-buckets</a><a class="headerlink" href="#fix-dry-buckets" title="Permalink to this headline">¶</a></h2>
+<p>Removes water from all buckets in your fortress, allowing them
+to be used for making lye.  Skips buckets in buildings (eg a well),
+being carried, or currently used by a job.</p>
+</section>
+<section id="fix-fat-dwarves">
+<span id="id8"></span><h2><a class="toc-backref" href="#id26">fix/fat-dwarves</a><a class="headerlink" href="#fix-fat-dwarves" title="Permalink to this headline">¶</a></h2>
+<p>Avoids 5-10% FPS loss due to constant recalculation of insulation for dwarves at
+maximum fatness, by reducing the cap from 1,000,000 to 999,999.
+Recalculation is triggered in steps of 250 units, and very fat dwarves
+constantly bounce off the maximum value while eating.</p>
+</section>
+<section id="fix-feeding-timers">
+<span id="id9"></span><h2><a class="toc-backref" href="#id27">fix/feeding-timers</a><a class="headerlink" href="#fix-feeding-timers" title="Permalink to this headline">¶</a></h2>
+<p>Reset the GiveWater and GiveFood timers of all living citizens.</p>
+</section>
+<section id="fix-item-occupancy">
+<span id="id10"></span><h2><a class="toc-backref" href="#id28">fix/item-occupancy</a><a class="headerlink" href="#fix-item-occupancy" title="Permalink to this headline">¶</a></h2>
+<p>Diagnoses and fixes issues with nonexistant ‘items occupying site’, usually
+caused by <a class="reference internal" href="../Plugins.html#autodump"><span class="std std-ref">autodump</span></a> bugs or other hacking mishaps. Checks that:</p>
+<ol class="arabic simple">
+<li><p>Item has <code class="docutils literal notranslate"><span class="pre">flags.on_ground</span></code> &lt;=&gt; it is in the correct block item list</p></li>
+<li><p>A tile has items in block item list &lt;=&gt; it has <code class="docutils literal notranslate"><span class="pre">occupancy.item</span></code></p></li>
+<li><p>The block item lists are sorted</p></li>
+</ol>
+</section>
+<section id="fix-loyaltycascade">
+<span id="id11"></span><h2><a class="toc-backref" href="#id29">fix/loyaltycascade</a><a class="headerlink" href="#fix-loyaltycascade" title="Permalink to this headline">¶</a></h2>
+<p>Aborts loyalty cascades by fixing units whose own civ is the enemy.</p>
+</section>
+<section id="fix-merchants">
+<span id="id12"></span><h2><a class="toc-backref" href="#id30">fix/merchants</a><a class="headerlink" href="#fix-merchants" title="Permalink to this headline">¶</a></h2>
+<p>Adds the Guild Representative position to all Human civilizations,
+allowing them to make trade agreements.  This was the default behaviour in
+version 0.28.181.40d and earlier.</p>
+</section>
+<section id="fix-population-cap">
+<span id="id13"></span><h2><a class="toc-backref" href="#id31">fix/population-cap</a><a class="headerlink" href="#fix-population-cap" title="Permalink to this headline">¶</a></h2>
+<p>Run this after every migrant wave to ensure your population cap is not exceeded.</p>
+<p>The reason for population cap problems is that the population value it
+is compared against comes from the last dwarven caravan that successfully
+left for mountainhomes. This script instantly updates it.
+Note that a migration wave can still overshoot the limit by 1-2 dwarves because
+of the last migrant bringing his family. Likewise, king arrival ignores cap.</p>
+</section>
+<section id="fix-retrieve-units">
+<span id="id14"></span><h2><a class="toc-backref" href="#id32">fix/retrieve-units</a><a class="headerlink" href="#fix-retrieve-units" title="Permalink to this headline">¶</a></h2>
+<p>This script forces some units off the map to enter the map, which can fix issues
+such as the following:</p>
+<ul class="simple">
+<li><p>Stuck [SIEGE] tags due to invisible armies (or parts of armies)</p></li>
+<li><p>Forgotten beasts that never appear</p></li>
+<li><p>Packs of wildlife that are missing from the surface or caverns</p></li>
+<li><p>Caravans that are partially or completely missing.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For caravans that are missing entirely, this script may retrieve the
+merchants but not the items. Using <a class="reference internal" href="#fix-stuck-merchants"><span class="std std-ref">fix/stuck-merchants</span></a> followed by <a class="reference internal" href="base.html#force"><span class="std std-ref">force</span></a>
+to create a new caravan may work better.</p>
+</div>
+</section>
+<section id="fix-stable-temp">
+<span id="id15"></span><h2><a class="toc-backref" href="#id33">fix/stable-temp</a><a class="headerlink" href="#fix-stable-temp" title="Permalink to this headline">¶</a></h2>
+<p>Instantly sets the temperature of all free-lying items to be in equilibrium with
+the environment, which stops temperature updates until something changes.
+To maintain this efficient state, use <a class="reference internal" href="../Plugins.html#tweak"><span class="std std-ref">tweak fast-heat</span></a>.</p>
+</section>
+<section id="fix-stuck-merchants">
+<span id="id16"></span><h2><a class="toc-backref" href="#id34">fix/stuck-merchants</a><a class="headerlink" href="#fix-stuck-merchants" title="Permalink to this headline">¶</a></h2>
+<p>Dismisses merchants that haven’t entered the map yet. This can fix <a class="reference external" href="https://www.bay12games.com/dwarves/mantisbt/view.php?id=9593">Bug 9593</a>.
+This script should probably not be run if any merchants are on the map, so using
+it with <a class="reference internal" href="base.html#repeat"><span class="std std-ref">repeat</span></a> is not recommended.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">fix/stuck-merchants</span> <span class="pre">-n</span></code> or <code class="docutils literal notranslate"><span class="pre">fix/stuck-merchants</span> <span class="pre">--dry-run</span></code> to list all
+merchants that would be dismissed but make no changes.</p>
+</section>
+<section id="fix-stuckdoors">
+<span id="id17"></span><h2><a class="toc-backref" href="#id35">fix/stuckdoors</a><a class="headerlink" href="#fix-stuckdoors" title="Permalink to this headline">¶</a></h2>
+<p>Fix doors that are stuck open due to incorrect map occupancy flags, eg due to
+incorrect use of <a class="reference internal" href="base.html#teleport"><span class="std std-ref">teleport</span></a>.</p>
+</section>
+<section id="fix-tile-occupancy">
+<span id="id18"></span><h2><a class="toc-backref" href="#id36">fix/tile-occupancy</a><a class="headerlink" href="#fix-tile-occupancy" title="Permalink to this headline">¶</a></h2>
+<p>Clears bad occupancy flags at the selected tile. Useful for getting rid of
+phantom “building present” messages. Currently only supports issues with
+building and unit occupancy. Requires that a tile is selected with the in-game
+cursor (<code class="docutils literal notranslate"><span class="pre">k</span></code>).</p>
+<p>Can be used to fix problematic tiles caused by <a class="reference external" href="https://github.com/DFHack/dfhack/issues/1047">Issue 1047</a>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2015-2022, The DFHack Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/docs/_auto/fix.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,1451 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Quickfort Alias Guide &#8212; DFHack 0.47.05-r4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dfhack.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/dfhack-icon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Quickfort Library Guide" href="quickfort-library-guide.html" />
+    <link rel="prev" title="DFHack Example Configuration File Guide" href="examples-guide.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/dfhack-logo.png" alt="Logo"/>
+    <h3 class="logo logo-name">Home</h3>
+  </a>
+</p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Guides</a><ul>
+      <li>Previous: <a href="examples-guide.html" title="previous chapter">DFHack Example Configuration File Guide</a></li>
+      <li>Next: <a href="quickfort-library-guide.html" title="next chapter">Quickfort Library Guide</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quickfort Alias Guide</a><ul>
+<li><a class="reference internal" href="#alias-definition-files">Alias definition files</a></li>
+<li><a class="reference internal" href="#alias-syntax-and-usage">Alias syntax and usage</a><ul>
+<li><a class="reference internal" href="#keycodes">Keycodes</a></li>
+<li><a class="reference internal" href="#repetitions">Repetitions</a></li>
+<li><a class="reference internal" href="#modifier-keys">Modifier keys</a></li>
+<li><a class="reference internal" href="#shorthand-characters">Shorthand characters</a></li>
+<li><a class="reference internal" href="#built-in-aliases">Built-in aliases</a></li>
+<li><a class="reference internal" href="#sub-aliases">Sub-aliases</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#beyond-query-mode">Beyond query mode</a></li>
+<li><a class="reference internal" href="#the-dfhack-standard-alias-library">The DFHack standard alias library</a><ul>
+<li><a class="reference internal" href="#naming-aliases">Naming aliases</a></li>
+<li><a class="reference internal" href="#quantum-stockpile-aliases">Quantum stockpile aliases</a></li>
+<li><a class="reference internal" href="#farm-plots">Farm plots</a></li>
+<li><a class="reference internal" href="#stockpile-configuration-utility-aliases">Stockpile configuration utility aliases</a></li>
+<li><a class="reference internal" href="#stockpile-adjustment-aliases">Stockpile adjustment aliases</a><ul>
+<li><a class="reference internal" href="#animal-stockpile-adjustments">Animal stockpile adjustments</a></li>
+<li><a class="reference internal" href="#food-stockpile-adjustments">Food stockpile adjustments</a></li>
+<li><a class="reference internal" href="#furniture-stockpile-adjustments">Furniture stockpile adjustments</a></li>
+<li><a class="reference internal" href="#refuse-stockpile-adjustments">Refuse stockpile adjustments</a></li>
+<li><a class="reference internal" href="#stone-stockpile-adjustments">Stone stockpile adjustments</a></li>
+<li><a class="reference internal" href="#ammo-stockpile-adjustments">Ammo stockpile adjustments</a></li>
+<li><a class="reference internal" href="#bar-stockpile-adjustments">Bar stockpile adjustments</a></li>
+<li><a class="reference internal" href="#gem-stockpile-adjustments">Gem stockpile adjustments</a></li>
+<li><a class="reference internal" href="#finished-goods-stockpile-adjustments">Finished goods stockpile adjustments</a></li>
+<li><a class="reference internal" href="#cloth-stockpile-adjustments">Cloth stockpile adjustments</a></li>
+<li><a class="reference internal" href="#weapon-stockpile-adjustments">Weapon stockpile adjustments</a></li>
+<li><a class="reference internal" href="#armor-stockpile-adjustments">Armor stockpile adjustments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="quickfort-alias-guide">
+<span id="id1"></span><h1>Quickfort Alias Guide<a class="headerlink" href="#quickfort-alias-guide" title="Permalink to this headline">¶</a></h1>
+<p>Aliases allow you to use simple words to represent complicated key sequences
+when configuring buildings and stockpiles in quickfort <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints.</p>
+<p>For example, say you have the following <code class="docutils literal notranslate"><span class="pre">#build</span></code> and <code class="docutils literal notranslate"><span class="pre">#place</span></code> blueprints:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#build masonry workshop</span>
+~, ~,~,`,`,`
+~,wm,~,`,`,`
+~, ~,~,`,`,`
+
+<span class="c1">#place stockpile for mason</span>
+~,~,~,s,s,s
+~,~,~,s,s,s
+~,~,~,s,s,s
+</pre></div>
+</div>
+<p>and you want to configure the stockpile to hold only non-economic (“other”)
+stone and to give to the adjacent mason workshop. You could write the
+key sequences directly:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query configure stockpile with expanded key sequences</span>
+~,~,~,s{Down 5}deb{Right}{Down 2}p^,`,`
+~,~,~,g{Left 2}&amp;,                   `,`
+~,~,~,`,                            `,`
+</pre></div>
+</div>
+<p>or you could use aliases:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query configure stockpile with aliases</span>
+~,~,~,otherstone,`,`
+~,~,~,give2left, `,`
+~,~,~,`,         `,`
+</pre></div>
+</div>
+<p>If the stockpile had only a single tile, you could also replay both aliases in
+a single cell:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query configure mason with multiple aliases in one cell</span>
+~,~,~,{otherstone}{give2left},`,`
+~,~,~,`,                      `,`
+~,~,~,`,                      `,`
+</pre></div>
+</div>
+<p>With aliases, blueprints are much easier to read and understand. They also
+save you from having to copy the same long key sequences everywhere.</p>
+<section id="alias-definition-files">
+<h2>Alias definition files<a class="headerlink" href="#alias-definition-files" title="Permalink to this headline">¶</a></h2>
+<p>DFHack comes with a library of aliases for you to use that are always
+available when you run a <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint. Many blueprints can be built
+with just those aliases. This “standard alias library” is stored in
+<a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/quickfort/aliases-common.txt">data/quickfort/aliases-common.txt</a> (installed under the <code class="docutils literal notranslate"><span class="pre">hack</span></code> folder
+in your DFHack installation). The aliases in that file are described at the
+<a class="reference internal" href="#quickfort-alias-library"><span class="std std-ref">bottom of this document</span></a>.</p>
+<p>Please do not edit the aliases in the standard library directly. The file will
+get overwritten when DFHack is updated and you’ll lose your changes. Instead,
+add your custom aliases to <a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/dfhack-config/quickfort/aliases.txt">dfhack-config/quickfort/aliases.txt</a> or
+directly to your blueprints in an <a class="reference internal" href="quickfort-user-guide.html#quickfort-aliases-blueprints"><span class="std std-ref">#aliases</span></a>
+section. Your custom alias definitions take precedence over any definitions in
+the standard library.</p>
+</section>
+<section id="alias-syntax-and-usage">
+<h2>Alias syntax and usage<a class="headerlink" href="#alias-syntax-and-usage" title="Permalink to this headline">¶</a></h2>
+<p>The syntax for defining aliases is:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>aliasname: expansion
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">aliasname</span></code> is at least two letters or digits long (dashes and
+underscores are also allowed) and <code class="docutils literal notranslate"><span class="pre">expansion</span></code> is whatever you would type
+into the DF UI.</p>
+<p>You use an alias by typing its name into a <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint cell where you
+want it to be applied. You can use an alias by itself or as part of a larger
+sequence, potentially with other aliases. If the alias is the only text in the
+cell, the alias name is matched and its expansion is used. If the alias has
+other keys before or after it, the alias name must be surrounded in curly
+brackets (<kbd class="kbd docutils literal notranslate">{</kbd> and <kbd class="kbd docutils literal notranslate">}</kbd>). An alias can be surrounded in curly brackets
+even if it is the only text in the cell, it just isn’t necesary. For example,
+the following blueprint uses the <code class="docutils literal notranslate"><span class="pre">aliasname</span></code> alias by itself in the first
+two rows and uses it as part of a longer sequence in the third row:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query apply alias &#39;aliasname&#39; in three different ways</span>
+aliasname
+{aliasname}
+literaltext{aliasname}literaltext
+</pre></div>
+</div>
+<p>For a more concrete example of an alias definition, a simple alias that
+configures a stockpile to have no bins (<kbd class="kbd docutils literal notranslate">C</kbd>) and no barrels (<kbd class="kbd docutils literal notranslate">E</kbd>)
+assigned to it would look like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>nocontainers: CE
+</pre></div>
+</div>
+<p>The alias definition can also contain references to other aliases by including
+the alias names in curly brackets. For example, <code class="docutils literal notranslate"><span class="pre">nocontainers</span></code> could be
+equivalently defined like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>nobins: C
+nobarrels: E
+nocontainers: {nobins}{nobarrels}
+</pre></div>
+</div>
+<p>Aliases used in alias definitions <em>must</em> be surrounded by curly brackets, even
+if they are the only text in the definition:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>alias1: text1
+alias2: alias1
+alias3: {alias1}
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">alias1</span></code> and <code class="docutils literal notranslate"><span class="pre">alias3</span></code> expand to <code class="docutils literal notranslate"><span class="pre">text1</span></code>, but <code class="docutils literal notranslate"><span class="pre">alias2</span></code> expands to
+the literal text <code class="docutils literal notranslate"><span class="pre">alias1</span></code>.</p>
+<section id="keycodes">
+<h3>Keycodes<a class="headerlink" href="#keycodes" title="Permalink to this headline">¶</a></h3>
+<p>Non-printable characters, like the arrow keys, are represented by their
+keycode name and are also surrounded by curly brackets, like <code class="docutils literal notranslate"><span class="pre">{Right}</span></code> or
+<code class="docutils literal notranslate"><span class="pre">{Enter}</span></code>. Keycodes are used exactly like aliases – they just have special
+expansions that you wouldn’t be able to write yourself. In order to avoid
+naming conflicts between aliases and keycodes, the convention is to start
+aliases with a lowercase letter.</p>
+<p>Any keycode name from the DF interface definition file
+(data/init/interface.txt) is valid, but only a few keycodes are actually
+useful for blueprints:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>Up
+Down
+Left
+Right
+Enter
+ESC
+Backspace
+Space
+Tab
+</pre></div>
+</div>
+<p>There is also one pseudo-keycode that quickfort recognizes:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>Empty
+</pre></div>
+</div>
+<p>which has an empty expansion. It is primarily useful for defining blank default values for <a class="reference internal" href="#sub-aliases">Sub-aliases</a>.</p>
+</section>
+<section id="repetitions">
+<h3>Repetitions<a class="headerlink" href="#repetitions" title="Permalink to this headline">¶</a></h3>
+<p>Anything enclosed within curly brackets can also have a number, indicating how
+many times that alias or keycode should be repeated. For example:
+<code class="docutils literal notranslate"><span class="pre">{togglesequence</span> <span class="pre">9}</span></code> or <code class="docutils literal notranslate"><span class="pre">{Down</span> <span class="pre">5}</span></code> will repeat the <code class="docutils literal notranslate"><span class="pre">togglesequence</span></code>
+alias nine times and the <code class="docutils literal notranslate"><span class="pre">Down</span></code> keycode five times, respectively.</p>
+</section>
+<section id="modifier-keys">
+<h3>Modifier keys<a class="headerlink" href="#modifier-keys" title="Permalink to this headline">¶</a></h3>
+<p>Ctrl, Alt, and Shift modifiers can be specified for the next key by adding
+them into the key sequence. For example, Alt-h is written as <code class="docutils literal notranslate"><span class="pre">{Alt}h</span></code>.</p>
+</section>
+<section id="shorthand-characters">
+<h3>Shorthand characters<a class="headerlink" href="#shorthand-characters" title="Permalink to this headline">¶</a></h3>
+<p>Some frequently-used keycodes are assigned shorthand characters. Think of them
+as single-character aliases that don’t need to be surrounded in curly
+brackets:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>&amp;   expands to {Enter}
+@   expands to {Shift}{Enter}
+~   expands to {Alt}
+!   expands to {Ctrl}
+^   expands to {ESC}
+</pre></div>
+</div>
+<p>If you need literal versions of the shorthand characters, surround them in
+curly brackets, for example: use <code class="docutils literal notranslate"><span class="pre">{!}</span></code> for a literal exclamation point.</p>
+</section>
+<section id="built-in-aliases">
+<h3>Built-in aliases<a class="headerlink" href="#built-in-aliases" title="Permalink to this headline">¶</a></h3>
+<p>Most aliases that come with DFHack are in <code class="docutils literal notranslate"><span class="pre">aliases-common.txt</span></code>, but there is
+one alias built into the code for the common shorthand for “make room”:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>r+  expands to r+{Enter}
+</pre></div>
+</div>
+<p>This needs special code support since <code class="docutils literal notranslate"><span class="pre">+</span></code> can’t normally be used in alias
+names. You can use it just like any other alias, either by itself in a cell
+(<code class="docutils literal notranslate"><span class="pre">r+</span></code>) or surrounded in curly brackets (<code class="docutils literal notranslate"><span class="pre">{r+}</span></code>).</p>
+</section>
+<section id="sub-aliases">
+<h3>Sub-aliases<a class="headerlink" href="#sub-aliases" title="Permalink to this headline">¶</a></h3>
+<p>You can specify sub-aliases that will only be defined while the current alias
+is being resolved. This is useful for “injecting” custom behavior into the
+middle of a larger alias. As a simple example, the <code class="docutils literal notranslate"><span class="pre">givename</span></code> alias is defined
+like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>givename: !n{name}&amp;
+</pre></div>
+</div>
+<p>Note the use of the <code class="docutils literal notranslate"><span class="pre">name</span></code> alias inside of the <code class="docutils literal notranslate"><span class="pre">givename</span></code> expansion. In your
+<code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint, you could write something like this, say, while over your
+main drawbridge:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>{givename name=&quot;Front Gate&quot;}
+</pre></div>
+</div>
+<p>The value that you give the sub-alias <code class="docutils literal notranslate"><span class="pre">name</span></code> will be used when the
+<code class="docutils literal notranslate"><span class="pre">givename</span></code> alias is expanded. Without sub-aliases, we’d have to define
+<code class="docutils literal notranslate"><span class="pre">givename</span></code> like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>givenameprefix: !n
+givenamesuffix: &amp;
+</pre></div>
+</div>
+<p>and use it like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>{givenameprefix}Front Gate{givenamesuffix}
+</pre></div>
+</div>
+<p>which is more difficult to write and more difficult to understand.</p>
+<p>A handy technique is to define an alias with some sort of default
+behavior and then use sub-aliases to override that behavior as necessary. For
+example, here is a simplified version of the standard <code class="docutils literal notranslate"><span class="pre">quantum</span></code> alias that
+sets up quantum stockpiles:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>quantum_enable: {enableanimals}{enablefood}{enablefurniture}...
+quantum: {linksonly}{nocontainers}{quantum_enable}
+</pre></div>
+</div>
+<p>You can use the default behavior of <code class="docutils literal notranslate"><span class="pre">quantum_enable</span></code> by just using the
+<code class="docutils literal notranslate"><span class="pre">quantum</span></code> alias by itself. But you can override <code class="docutils literal notranslate"><span class="pre">quantum_enable</span></code> to just
+enable furniture for some specific stockpile like this:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>{quantum quantum_enable={enablefurniture}}
+</pre></div>
+</div>
+<p>If an alias uses a sub-alias in its expansion, but the sub-alias is not defined
+when the alias is used, quickfort will halt the <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint with an
+error. If you want your aliases to work regardless of whether sub-aliases are
+defined, then you must define them with default values like <code class="docutils literal notranslate"><span class="pre">quantum_enable</span></code>
+above. If a default value should be blank, like the <code class="docutils literal notranslate"><span class="pre">name</span></code> sub-alias used by
+the <code class="docutils literal notranslate"><span class="pre">givename</span></code> alias above, define it with the <code class="docutils literal notranslate"><span class="pre">{Empty}</span></code> pesudo-keycode:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>name: {Empty}
+</pre></div>
+</div>
+<p>Sub-aliases must be in one of the following formats:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>subaliasname=keyswithnospaces
+subaliasname=&quot;keys with spaces or {aliases}&quot;
+subaliasname={singlealias}
+</pre></div>
+</div>
+<p>If you specify both a sub-alias and a number of repetitions, the number for
+repetitions goes last, right before the <kbd class="kbd docutils literal notranslate">}</kbd>:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>{alias subaliasname=value repetitions}
+</pre></div>
+</div>
+</section>
+</section>
+<section id="beyond-query-mode">
+<h2>Beyond query mode<a class="headerlink" href="#beyond-query-mode" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints normally do things in DF <kbd class="kbd docutils literal notranslate">q</kbd>uery mode, but nobody
+said that we have to <em>stay</em> in query mode. <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints send
+arbitrary key sequences to Dwarf Fortress. Anything you can do by typing keys
+into DF, you can do in a <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint. It is absolutely fine to
+temporarily exit out of query mode, go into, say, hauling or zone or hotkey
+mode, and do whatever needs to be done.</p>
+<p>You just have to make certain to exit out of that alternate mode and get back
+into <kbd class="kbd docutils literal notranslate">q</kbd>uery mode at the end of the key sequence. That way quickfort can
+continue on configuring the next tile – a tile configuration that assumes the
+game is still in query mode.</p>
+<p>For example, here is the standard library alias for giving a name to a zone:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>namezone: ^i{givename}^q
+</pre></div>
+</div>
+<p>The first <kbd class="kbd docutils literal notranslate">^</kbd> exits out of query mode. Then <kbd class="kbd docutils literal notranslate">i</kbd> enters zones mode.
+We then reuse the standard alias for giving something a name. Finally, we exit
+out of zones mode with another <kbd class="kbd docutils literal notranslate">^</kbd> and return to <kbd class="kbd docutils literal notranslate">q</kbd>uery mode.</p>
+</section>
+<section id="the-dfhack-standard-alias-library">
+<span id="quickfort-alias-library"></span><h2>The DFHack standard alias library<a class="headerlink" href="#the-dfhack-standard-alias-library" title="Permalink to this headline">¶</a></h2>
+<p>DFHack comes with many useful aliases for you to use in your blueprints. Many
+blueprints can be built with just these aliases alone, with no custom aliases
+required.</p>
+<p>This section goes through all aliases provided by the DFHack standard alias
+library, discussing their intended usage and detailing sub-aliases that you
+can define to customize their behavior.</p>
+<p>If you do define your own custom aliases in
+<code class="docutils literal notranslate"><span class="pre">dfhack-config/quickfort/aliases.txt</span></code>, try to build on library alias
+components. For example, if you create an alias to modify particular furniture
+stockpile settings, start your alias with <code class="docutils literal notranslate"><span class="pre">{furnitureprefix}</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">s{Down</span> <span class="pre">2}</span></code>. Using library prefixes will allow library sub-aliases to work
+with your aliases just like they do with library aliases. In this case, using
+<code class="docutils literal notranslate"><span class="pre">{furnitureprefix}</span></code> will allow your stockpile customization alias to work
+with both stockpiles and hauling routes.</p>
+<p>Note that some aliases use the DFHack-provided search prompts. If you get errors
+while running <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints, ensure the DFHack <a class="reference internal" href="../Plugins.html#search-plugin"><span class="std std-ref">search</span></a> plugin is
+enabled.</p>
+<section id="naming-aliases">
+<h3>Naming aliases<a class="headerlink" href="#naming-aliases" title="Permalink to this headline">¶</a></h3>
+<p>These aliases give descriptive names to workshops, levers, stockpiles, zones,
+etc. Dwarf Fortress building, stockpile, and zone names have a maximum length
+of 20 characters.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Alias</p></th>
+<th class="head"><p>Sub-aliases</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>givename</p></td>
+<td><p>name</p></td>
+</tr>
+<tr class="row-odd"><td><p>namezone</p></td>
+<td><p>name</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">givename</span></code> works anywhere you can hit Ctrl-n to customize a name, like when
+the cursor is over buildings and stockpiles. Example:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place</span>
+f(10x2)
+
+<span class="c1">#query</span>
+{booze}{givename name=booze}
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">namezone</span></code> is intended to be used when over an activity zone. It includes
+commands to get into zones mode, set the zone name, and get back to query
+mode. Example:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#zone</span>
+n(2x2)
+
+<span class="c1">#query</span>
+{namezone name=&quot;guard dog pen&quot;}
+</pre></div>
+</div>
+</section>
+<section id="quantum-stockpile-aliases">
+<h3>Quantum stockpile aliases<a class="headerlink" href="#quantum-stockpile-aliases" title="Permalink to this headline">¶</a></h3>
+<p>These aliases make it easy to create <a class="reference external" href="https://dwarffortresswiki.org/Quantum_stockpile#The_Minecart_Stop">minecart stop-based quantum stockpiles</a>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Alias</p></th>
+<th class="head"><p>Sub-aliases</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>quantum</p></td>
+<td><div class="line-block">
+<div class="line">name</div>
+<div class="line">quantum_enable</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>quantumstopfromnorth</p></td>
+<td rowspan="4"><div class="line-block">
+<div class="line">name</div>
+<div class="line">stop_name</div>
+<div class="line">route_enable</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>quantumstopfromsouth</p></td>
+</tr>
+<tr class="row-odd"><td><p>quantumstopfromeast</p></td>
+</tr>
+<tr class="row-even"><td><p>quantumstopfromwest</p></td>
+</tr>
+<tr class="row-odd"><td><p>sp_link</p></td>
+<td><div class="line-block">
+<div class="line">move</div>
+<div class="line">move_back</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>quantumstop</p></td>
+<td><div class="line-block">
+<div class="line">name</div>
+<div class="line">stop_name</div>
+<div class="line">route_enable</div>
+<div class="line">move</div>
+<div class="line">move_back</div>
+<div class="line">sp_links</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The idea is to use a minecart on a track stop to dump an infinite number of
+items into a receiving “quantum” stockpile, which significantly simplifies
+stockpile management. These aliases configure the quantum stockpile and
+hauling route that make it all work. Here is a complete example for quantum
+stockpiling weapons, armor, and ammunition. It has a 3x1 feeder stockpile on
+the bottom (South), the trackstop in the center, and the quantum stockpile on
+the top (North). Note that the feeder stockpile is the only stockpile that
+needs to be configured to control which types of items end up in the quantum
+stockpile. By default, the hauling route and quantum stockpile itself simply
+accept whatever is put into them.</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place</span>
+ ,c
+ ,
+pdz(3x1)
+
+<span class="c1">#build</span>
+ ,
+ ,trackstopN
+
+<span class="c1">#query message(remember to assign a minecart to the new route)</span>
+ ,quantum
+ ,quantumstopfromsouth
+nocontainers
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">quantum</span></code> alias configures a 1x1 stockpile to be a quantum stockpile. It
+bans all containers and prevents the stockpile from being manually filled. By
+default, it also enables storage of all item categories (except corpses and
+refuse), so it doesn’t really matter what letter you use to place the
+stockpile. <a class="reference external" href="https://dwarffortresswiki.org/Refuse">Refuse</a> is excluded by default since otherwise clothes and
+armor in the quantum stockpile would rot away. If you want corpses or bones in
+your quantum stockpile, use <kbd class="kbd docutils literal notranslate">y</kbd> and/or <kbd class="kbd docutils literal notranslate">r</kbd> to place the stockpile
+and the <code class="docutils literal notranslate"><span class="pre">quantum</span></code> alias will just enable the remaining types. If you <em>do</em>
+enable refuse in your quantum stockpile, be sure you avoid putting useful
+clothes or armor in there!</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">quantumstopfromsouth</span></code> alias is run over the track stop and configures
+the hauling route, again, allowing all item categories into the minecart by
+default so any item that can go into the feeder stockpile can then be placed
+in the minecart. It also links the hauling route with the feeder stockpile to
+the South.The track stop does not need to be fully constructed before the
+<code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprint is run, but the feeder stockpile needs to exist so we can
+link to it. This means that the three blueprints above can be run one right
+after another, without any dwarven labor in between them, and the quantum
+stockpile will work properly.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">nocontainers</span></code> alias simply configures the feeder stockpile to
+not have any containers (which would just get in the way here). If we wanted
+to be more specific about what item types we want in the quantum stockpile, we
+could configure the feeder stockpile further, for example with standard
+<a class="reference internal" href="#quickfort-stockpile-aliases"><span class="std std-ref">stockpile adjustment aliases</span></a>.</p>
+<p>After the blueprints are run, the last step is to manually assign a minecart
+to the newly-defined hauling route.</p>
+<p>You can define sub-aliases to customize how these aliases work, for example to
+have fine-grained control over what item types are enabled for the route and
+quantum stockpile. We’ll go over those options below, but first, here is an
+example for how to just give names to everything:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query message(remember to assign a minecart to the new route)</span>
+ ,{quantum name=&quot;armory quantum&quot;}
+ ,{quantumstopfromsouth name=&quot;Armory quantum&quot; stop_name=&quot;Armory quantum stop&quot;}{givename name=&quot;armory dumper&quot;}
+{givename name=&quot;armory feeder&quot;}
+</pre></div>
+</div>
+<p>All <code class="docutils literal notranslate"><span class="pre">name</span></code> sub-aliases are completely optional, of course. Keep in mind that
+hauling route names have a maximum length of 22 characters, hauling route stop
+names have a maximum length of 21 characters, and all other names have a
+maximum length of 20 characters.</p>
+<p>If you want to be absolutely certain that nothing ends up in your quantum
+stockpile other than what you’ve configured in the feeder stockpile, you can
+set the <code class="docutils literal notranslate"><span class="pre">quantum_enable</span></code> sub-alias for the <code class="docutils literal notranslate"><span class="pre">quantum</span></code> alias. This can
+prevent, for example, somebody’s knocked-out tooth from being considered part
+of your furniture quantum stockpile when it happened to land on it during a
+fistfight:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query</span>
+{quantum name=&quot;furniture quantum&quot; quantum_enable={enablefurniture}}
+</pre></div>
+</div>
+<p>You can have similar control over the hauling route if you need to be more
+selective about what item types are allowed into the minecart. If you have
+multiple specialized quantum stockpiles that use a common feeder pile, for
+example, you can set the <code class="docutils literal notranslate"><span class="pre">route_enable</span></code> sub-alias:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query</span>
+{quantumstopfromsouth name=&quot;Steel bar quantum&quot; route_enable=&quot;{enablebars}{steelbars}&quot;}
+</pre></div>
+</div>
+<p>Any of the <a class="reference internal" href="#quickfort-stockpile-aliases"><span class="std std-ref">stockpile configuration aliases</span></a> can
+be used for either the <code class="docutils literal notranslate"><span class="pre">quantum_enable</span></code> or <code class="docutils literal notranslate"><span class="pre">route_enable</span></code> sub-aliases.
+Experienced Dwarf Fortress players may be wondering how the same aliases can
+work in both contexts since the keys for entering the configuration screen
+differ. Fear not! There is some sub-alias magic at work here. If you define
+your own stockpile configuraiton aliases, you can use the magic yourself by
+building your aliases on the <code class="docutils literal notranslate"><span class="pre">*prefix</span></code> aliases described later in this
+guide.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">quantumstop</span></code> alias is a more general version of the simpler
+<code class="docutils literal notranslate"><span class="pre">quantumstopfrom*</span></code> aliases. The <code class="docutils literal notranslate"><span class="pre">quantumstopfrom*</span></code> aliases assume that a
+single feeder stockpile is orthogonally adjacent to your track stop (which is
+how most people set them up). If your feeder stockpile is somewhere further
+away, or you have multiple feeder stockpiles to link, you can use the
+<code class="docutils literal notranslate"><span class="pre">quantumstop</span></code> alias directly. In addition to the sub-aliases used in the
+<code class="docutils literal notranslate"><span class="pre">quantumstopfrom*</span></code> alias, you can define the <code class="docutils literal notranslate"><span class="pre">move</span></code> and <code class="docutils literal notranslate"><span class="pre">move_back</span></code>
+sub-aliases, which let you specify the cursor keys required to move from the
+track stop to the (single) feeder stockpile and back again, respectively:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query</span>
+{quantumstop move=&quot;{Right 2}{Up}&quot; move_back=&quot;{Down}{Left 2}&quot;}
+</pre></div>
+</div>
+<p>If you have multiple stockpiles to link, define the <code class="docutils literal notranslate"><span class="pre">sp_links</span></code> sub-alias,
+which can chain several <code class="docutils literal notranslate"><span class="pre">sp_link</span></code> aliases together, each with their own
+movement configuration:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query</span>
+{quantumstop sp_links=&quot;{sp_link move=&quot;&quot;{Right}{Up}&quot;&quot; move_back=&quot;&quot;{Down}{Left}&quot;&quot;}{sp_link move=&quot;&quot;{Right}{Down}&quot;&quot; move_back=&quot;&quot;{Up}{Left}&quot;&quot;}&quot;}
+</pre></div>
+</div>
+<p>Note the doubled quotes for quoted elements that are within the outer quotes.</p>
+</section>
+<section id="farm-plots">
+<h3>Farm plots<a class="headerlink" href="#farm-plots" title="Permalink to this headline">¶</a></h3>
+<p>Sets a farm plot to grow the first or last type of seed in the list of
+available seeds for all four seasons. The last seed is usually Plump helmet
+spawn, suitable for post-embark. But if you only have one seed type, that’ll
+be grown instead.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Alias</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>growlastcropall</p></td>
+</tr>
+<tr class="row-odd"><td><p>growfirstcropall</p></td>
+</tr>
+</tbody>
+</table>
+<p>Instead of these aliases, though, it might be more useful to use the DFHack
+<a class="reference internal" href="../Plugins.html#autofarm"><span class="std std-ref">autofarm</span></a> plugin.</p>
+</section>
+<section id="stockpile-configuration-utility-aliases">
+<h3>Stockpile configuration utility aliases<a class="headerlink" href="#stockpile-configuration-utility-aliases" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 59%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Alias</p></th>
+<th class="head"><p>Sub-aliases</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>linksonly</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>maxbins</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>maxbarrels</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>nobins</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>nobarrels</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>nocontainers</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>give2up</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>give2down</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>give2left</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>give2right</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>give10up</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>give10down</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>give10left</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>give10right</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>give</p></td>
+<td><p>move</p></td>
+</tr>
+<tr class="row-odd"><td><p>togglesequence</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>togglesequence2</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>masterworkonly</p></td>
+<td><p>prefix</p></td>
+</tr>
+<tr class="row-even"><td><p>artifactonly</p></td>
+<td><p>prefix</p></td>
+</tr>
+<tr class="row-odd"><td><p>togglemasterwork</p></td>
+<td><p>prefix</p></td>
+</tr>
+<tr class="row-even"><td><p>toggleartifact</p></td>
+<td><p>prefix</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">linksonly</span></code>, <code class="docutils literal notranslate"><span class="pre">maxbins</span></code>, <code class="docutils literal notranslate"><span class="pre">maxbarrels</span></code>, <code class="docutils literal notranslate"><span class="pre">nobins</span></code>, <code class="docutils literal notranslate"><span class="pre">nobarrels</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">nocontainers</span></code> set the named basic properties on stockpiles. <code class="docutils literal notranslate"><span class="pre">nocontainers</span></code>
+sets bins and barrels to 0, but does not affect wheelbarrows since the hotkeys
+for changing the number of wheelbarrows depend on whether you have DFHack’s
+<code class="docutils literal notranslate"><span class="pre">tweak</span> <span class="pre">max-wheelbarrow</span></code> enabled. It is better to set the number of
+wheelbarrows via the <a class="reference internal" href="../_auto/base.html#quickfort"><span class="std std-ref">quickfort</span></a> <code class="docutils literal notranslate"><span class="pre">stockpiles_max_wheelbarrows</span></code> setting (set to
+<code class="docutils literal notranslate"><span class="pre">0</span></code> by default), or explicitly when you define the stockpile in the <code class="docutils literal notranslate"><span class="pre">#place</span></code>
+blueprint.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">give*</span></code> aliases set a stockpile to give to a workshop or another
+stockpile located at the indicated number of tiles in the indicated direction
+from the current tile. For example, here we use the <code class="docutils literal notranslate"><span class="pre">give2down</span></code> alias to
+connect an <code class="docutils literal notranslate"><span class="pre">otherstone</span></code> stockpile with a mason workshop:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place</span>
+s,s,s,s,s
+s, , , ,s
+s, , , ,s
+s, , , ,s
+s,s,s,s,s
+
+<span class="c1">#build</span>
+`,`,`,`,`
+`, , , ,`
+`, ,wm,,`
+`, , , ,`
+`,`,`,`,`
+
+<span class="c1">#query</span>
+ , ,give2down
+otherstone
+</pre></div>
+</div>
+<p>and here is a generic stone stockpile that gives to a stockpile that only
+takes flux:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#place</span>
+s(10x1)
+s(10x10)
+
+<span class="c1">#query</span>
+flux
+,
+give2up
+</pre></div>
+</div>
+<p>If you want to give to some other tile that is not already covered by the
+<code class="docutils literal notranslate"><span class="pre">give2*</span></code> or <code class="docutils literal notranslate"><span class="pre">give10*</span></code> aliases, you can use the generic <code class="docutils literal notranslate"><span class="pre">give</span></code> alias and
+specify the movement keys yourself in the <code class="docutils literal notranslate"><span class="pre">move</span></code> sub-alias. Here is how to
+give to a stockpile or workshop one z-level above, 9 tiles to the left, and 14
+tiles down:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span><span class="c1">#query</span>
+{give move=&quot;&lt;{Left 9}{Down 14}&quot;}
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">togglesequence</span></code> and <code class="docutils literal notranslate"><span class="pre">togglesequence2</span></code> send <code class="docutils literal notranslate"><span class="pre">{Down}{Enter}</span></code> or
+<code class="docutils literal notranslate"><span class="pre">{Down</span> <span class="pre">2}{Enter}</span></code> to toggle adjacent (or alternating) items in a list. This
+is useful when toggling a bunch of related item types in the stockpile config.
+For example, the <code class="docutils literal notranslate"><span class="pre">dye</span></code> alias in the standard alias library needs to select
+four adjacent items:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>dye: {foodprefix}b{Right}{Down 11}{Right}{Down 28}{togglesequence 4}^
+</pre></div>
+</div>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">masterwork</span></code> and <code class="docutils literal notranslate"><span class="pre">artifact</span></code> group of aliases configure the
+corresponding allowable core quality for the stockpile categories that have
+them. This alias is used to implement category-specific aliases below, like
+<code class="docutils literal notranslate"><span class="pre">artifactweapons</span></code> and <code class="docutils literal notranslate"><span class="pre">forbidartifactweapons</span></code>.</p>
+</section>
+<section id="stockpile-adjustment-aliases">
+<span id="quickfort-stockpile-aliases"></span><h3>Stockpile adjustment aliases<a class="headerlink" href="#stockpile-adjustment-aliases" title="Permalink to this headline">¶</a></h3>
+<p>For each stockpile item category, there are three standard aliases:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">*prefix</span></code> aliases enter the stockpile configuration screen and position
+the cursor at a particular item category in the left-most column, ready for
+further keys that configure the elements within that category. All other
+stockpile adjustment aliases are built on these prefixes. You can use them
+yourself to create stockpile adjustment aliases that aren’t already covered
+by the standard library aliases. Using the library prefix instead of
+creating your own also allows your stockpile configuration aliases to be
+used for both stockpiles and hauling routes. For example, here is the
+library definition for <code class="docutils literal notranslate"><span class="pre">booze</span></code>:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>booze: {foodprefix}b{Right}{Down 5}p{Down}p^
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enable*</span></code> aliases enter the stockpile configuration screen, enable all
+subtypes of the named category, and exit the stockpile configuration screen</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disable*</span></code> aliases enter the stockpile configuration screen, disable all
+subtypes of the named category, and exit the stockpile configuration screen</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Prefix</p></th>
+<th class="head"><p>Enable</p></th>
+<th class="head"><p>Disable</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>animalsprefix</p></td>
+<td><p>enableanimals</p></td>
+<td><p>disableanimals</p></td>
+</tr>
+<tr class="row-odd"><td><p>foodprefix</p></td>
+<td><p>enablefood</p></td>
+<td><p>disablefood</p></td>
+</tr>
+<tr class="row-even"><td><p>furnitureprefix</p></td>
+<td><p>enablefurniture</p></td>
+<td><p>disablefurniture</p></td>
+</tr>
+<tr class="row-odd"><td><p>corpsesprefix</p></td>
+<td><p>enablecorpses</p></td>
+<td><p>disablecorpses</p></td>
+</tr>
+<tr class="row-even"><td><p>refuseprefix</p></td>
+<td><p>enablerefuse</p></td>
+<td><p>disablerefuse</p></td>
+</tr>
+<tr class="row-odd"><td><p>stoneprefix</p></td>
+<td><p>enablestone</p></td>
+<td><p>disablestone</p></td>
+</tr>
+<tr class="row-even"><td><p>ammoprefix</p></td>
+<td><p>enableammo</p></td>
+<td><p>disableammo</p></td>
+</tr>
+<tr class="row-odd"><td><p>coinsprefix</p></td>
+<td><p>enablecoins</p></td>
+<td><p>disablecoins</p></td>
+</tr>
+<tr class="row-even"><td><p>barsprefix</p></td>
+<td><p>enablebars</p></td>
+<td><p>disablebars</p></td>
+</tr>
+<tr class="row-odd"><td><p>gemsprefix</p></td>
+<td><p>enablegems</p></td>
+<td><p>disablegems</p></td>
+</tr>
+<tr class="row-even"><td><p>finishedgoodsprefix</p></td>
+<td><p>enablefinishedgoods</p></td>
+<td><p>disablefinishedgoods</p></td>
+</tr>
+<tr class="row-odd"><td><p>leatherprefix</p></td>
+<td><p>enableleather</p></td>
+<td><p>disableleather</p></td>
+</tr>
+<tr class="row-even"><td><p>clothprefix</p></td>
+<td><p>enablecloth</p></td>
+<td><p>disablecloth</p></td>
+</tr>
+<tr class="row-odd"><td><p>woodprefix</p></td>
+<td><p>enablewood</p></td>
+<td><p>disablewood</p></td>
+</tr>
+<tr class="row-even"><td><p>weaponsprefix</p></td>
+<td><p>enableweapons</p></td>
+<td><p>disableweapons</p></td>
+</tr>
+<tr class="row-odd"><td><p>armorprefix</p></td>
+<td><p>enablearmor</p></td>
+<td><p>disablearmor</p></td>
+</tr>
+<tr class="row-even"><td><p>sheetprefix</p></td>
+<td><p>enablesheet</p></td>
+<td><p>disablesheet</p></td>
+</tr>
+</tbody>
+</table>
+<p>Then, for each item category, there are aliases that manipulate interesting
+subsets of that category:</p>
+<ul class="simple">
+<li><p>Exclusive aliases forbid everthing within a category and then enable only
+the named item type (or named class of items)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">forbid*</span></code> aliases forbid the named type and leave the rest of the
+stockpile untouched.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">permit*</span></code> aliases permit the named type and leave the rest of the
+stockpile untouched.</p></li>
+</ul>
+<p>Note that for specific item types (items in the third stockpile configuration
+column), you can only toggle the item type on and off. Aliases can’t know
+whether sending the <code class="docutils literal notranslate"><span class="pre">{Enter}</span></code> key will enable or disable the type. The
+<code class="docutils literal notranslate"><span class="pre">forbid*</span></code> aliases that affect these item types assume the item type was
+enabled and toggle it off. Likewise, the <code class="docutils literal notranslate"><span class="pre">permit*</span></code> aliases assume the item
+type was disabled and toggle it on. If the item type is not in the expected
+enabled/disabled state when the alias is run, the aliases will not behave
+properly.</p>
+<section id="animal-stockpile-adjustments">
+<h4>Animal stockpile adjustments<a class="headerlink" href="#animal-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 32%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cages</p></td>
+<td><p>forbidcages</p></td>
+<td><p>permitcages</p></td>
+</tr>
+<tr class="row-odd"><td><p>traps</p></td>
+<td><p>forbidtraps</p></td>
+<td><p>permittraps</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="food-stockpile-adjustments">
+<h4>Food stockpile adjustments<a class="headerlink" href="#food-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 36%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>preparedfood</p></td>
+<td><p>forbidpreparedfood</p></td>
+<td><p>permitpreparedfood</p></td>
+</tr>
+<tr class="row-odd"><td><p>unpreparedfish</p></td>
+<td><p>forbidunpreparedfish</p></td>
+<td><p>permitunpreparedfish</p></td>
+</tr>
+<tr class="row-even"><td><p>plants</p></td>
+<td><p>forbidplants</p></td>
+<td><p>permitplants</p></td>
+</tr>
+<tr class="row-odd"><td><p>booze</p></td>
+<td><p>forbidbooze</p></td>
+<td><p>permitbooze</p></td>
+</tr>
+<tr class="row-even"><td><p>seeds</p></td>
+<td><p>forbidseeds</p></td>
+<td><p>permitseeds</p></td>
+</tr>
+<tr class="row-odd"><td><p>dye</p></td>
+<td><p>forbiddye</p></td>
+<td><p>permitdye</p></td>
+</tr>
+<tr class="row-even"><td><p>tallow</p></td>
+<td><p>forbidtallow</p></td>
+<td><p>permittallow</p></td>
+</tr>
+<tr class="row-odd"><td><p>miscliquid</p></td>
+<td><p>forbidmiscliquid</p></td>
+<td><p>permitmiscliquid</p></td>
+</tr>
+<tr class="row-even"><td><p>wax</p></td>
+<td><p>forbidwax</p></td>
+<td><p>permitwax</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="furniture-stockpile-adjustments">
+<h4>Furniture stockpile adjustments<a class="headerlink" href="#furniture-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 36%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>pots</p></td>
+<td><p>forbidpots</p></td>
+<td><p>permitpots</p></td>
+</tr>
+<tr class="row-odd"><td><p>bags</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>buckets</p></td>
+<td><p>forbidbuckets</p></td>
+<td><p>permitbuckets</p></td>
+</tr>
+<tr class="row-odd"><td><p>sand</p></td>
+<td><p>forbidsand</p></td>
+<td><p>permitsand</p></td>
+</tr>
+<tr class="row-even"><td><p>masterworkfurniture</p></td>
+<td><p>forbidmasterworkfurniture</p></td>
+<td><p>permitmasterworkfurniture</p></td>
+</tr>
+<tr class="row-odd"><td><p>artifactfurniture</p></td>
+<td><p>forbidartifactfurniture</p></td>
+<td><p>permitartifactfurniture</p></td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">bags</span></code> alias excludes coffers and other boxes by forbidding all
+materials other than cloth, yarn, silk, and leather. Therefore, it is
+difficult to create <code class="docutils literal notranslate"><span class="pre">forbidbags</span></code> and <code class="docutils literal notranslate"><span class="pre">permitbags</span></code> without affecting other
+types of furniture stored in the same stockpile.</p></li>
+<li><p>Because of the limitations of Dwarf Fortress, <code class="docutils literal notranslate"><span class="pre">bags</span></code> cannot distinguish
+between empty bags and bags filled with gypsum powder.</p></li>
+</ul>
+</section>
+<section id="refuse-stockpile-adjustments">
+<h4>Refuse stockpile adjustments<a class="headerlink" href="#refuse-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>corpses</p></td>
+<td><p>forbidcorpses</p></td>
+<td><p>permitcorpses</p></td>
+</tr>
+<tr class="row-odd"><td><p>rawhides</p></td>
+<td><p>forbidrawhides</p></td>
+<td><p>permitrawhides</p></td>
+</tr>
+<tr class="row-even"><td><p>tannedhides</p></td>
+<td><p>forbidtannedhides</p></td>
+<td><p>permittannedhides</p></td>
+</tr>
+<tr class="row-odd"><td><p>skulls</p></td>
+<td><p>forbidskulls</p></td>
+<td><p>permitskulls</p></td>
+</tr>
+<tr class="row-even"><td><p>bones</p></td>
+<td><p>forbidbones</p></td>
+<td><p>permitbones</p></td>
+</tr>
+<tr class="row-odd"><td><p>shells</p></td>
+<td><p>forbidshells</p></td>
+<td><p>permitshells</p></td>
+</tr>
+<tr class="row-even"><td><p>teeth</p></td>
+<td><p>forbidteeth</p></td>
+<td><p>permitteeth</p></td>
+</tr>
+<tr class="row-odd"><td><p>horns</p></td>
+<td><p>forbidhorns</p></td>
+<td><p>permithorns</p></td>
+</tr>
+<tr class="row-even"><td><p>hair</p></td>
+<td><p>forbidhair</p></td>
+<td><p>permithair</p></td>
+</tr>
+<tr class="row-odd"><td><p>craftrefuse</p></td>
+<td><p>forbidcraftrefuse</p></td>
+<td><p>permitcraftrefuse</p></td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">craftrefuse</span></code> includes everything a craftsdwarf can use: skulls, bones,
+shells, teeth, horns, and hair.</p></li>
+</ul>
+</section>
+<section id="stone-stockpile-adjustments">
+<h4>Stone stockpile adjustments<a class="headerlink" href="#stone-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>metal</p></td>
+<td><p>forbidmetal</p></td>
+<td><p>permitmetal</p></td>
+</tr>
+<tr class="row-odd"><td><p>iron</p></td>
+<td><p>forbidiron</p></td>
+<td><p>permitiron</p></td>
+</tr>
+<tr class="row-even"><td><p>economic</p></td>
+<td><p>forbideconomic</p></td>
+<td><p>permiteconomic</p></td>
+</tr>
+<tr class="row-odd"><td><p>flux</p></td>
+<td><p>forbidflux</p></td>
+<td><p>permitflux</p></td>
+</tr>
+<tr class="row-even"><td><p>plaster</p></td>
+<td><p>forbidplaster</p></td>
+<td><p>permitplaster</p></td>
+</tr>
+<tr class="row-odd"><td><p>coalproducing</p></td>
+<td><p>forbidcoalproducing</p></td>
+<td><p>permitcoalproducing</p></td>
+</tr>
+<tr class="row-even"><td><p>otherstone</p></td>
+<td><p>forbidotherstone</p></td>
+<td><p>permitotherstone</p></td>
+</tr>
+<tr class="row-odd"><td><p>bauxite</p></td>
+<td><p>forbidbauxite</p></td>
+<td><p>permitbauxite</p></td>
+</tr>
+<tr class="row-even"><td><p>clay</p></td>
+<td><p>forbidclay</p></td>
+<td><p>permitclay</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ammo-stockpile-adjustments">
+<h4>Ammo stockpile adjustments<a class="headerlink" href="#ammo-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 37%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bolts</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>forbidmetalbolts</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>forbidwoodenbolts</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>forbidbonebolts</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>masterworkammo</p></td>
+<td><p>forbidmasterworkammo</p></td>
+<td><p>permitmasterworkammo</p></td>
+</tr>
+<tr class="row-odd"><td><p>artifactammo</p></td>
+<td><p>forbidartifactammo</p></td>
+<td><p>permitartifactammo</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bar-stockpile-adjustments">
+<h4>Bar stockpile adjustments<a class="headerlink" href="#bar-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bars</p></td>
+<td><p>forbidbars</p></td>
+</tr>
+<tr class="row-odd"><td><p>metalbars</p></td>
+<td><p>forbidmetalbars</p></td>
+</tr>
+<tr class="row-even"><td><p>ironbars</p></td>
+<td><p>forbidironbars</p></td>
+</tr>
+<tr class="row-odd"><td><p>steelbars</p></td>
+<td><p>forbidsteelbars</p></td>
+</tr>
+<tr class="row-even"><td><p>pigironbars</p></td>
+<td><p>forbidpigironbars</p></td>
+</tr>
+<tr class="row-odd"><td><p>otherbars</p></td>
+<td><p>forbidotherbars</p></td>
+</tr>
+<tr class="row-even"><td><p>coal</p></td>
+<td><p>forbidcoal</p></td>
+</tr>
+<tr class="row-odd"><td><p>potash</p></td>
+<td><p>forbidpotash</p></td>
+</tr>
+<tr class="row-even"><td><p>ash</p></td>
+<td><p>forbidash</p></td>
+</tr>
+<tr class="row-odd"><td><p>pearlash</p></td>
+<td><p>forbidpearlash</p></td>
+</tr>
+<tr class="row-even"><td><p>soap</p></td>
+<td><p>forbidsoap</p></td>
+</tr>
+<tr class="row-odd"><td><p>blocks</p></td>
+<td><p>forbidblocks</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gem-stockpile-adjustments">
+<h4>Gem stockpile adjustments<a class="headerlink" href="#gem-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>roughgems</p></td>
+<td><p>forbidroughgems</p></td>
+</tr>
+<tr class="row-odd"><td><p>roughglass</p></td>
+<td><p>forbidroughglass</p></td>
+</tr>
+<tr class="row-even"><td><p>cutgems</p></td>
+<td><p>forbidcutgems</p></td>
+</tr>
+<tr class="row-odd"><td><p>cutglass</p></td>
+<td><p>forbidcutglass</p></td>
+</tr>
+<tr class="row-even"><td><p>cutstone</p></td>
+<td><p>forbidcutstone</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="finished-goods-stockpile-adjustments">
+<h4>Finished goods stockpile adjustments<a class="headerlink" href="#finished-goods-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 36%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>jugs</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>crafts</p></td>
+<td><p>forbidcrafts</p></td>
+<td><p>permitcrafts</p></td>
+</tr>
+<tr class="row-even"><td><p>goblets</p></td>
+<td><p>forbidgoblets</p></td>
+<td><p>permitgoblets</p></td>
+</tr>
+<tr class="row-odd"><td><p>masterworkfinishedgoods</p></td>
+<td><p>forbidmasterworkfinishedgoods</p></td>
+<td><p>permitmasterworkfinishedgoods</p></td>
+</tr>
+<tr class="row-even"><td><p>artifactfinishedgoods</p></td>
+<td><p>forbidartifactfinishedgoods</p></td>
+<td><p>permitartifactfinishedgoods</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cloth-stockpile-adjustments">
+<h4>Cloth stockpile adjustments<a class="headerlink" href="#cloth-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>thread</p></td>
+</tr>
+<tr class="row-odd"><td><p>adamantinethread</p></td>
+</tr>
+<tr class="row-even"><td><p>cloth</p></td>
+</tr>
+<tr class="row-odd"><td><p>adamantinecloth</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="weapon-stockpile-adjustments">
+<h4>Weapon stockpile adjustments<a class="headerlink" href="#weapon-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 38%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>forbidweapons</p></td>
+<td><p>permitweapons</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>forbidtrapcomponents</p></td>
+<td><p>permittrapcomponents</p></td>
+</tr>
+<tr class="row-even"><td><p>metalweapons</p></td>
+<td><p>forbidmetalweapons</p></td>
+<td><p>permitmetalweapons</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>forbidstoneweapons</p></td>
+<td><p>permitstoneweapons</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>forbidotherweapons</p></td>
+<td><p>permitotherweapons</p></td>
+</tr>
+<tr class="row-odd"><td><p>ironweapons</p></td>
+<td><p>forbidironweapons</p></td>
+<td><p>permitironweapons</p></td>
+</tr>
+<tr class="row-even"><td><p>bronzeweapons</p></td>
+<td><p>forbidbronzeweapons</p></td>
+<td><p>permitbronzeweapons</p></td>
+</tr>
+<tr class="row-odd"><td><p>copperweapons</p></td>
+<td><p>forbidcopperweapons</p></td>
+<td><p>permitcopperweapons</p></td>
+</tr>
+<tr class="row-even"><td><p>steelweapons</p></td>
+<td><p>forbidsteelweapons</p></td>
+<td><p>permitsteelweapons</p></td>
+</tr>
+<tr class="row-odd"><td><p>masterworkweapons</p></td>
+<td><p>forbidmasterworkweapons</p></td>
+<td><p>permitmasterworkweapons</p></td>
+</tr>
+<tr class="row-even"><td><p>artifactweapons</p></td>
+<td><p>forbidartifactweapons</p></td>
+<td><p>permitartifactweapons</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="armor-stockpile-adjustments">
+<h4>Armor stockpile adjustments<a class="headerlink" href="#armor-stockpile-adjustments" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 38%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Exclusive</p></th>
+<th class="head"><p>Forbid</p></th>
+<th class="head"><p>Permit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>metalarmor</p></td>
+<td><p>forbidmetalarmor</p></td>
+<td><p>permitmetalarmor</p></td>
+</tr>
+<tr class="row-odd"><td><p>otherarmor</p></td>
+<td><p>forbidotherarmor</p></td>
+<td><p>permitotherarmor</p></td>
+</tr>
+<tr class="row-even"><td><p>ironarmor</p></td>
+<td><p>forbidironarmor</p></td>
+<td><p>permitironarmor</p></td>
+</tr>
+<tr class="row-odd"><td><p>bronzearmor</p></td>
+<td><p>forbidbronzearmor</p></td>
+<td><p>permitbronzearmor</p></td>
+</tr>
+<tr class="row-even"><td><p>copperarmor</p></td>
+<td><p>forbidcopperarmor</p></td>
+<td><p>permitcopperarmor</p></td>
+</tr>
+<tr class="row-odd"><td><p>steelarmor</p></td>
+<td><p>forbidsteelarmor</p></td>
+<td><p>permitsteelarmor</p></td>
+</tr>
+<tr class="row-even"><td><p>masterworkarmor</p></td>
+<td><p>forbidmasterworkarmor</p></td>
+<td><p>permitmasterworkarmor</p></td>
+</tr>
+<tr class="row-odd"><td><p>artifactarmor</p></td>
+<td><p>forbidartifactarmor</p></td>
+<td><p>permitartifactarmor</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2015-2022, The DFHack Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/docs/guides/quickfort-alias-guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

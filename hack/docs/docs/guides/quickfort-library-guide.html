@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Quickfort Library Guide &#8212; DFHack 0.47.05-r4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dfhack.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/dfhack-icon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Quickfort Blueprint Guide" href="quickfort-user-guide.html" />
+    <link rel="prev" title="Quickfort Alias Guide" href="quickfort-alias-guide.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/dfhack-logo.png" alt="Logo"/>
+    <h3 class="logo logo-name">Home</h3>
+  </a>
+</p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">User Guides</a><ul>
+      <li>Previous: <a href="quickfort-alias-guide.html" title="previous chapter">Quickfort Alias Guide</a></li>
+      <li>Next: <a href="quickfort-user-guide.html" title="next chapter">Quickfort Blueprint Guide</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quickfort Library Guide</a><ul>
+<li><a class="reference internal" href="#whole-fort-blueprint-sets">Whole fort blueprint sets</a><ul>
+<li><a class="reference internal" href="#dreamfort">Dreamfort</a><ul>
+<li><a class="reference internal" href="#visual-overview">Visual overview</a><ul>
+<li><a class="reference internal" href="#surface-level">Surface level</a></li>
+<li><a class="reference internal" href="#farming-level">Farming level</a></li>
+<li><a class="reference internal" href="#industry-level">Industry level</a></li>
+<li><a class="reference internal" href="#services-level">Services level</a><ul>
+<li><a class="reference internal" href="#example-plumbing-to-fill-cisterns">Example plumbing to fill cisterns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#guildhall-level">Guildhall level</a></li>
+<li><a class="reference internal" href="#noble-suites">Noble suites</a></li>
+<li><a class="reference internal" href="#apartments">Apartments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-quick-fortress">The Quick Fortress</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#layout-helpers">Layout helpers</a></li>
+<li><a class="reference internal" href="#bedrooms">Bedrooms</a></li>
+<li><a class="reference internal" href="#tombs">Tombs</a></li>
+<li><a class="reference internal" href="#exploratory-mining">Exploratory mining</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a><ul>
+<li><a class="reference internal" href="#light-aquifer-tap">Light Aquifer Tap</a></li>
+<li><a class="reference internal" href="#post-embark">Post-embark</a></li>
+<li><a class="reference internal" href="#pump-stack">Pump Stack</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="quickfort-library-guide">
+<span id="id1"></span><h1>Quickfort Library Guide<a class="headerlink" href="#quickfort-library-guide" title="Permalink to this headline">¶</a></h1>
+<p>This guide contains a high-level overview of the blueprints available in the
+<a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library">quickfort blueprint library</a>. You can list
+library blueprints by running <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span> <span class="pre">--library</span></code> or by hitting
+<kbd class="kbd docutils literal notranslate">Alt</kbd><kbd class="kbd docutils literal notranslate">l</kbd> in the <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">gui</span></code> interactive dialog.</p>
+<p>Each file is hyperlinked to its online version so you can see exactly what the
+blueprints do before you run them.</p>
+<section id="whole-fort-blueprint-sets">
+<h2>Whole fort blueprint sets<a class="headerlink" href="#whole-fort-blueprint-sets" title="Permalink to this headline">¶</a></h2>
+<p>These files contain the plans for entire fortresses. Each file has one or more
+help sections that walk you through how to build the fort, step by step.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/dreamfort.csv">library/dreamfort.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/quickfortress.csv">library/quickfortress.csv</a></p></li>
+</ul>
+<section id="dreamfort">
+<span id="id2"></span><h3>Dreamfort<a class="headerlink" href="#dreamfort" title="Permalink to this headline">¶</a></h3>
+<p>Dreamfort is a fully functional, self-sustaining fortress with defenses,
+farming, a complete set of workshops, self-managing quantum stockpiles, a grand
+dining hall, hospital, jail, fresh water well system, guildhalls, noble suites,
+and bedrooms for hundreds of dwarves. It also comes with manager work orders to
+automate basic fort needs, such as food, booze, and item production. It can
+function by itself or as the core of a larger, more ambitious fortress. Read the
+high-level walkthrough by running <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">run</span> <span class="pre">library/dreamfort.csv</span></code> and
+list the walkthroughs for the individual levels by running <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">list</span> <span class="pre">-l</span>
+<span class="pre">dreamfort</span> <span class="pre">-m</span> <span class="pre">notes</span></code> or <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">gui</span> <span class="pre">-l</span> <span class="pre">dreamfort</span> <span class="pre">notes</span></code>.</p>
+<p>Dreamfort blueprints are available for easy viewing and copying <a class="reference external" href="https://drive.google.com/drive/folders/1iS90EEVqUkxTeZiiukVj1pLloZqabKuP">online</a>.</p>
+<p>The online spreadsheets also include <a class="reference external" href="https://docs.google.com/spreadsheets/d/13PVZ2h3Mm3x_G1OXQvwKd7oIR2lK4A1Ahf6Om1kFigw/edit#gid=149144025">embark profile suggestions</a>,
+a complete <a class="reference external" href="https://docs.google.com/spreadsheets/d/13PVZ2h3Mm3x_G1OXQvwKd7oIR2lK4A1Ahf6Om1kFigw/edit#gid=1727884387">example embark profile</a>,
+and a convenient <a class="reference external" href="https://docs.google.com/spreadsheets/d/13PVZ2h3Mm3x_G1OXQvwKd7oIR2lK4A1Ahf6Om1kFigw/edit#gid=1459509569">checklist</a>
+from which you can copy the <code class="docutils literal notranslate"><span class="pre">quickfort</span></code> commands.</p>
+<p>You can download a fully built Dreamfort-based fort from <a class="reference external" href="https://dffd.bay12games.com/file.php?id=15434">dffd</a>, load it, and explore it
+interactively.</p>
+<section id="visual-overview">
+<h4>Visual overview<a class="headerlink" href="#visual-overview" title="Permalink to this headline">¶</a></h4>
+<p>Here are some annotated screenshots of the major levels (or click <a class="reference external" href="https://drive.google.com/drive/folders/14KdE2E2wQKj4F_E-NAe3G3E4x1wiWtrc">here</a>
+for a slideshow).</p>
+<section id="surface-level">
+<h5>Surface level<a class="headerlink" href="#surface-level" title="Permalink to this headline">¶</a></h5>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/1YL_vQJLB2YnUEFrAg9y3HEdFq3Wpw9WP"><img alt="Annotated screenshot of the dreamfort surface level" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=1YL_vQJLB2YnUEFrAg9y3HEdFq3Wpw9WP" /></a>
+</section>
+<section id="farming-level">
+<h5>Farming level<a class="headerlink" href="#farming-level" title="Permalink to this headline">¶</a></h5>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/1fBC3G5Y888l4tVe5REAyAd_zeojADVme"><img alt="Annotated screenshot of the dreamfort farming level" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=1fBC3G5Y888l4tVe5REAyAd_zeojADVme" /></a>
+</section>
+<section id="industry-level">
+<h5>Industry level<a class="headerlink" href="#industry-level" title="Permalink to this headline">¶</a></h5>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/1emMaHHCaUPcdRbkLQqvr-0ZCs2tdM5X7"><img alt="Annotated screenshot of the dreamfort industry level" src="https://drive.google.com/uc?export=download&amp;id=1emMaHHCaUPcdRbkLQqvr-0ZCs2tdM5X7" /></a>
+</section>
+<section id="services-level">
+<h5>Services level<a class="headerlink" href="#services-level" title="Permalink to this headline">¶</a></h5>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/13vDIkTVOZGkM84tYf4O5nmRs4VZdE1gh"><img alt="Annotated screenshot of the dreamfort services level" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=13vDIkTVOZGkM84tYf4O5nmRs4VZdE1gh" /></a>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/1jlGr6tAhS8i-XFTz8gowTZBhXcfjfL_L"><img alt="Annotated screenshot of the dreamfort cistern" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=1jlGr6tAhS8i-XFTz8gowTZBhXcfjfL_L" /></a>
+<section id="example-plumbing-to-fill-cisterns">
+<span id="id3"></span><h6>Example plumbing to fill cisterns<a class="headerlink" href="#example-plumbing-to-fill-cisterns" title="Permalink to this headline">¶</a></h6>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/1GvhX_pVDOlmqTi2OujoBqCG_qX36ExAv"><img alt="Annotated screenshot of an example aqueduct addition to the dreamfort cistern" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=1GvhX_pVDOlmqTi2OujoBqCG_qX36ExAv" /></a>
+</section>
+</section>
+<section id="guildhall-level">
+<h5>Guildhall level<a class="headerlink" href="#guildhall-level" title="Permalink to this headline">¶</a></h5>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/17jHiCKeZm6FSS-CI4V0r0GJZh09nzcO_"><img alt="Annotated screenshot of the dreamfort guildhall level" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=17jHiCKeZm6FSS-CI4V0r0GJZh09nzcO_" /></a>
+</section>
+<section id="noble-suites">
+<h5>Noble suites<a class="headerlink" href="#noble-suites" title="Permalink to this headline">¶</a></h5>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/1IBqCf6fF3lw7sHiBE_15Euubysl5AAiS"><img alt="Annotated screenshot of the dreamfort noble suites" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=1IBqCf6fF3lw7sHiBE_15Euubysl5AAiS" /></a>
+</section>
+<section id="apartments">
+<h5>Apartments<a class="headerlink" href="#apartments" title="Permalink to this headline">¶</a></h5>
+<a class="reference external image-reference" href="https://drive.google.com/file/d/1mDQQXG8BnXqasRGFC9R5N6xNALiswEyr"><img alt="Annotated screenshot of the dreamfort apartments" class="align-center" src="https://drive.google.com/uc?export=download&amp;id=1mDQQXG8BnXqasRGFC9R5N6xNALiswEyr" /></a>
+</section>
+</section>
+</section>
+<section id="the-quick-fortress">
+<h3>The Quick Fortress<a class="headerlink" href="#the-quick-fortress" title="Permalink to this headline">¶</a></h3>
+<p>The Quick Fortress is an updated version of the example fortress that came with
+<a class="reference external" href="https://github.com/joelpt/quickfort">Python Quickfort 2.0</a> (the utility that
+inspired DFHack quickfort). While it is not a complete fortress by
+itself, it is much simpler than Dreamfort and is good for a first introduction
+to <a class="reference internal" href="../_auto/base.html#quickfort"><span class="std std-ref">quickfort</span></a> blueprints. Read its walkthrough with <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">run</span>
+<span class="pre">library/quickfortress.csv</span></code>.</p>
+</section>
+</section>
+<section id="layout-helpers">
+<h2>Layout helpers<a class="headerlink" href="#layout-helpers" title="Permalink to this headline">¶</a></h2>
+<p>These files simply draw diagonal marker-mode lines starting from the cursor.
+They are especially useful for finding the center of the map when you are
+planning your fortress. Once you are done using them for alignment, use
+<code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">undo</span></code> at the same cursor position to make them disappear. Since
+these <code class="docutils literal notranslate"><span class="pre">#dig</span></code> blueprints can only mark undug wall tiles for mining, they are
+best used underground. They won’t do much on the surface, where there aren’t
+many walls.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/layout-helpers/mark_up_left.csv">library/layout-helpers/mark_up_left.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/layout-helpers/mark_up_right.csv">library/layout-helpers/mark_up_right.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/layout-helpers/mark_down_right.csv">library/layout-helpers/mark_down_right.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/layout-helpers/mark_down_left.csv">library/layout-helpers/mark_down_left.csv</a></p></li>
+</ul>
+</section>
+<section id="bedrooms">
+<h2>Bedrooms<a class="headerlink" href="#bedrooms" title="Permalink to this headline">¶</a></h2>
+<p>These are popular bedroom layouts from the <a class="reference external" href="https://dwarffortresswiki.org/Bedroom design">Bedroom design</a> page on the
+wiki. Each file has <code class="docutils literal notranslate"><span class="pre">#dig</span></code>, <code class="docutils literal notranslate"><span class="pre">#build</span></code>, and <code class="docutils literal notranslate"><span class="pre">#query</span></code> blueprints to dig the
+rooms, build the furniture, and configure the beds as bedrooms, respectively.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/bedrooms/48-4-Raynard_Whirlpool_Housing.csv">library/bedrooms/48-4-Raynard_Whirlpool_Housing.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/bedrooms/95-9-Hactar1_3_Branch_Tree.csv">library/bedrooms/95-9-Hactar1_3_Branch_Tree.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/bedrooms/28-3-Modified_Windmill_Villas.csv">library/bedrooms/28-3-Modified_Windmill_Villas.csv</a></p></li>
+</ul>
+</section>
+<section id="tombs">
+<h2>Tombs<a class="headerlink" href="#tombs" title="Permalink to this headline">¶</a></h2>
+<p>These blueprints have burial plot layouts for fortress that expect a lot of
+casualties.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/tombs/Mini_Saracen.csv">library/tombs/Mini_Saracen.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/tombs/The_Saracen_Crypts.csv">library/tombs/The_Saracen_Crypts.csv</a></p></li>
+</ul>
+</section>
+<section id="exploratory-mining">
+<h2>Exploratory mining<a class="headerlink" href="#exploratory-mining" title="Permalink to this headline">¶</a></h2>
+<p>Several mining patterns to choose from when searching for gems or ores. The
+patterns can be repeated up or down z-levels (via quickfort’s <code class="docutils literal notranslate"><span class="pre">--repeat</span></code>
+commandline option) for exploring through the depths.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/exploratory-mining/tunnels.csv">library/exploratory-mining/tunnels.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/exploratory-mining/vertical-mineshafts.csv">library/exploratory-mining/vertical-mineshafts.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/exploratory-mining/connected-mineshafts.csv">library/exploratory-mining/connected-mineshafts.csv</a></p></li>
+</ul>
+</section>
+<section id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<p>Extra blueprints that are useful in specific situations.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/aquifer_tap.csv">library/aquifer_tap.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/embark.csv">library/embark.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/DFHack/dfhack/tree/develop/data/blueprints/library/pump_stack.csv">library/pump_stack.csv</a></p></li>
+</ul>
+<section id="light-aquifer-tap">
+<h3>Light Aquifer Tap<a class="headerlink" href="#light-aquifer-tap" title="Permalink to this headline">¶</a></h3>
+<p>The aquifer tap helps you create a safe, everlasting source of fresh water from
+a light aquifer. See the step-by-step guide, including informaton on how to
+create a drainage system so your dwarves don’t drown when digging the tap, by
+running <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">run</span> <span class="pre">library/aquifer_tap.csv</span> <span class="pre">-n</span> <span class="pre">/help</span></code>.</p>
+<p>You can see how to nullify the water pressure (so you don’t flood your fort) in
+the <a class="reference internal" href="#example-plumbing-to-fill-cisterns"><span class="std std-ref">Dreamfort screenshot above</span></a>.</p>
+<p>Blueprint spreadsheet also available
+<a class="reference external" href="https://docs.google.com/spreadsheets/d/1kwuCipF9FYAHNP9C_XlMpqVseaPu4SmL9YLUSQkbW4s/edit#gid=611877584">online</a></p>
+</section>
+<section id="post-embark">
+<h3>Post-embark<a class="headerlink" href="#post-embark" title="Permalink to this headline">¶</a></h3>
+<p>The embark blueprints are useful directly after embark. It contains a <code class="docutils literal notranslate"><span class="pre">#build</span></code>
+blueprint that builds important starting workshops (mason, carpenter, mechanic,
+and craftsdwarf) and a <code class="docutils literal notranslate"><span class="pre">#place</span></code> blueprint that lays down a pattern of useful
+starting stockpiles.</p>
+</section>
+<section id="pump-stack">
+<h3>Pump Stack<a class="headerlink" href="#pump-stack" title="Permalink to this headline">¶</a></h3>
+<p>The pump stack blueprints help you move water and magma up to move convenient
+locations in your fort. See the step-by-step guide for using it by running
+<code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">run</span> <span class="pre">library/pump_stack.csv</span> <span class="pre">-n</span> <span class="pre">/help</span></code>.</p>
+<p>Blueprint spreadsheet also available
+<a class="reference external" href="https://docs.google.com/spreadsheets/d/1TP2n-W-O9f30Dtl6yoTcn6yczWQRu11iM7U6TEE9634/edit#gid=0">online</a></p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2015-2022, The DFHack Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/docs/guides/quickfort-library-guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

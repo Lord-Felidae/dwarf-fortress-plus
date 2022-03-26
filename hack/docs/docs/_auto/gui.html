@@ -1,0 +1,876 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>GUI Scripts &#8212; DFHack 0.47.05-r4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dfhack.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/dfhack-icon.ico"/>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Scripts for Modders" href="modtools.html" />
+    <link rel="prev" title="Bugfixing Scripts" href="fix.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/dfhack-logo.png" alt="Logo"/>
+    <h3 class="logo logo-name">Home</h3>
+  </a>
+</p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../Scripts.html">DFHack Scripts</a><ul>
+      <li>Previous: <a href="fix.html" title="previous chapter">Bugfixing Scripts</a></li>
+      <li>Next: <a href="modtools.html" title="next chapter">Scripts for Modders</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GUI Scripts</a><ul>
+<li><a class="reference internal" href="#gui-advfort">gui/advfort</a></li>
+<li><a class="reference internal" href="#gui-advfort-items">gui/advfort_items</a></li>
+<li><a class="reference internal" href="#gui-assign-rack">gui/assign-rack</a></li>
+<li><a class="reference internal" href="#gui-autobutcher">gui/autobutcher</a></li>
+<li><a class="reference internal" href="#gui-autogems">gui/autogems</a></li>
+<li><a class="reference internal" href="#gui-blueprint">gui/blueprint</a></li>
+<li><a class="reference internal" href="#gui-choose-weapons">gui/choose-weapons</a></li>
+<li><a class="reference internal" href="#gui-clone-uniform">gui/clone-uniform</a></li>
+<li><a class="reference internal" href="#gui-color-schemes">gui/color-schemes</a></li>
+<li><a class="reference internal" href="#gui-companion-order">gui/companion-order</a></li>
+<li><a class="reference internal" href="#gui-confirm-opts">gui/confirm-opts</a></li>
+<li><a class="reference internal" href="#gui-cp437-table">gui/cp437-table</a></li>
+<li><a class="reference internal" href="#gui-create-item">gui/create-item</a></li>
+<li><a class="reference internal" href="#gui-create-tree">gui/create-tree</a></li>
+<li><a class="reference internal" href="#gui-dfstatus">gui/dfstatus</a></li>
+<li><a class="reference internal" href="#gui-extended-status">gui/extended-status</a></li>
+<li><a class="reference internal" href="#gui-family-affairs">gui/family-affairs</a></li>
+<li><a class="reference internal" href="#gui-gm-editor">gui/gm-editor</a></li>
+<li><a class="reference internal" href="#gui-gm-unit">gui/gm-unit</a></li>
+<li><a class="reference internal" href="#gui-guide-path">gui/guide-path</a></li>
+<li><a class="reference internal" href="#gui-hack-wish">gui/hack-wish</a></li>
+<li><a class="reference internal" href="#gui-hello-world">gui/hello-world</a></li>
+<li><a class="reference internal" href="#gui-liquids">gui/liquids</a></li>
+<li><a class="reference internal" href="#gui-load-screen">gui/load-screen</a></li>
+<li><a class="reference internal" href="#gui-manager-quantity">gui/manager-quantity</a></li>
+<li><a class="reference internal" href="#gui-mass-remove">gui/mass-remove</a></li>
+<li><a class="reference internal" href="#gui-mechanisms">gui/mechanisms</a></li>
+<li><a class="reference internal" href="#gui-mod-manager">gui/mod-manager</a></li>
+<li><a class="reference internal" href="#gui-no-dfhack-init">gui/no-dfhack-init</a></li>
+<li><a class="reference internal" href="#gui-pathable">gui/pathable</a></li>
+<li><a class="reference internal" href="#gui-power-meter">gui/power-meter</a></li>
+<li><a class="reference internal" href="#gui-prerelease-warning">gui/prerelease-warning</a></li>
+<li><a class="reference internal" href="#gui-quickcmd">gui/quickcmd</a></li>
+<li><a class="reference internal" href="#gui-quickfort">gui/quickfort</a></li>
+<li><a class="reference internal" href="#gui-rename">gui/rename</a></li>
+<li><a class="reference internal" href="#gui-room-list">gui/room-list</a></li>
+<li><a class="reference internal" href="#gui-settings-manager">gui/settings-manager</a></li>
+<li><a class="reference internal" href="#gui-siege-engine">gui/siege-engine</a></li>
+<li><a class="reference internal" href="#gui-stamper">gui/stamper</a></li>
+<li><a class="reference internal" href="#gui-stockpiles">gui/stockpiles</a></li>
+<li><a class="reference internal" href="#gui-teleport">gui/teleport</a></li>
+<li><a class="reference internal" href="#gui-unit-info-viewer">gui/unit-info-viewer</a></li>
+<li><a class="reference internal" href="#gui-workflow">gui/workflow</a></li>
+<li><a class="reference internal" href="#gui-workshop-job">gui/workshop-job</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="gui-scripts">
+<span id="scripts-gui"></span><h1>GUI Scripts<a class="headerlink" href="#gui-scripts" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">gui/*</span></code> scripts implement dialogs in the main game window.</p>
+<p>In order to avoid user confusion, as a matter of policy all these tools
+display the word <span class="guilabel">DFHack</span> on the screen somewhere while active.
+When that is not appropriate because they merely add keybinding hints to
+existing DF screens, they deliberately use red instead of green for the key.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#gui-advfort" id="id45">gui/advfort</a></p></li>
+<li><p><a class="reference internal" href="#gui-advfort-items" id="id46">gui/advfort_items</a></p></li>
+<li><p><a class="reference internal" href="#gui-assign-rack" id="id47">gui/assign-rack</a></p></li>
+<li><p><a class="reference internal" href="#gui-autobutcher" id="id48">gui/autobutcher</a></p></li>
+<li><p><a class="reference internal" href="#gui-autogems" id="id49">gui/autogems</a></p></li>
+<li><p><a class="reference internal" href="#gui-blueprint" id="id50">gui/blueprint</a></p></li>
+<li><p><a class="reference internal" href="#gui-choose-weapons" id="id51">gui/choose-weapons</a></p></li>
+<li><p><a class="reference internal" href="#gui-clone-uniform" id="id52">gui/clone-uniform</a></p></li>
+<li><p><a class="reference internal" href="#gui-color-schemes" id="id53">gui/color-schemes</a></p></li>
+<li><p><a class="reference internal" href="#gui-companion-order" id="id54">gui/companion-order</a></p></li>
+<li><p><a class="reference internal" href="#gui-confirm-opts" id="id55">gui/confirm-opts</a></p></li>
+<li><p><a class="reference internal" href="#gui-cp437-table" id="id56">gui/cp437-table</a></p></li>
+<li><p><a class="reference internal" href="#gui-create-item" id="id57">gui/create-item</a></p></li>
+<li><p><a class="reference internal" href="#gui-create-tree" id="id58">gui/create-tree</a></p></li>
+<li><p><a class="reference internal" href="#gui-dfstatus" id="id59">gui/dfstatus</a></p></li>
+<li><p><a class="reference internal" href="#gui-extended-status" id="id60">gui/extended-status</a></p></li>
+<li><p><a class="reference internal" href="#gui-family-affairs" id="id61">gui/family-affairs</a></p></li>
+<li><p><a class="reference internal" href="#gui-gm-editor" id="id62">gui/gm-editor</a></p></li>
+<li><p><a class="reference internal" href="#gui-gm-unit" id="id63">gui/gm-unit</a></p></li>
+<li><p><a class="reference internal" href="#gui-guide-path" id="id64">gui/guide-path</a></p></li>
+<li><p><a class="reference internal" href="#gui-hack-wish" id="id65">gui/hack-wish</a></p></li>
+<li><p><a class="reference internal" href="#gui-hello-world" id="id66">gui/hello-world</a></p></li>
+<li><p><a class="reference internal" href="#gui-liquids" id="id67">gui/liquids</a></p></li>
+<li><p><a class="reference internal" href="#gui-load-screen" id="id68">gui/load-screen</a></p></li>
+<li><p><a class="reference internal" href="#gui-manager-quantity" id="id69">gui/manager-quantity</a></p></li>
+<li><p><a class="reference internal" href="#gui-mass-remove" id="id70">gui/mass-remove</a></p></li>
+<li><p><a class="reference internal" href="#gui-mechanisms" id="id71">gui/mechanisms</a></p></li>
+<li><p><a class="reference internal" href="#gui-mod-manager" id="id72">gui/mod-manager</a></p></li>
+<li><p><a class="reference internal" href="#gui-no-dfhack-init" id="id73">gui/no-dfhack-init</a></p></li>
+<li><p><a class="reference internal" href="#gui-pathable" id="id74">gui/pathable</a></p></li>
+<li><p><a class="reference internal" href="#gui-power-meter" id="id75">gui/power-meter</a></p></li>
+<li><p><a class="reference internal" href="#gui-prerelease-warning" id="id76">gui/prerelease-warning</a></p></li>
+<li><p><a class="reference internal" href="#gui-quickcmd" id="id77">gui/quickcmd</a></p></li>
+<li><p><a class="reference internal" href="#gui-quickfort" id="id78">gui/quickfort</a></p></li>
+<li><p><a class="reference internal" href="#gui-rename" id="id79">gui/rename</a></p></li>
+<li><p><a class="reference internal" href="#gui-room-list" id="id80">gui/room-list</a></p></li>
+<li><p><a class="reference internal" href="#gui-settings-manager" id="id81">gui/settings-manager</a></p></li>
+<li><p><a class="reference internal" href="#gui-siege-engine" id="id82">gui/siege-engine</a></p></li>
+<li><p><a class="reference internal" href="#gui-stamper" id="id83">gui/stamper</a></p></li>
+<li><p><a class="reference internal" href="#gui-stockpiles" id="id84">gui/stockpiles</a></p></li>
+<li><p><a class="reference internal" href="#gui-teleport" id="id85">gui/teleport</a></p></li>
+<li><p><a class="reference internal" href="#gui-unit-info-viewer" id="id86">gui/unit-info-viewer</a></p></li>
+<li><p><a class="reference internal" href="#gui-workflow" id="id87">gui/workflow</a></p></li>
+<li><p><a class="reference internal" href="#gui-workshop-job" id="id88">gui/workshop-job</a></p></li>
+</ul>
+</div>
+<section id="gui-advfort">
+<span id="id1"></span><h2><a class="toc-backref" href="#id45">gui/advfort</a><a class="headerlink" href="#gui-advfort" title="Permalink to this headline">¶</a></h2>
+<p>This script allows performing jobs in adventure mode. For more complete help
+press <kbd class="kbd docutils literal notranslate">?</kbd> while the script is running. It’s most comfortable to use this as a
+keybinding (see below for the default binding). Possible arguments:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">-a</span></code>, <code class="docutils literal notranslate"><span class="pre">--nodfassign</span></code>:</dt><dd><p>uses a different method to assign job items, instead of relying on DF.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">-i</span></code>, <code class="docutils literal notranslate"><span class="pre">--inventory</span></code>:</dt><dd><p>checks inventory for possible items to use in the job.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">-c</span></code>, <code class="docutils literal notranslate"><span class="pre">--cheat</span></code>:</dt><dd><p>relaxes item requirements for buildings (e.g. walls from bones). Implies -a</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">[NAME]</span></code>, <code class="docutils literal notranslate"><span class="pre">--entity</span> <span class="pre">[NAME]</span></code>:</dt><dd><p>uses the given civ to determine available resources (specified as an entity raw ID). Defaults to <code class="docutils literal notranslate"><span class="pre">MOUNTAIN</span></code>; if the entity name is omitted, uses the adventurer’s civ</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">job</span></code>: selects the specified job (must be a valid <code class="docutils literal notranslate"><span class="pre">job_type</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">Dig</span></code> or <code class="docutils literal notranslate"><span class="pre">FellTree</span></code>)</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>changes only persist in non-procedural sites, namely player forts, caves, and camps.</p>
+</div>
+<p>An example of a player digging in adventure mode:</p>
+<img alt="../../_images/advfort.png" src="../../_images/advfort.png" />
+<p><p><p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>T</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dungeonmode</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-advfort-items">
+<span id="id2"></span><h2><a class="toc-backref" href="#id46">gui/advfort_items</a><a class="headerlink" href="#gui-advfort-items" title="Permalink to this headline">¶</a></h2>
+<p>A module to support item handling in <a class="reference internal" href="#gui-advfort"><span class="std std-ref">gui/advfort</span></a> - not intended to be called
+directly.</p>
+</section>
+<section id="gui-assign-rack">
+<span id="id3"></span><h2><a class="toc-backref" href="#id47">gui/assign-rack</a><a class="headerlink" href="#gui-assign-rack" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../Binpatches.html#binpatches-needs-patch"><span class="std std-ref">This script requires a binpatch</span></a>, which has not
+been available since DF 0.34.11</p>
+<p>See <a class="reference external" href="https://www.bay12games.com/dwarves/mantisbt/view.php?id=1445">Bug 1445</a> for more info about the patches.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>P</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some/Weaponrack</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-autobutcher">
+<span id="id4"></span><h2><a class="toc-backref" href="#id48">gui/autobutcher</a><a class="headerlink" href="#gui-autobutcher" title="Permalink to this headline">¶</a></h2>
+<p>An in-game interface for <a class="reference internal" href="../Plugins.html#autobutcher"><span class="std std-ref">autobutcher</span></a>.  This script must be called
+from either the overall status screen or the animal list screen.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Shift</kbd><kbd>B</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">pet/List/Unit</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-autogems">
+<span id="id5"></span><h2><a class="toc-backref" href="#id49">gui/autogems</a><a class="headerlink" href="#gui-autogems" title="Permalink to this headline">¶</a></h2>
+<p>A frontend for the <a class="reference internal" href="../Plugins.html#autogems"><span class="std std-ref">autogems</span></a> plugin that allows configuring the gem types to be cut.</p>
+<p>The following controls apply to the gems currently listed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">s</span></code>: Searches for matching gems</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Shift+Enter</span></code>: Toggles the status of all listed gems</p></li>
+</ul>
+<p>The following controls apply to the gems currently listed, as well as gems listed
+<em>before</em> the current search with <code class="docutils literal notranslate"><span class="pre">s</span></code>, if applicable:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">r</span></code>: Displays only “rock crystal” gems</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: Displays only gems whose color matches the selected gem</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>: Displays only gems where at least one rough (uncut) gem is available
+somewhere on the map</p></li>
+</ul>
+<p>This behavior is intended to allow for things like a search for “lazuli”
+followed by pressing <code class="docutils literal notranslate"><span class="pre">c</span></code> to select all gems with the same color as lapis
+lazuli (5 blue gems in vanilla DF), rather than further restricting that to gems
+with “lazuli” in their name (only 1).</p>
+<p><code class="docutils literal notranslate"><span class="pre">x</span></code> clears all filters, which is currently the only way to undo filters
+(besides searching), and is useful to verify the gems selected.</p>
+</section>
+<section id="gui-blueprint">
+<span id="id6"></span><h2><a class="toc-backref" href="#id50">gui/blueprint</a><a class="headerlink" href="#gui-blueprint" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../Plugins.html#blueprint"><span class="std std-ref">blueprint</span></a> plugin records the structure of a portion of your fortress in
+a blueprint file that you (or anyone else) can later play back with <a class="reference internal" href="base.html#quickfort"><span class="std std-ref">quickfort</span></a>.</p>
+<p>This script provides a visual, interactive interface to make configuring and
+using the blueprint plugin much easier.</p>
+<p>Usage:</p>
+<blockquote>
+<div><p>gui/blueprint [&lt;name&gt; [&lt;phases&gt;]] [&lt;options&gt;]</p>
+</div></blockquote>
+<p>All parameters are optional. Anything you specify will override the initial
+values set in the interface. See the <a class="reference internal" href="../Plugins.html#blueprint"><span class="std std-ref">blueprint</span></a> documentation for information
+on the possible parameters and options.</p>
+</section>
+<section id="gui-choose-weapons">
+<span id="id7"></span><h2><a class="toc-backref" href="#id51">gui/choose-weapons</a><a class="headerlink" href="#gui-choose-weapons" title="Permalink to this headline">¶</a></h2>
+<p>Activate in the <span class="guilabel">Equip-&gt;View/Customize</span> page of the military screen.</p>
+<p>Depending on the cursor location, it rewrites all ‘individual choice weapon’ entries
+in the selected squad or position to use a specific weapon type matching the assigned
+unit’s top skill. If the cursor is in the rightmost list over a weapon entry, it rewrites
+only that entry, and does it even if it is not ‘individual choice’.</p>
+<p>Rationale: individual choice seems to be unreliable when there is a weapon shortage,
+and may lead to inappropriate weapons being selected.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>W</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">layer_military/Equip/Customize/View</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-clone-uniform">
+<span id="id8"></span><h2><a class="toc-backref" href="#id52">gui/clone-uniform</a><a class="headerlink" href="#gui-clone-uniform" title="Permalink to this headline">¶</a></h2>
+<p>When invoked, the script duplicates the currently selected uniform template,
+and selects the newly created copy.  Activate in the Uniforms
+page of the military screen with the cursor in the leftmost list.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>C</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">layer_military/Uniforms</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-color-schemes">
+<span id="id9"></span><h2><a class="toc-backref" href="#id53">gui/color-schemes</a><a class="headerlink" href="#gui-color-schemes" title="Permalink to this headline">¶</a></h2>
+<p>An in-game interface for <a class="reference internal" href="base.html#color-schemes"><span class="std std-ref">color-schemes</span></a>.
+This script must be called from either the title screen or the dwarf fortress default screen.</p>
+</section>
+<section id="gui-companion-order">
+<span id="id10"></span><h2><a class="toc-backref" href="#id54">gui/companion-order</a><a class="headerlink" href="#gui-companion-order" title="Permalink to this headline">¶</a></h2>
+<p>A script to issue orders for companions. Select companions with lower case chars (green when selected), issue orders with upper
+case. Must be in look or talk mode to issue command on tile (e.g. move/equip/pick-up).</p>
+<img alt="../../_images/companion-order.png" src="../../_images/companion-order.png" />
+<ul class="simple">
+<li><p>move - orders selected companions to move to location. If companions are following they will move no more than 3 tiles from you.</p></li>
+<li><p>equip - try to equip items on the ground.</p></li>
+<li><p>pick-up - try to take items into hand (also wield)</p></li>
+<li><p>unequip - remove and drop equipment</p></li>
+<li><p>unwield - drop held items</p></li>
+<li><p>wait - temporarily remove from party</p></li>
+<li><p>follow - rejoin the party after “wait”</p></li>
+<li><p>leave - remove from party (can be rejoined by talking)</p></li>
+</ul>
+<p>Can be called with ‘-c’ flag to display “cheating” commands.</p>
+<ul class="simple">
+<li><p>patch up - fully heals the companion</p></li>
+<li><p>get in - rides e.g. minecart at cursor. Bit buggy as unit will teleport to the item when e.g. pushing it.</p></li>
+</ul>
+<p><p><p><strong>Keybinding: </strong><kbd>Shift</kbd><kbd>O</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dungeonmode</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-confirm-opts">
+<span id="id11"></span><h2><a class="toc-backref" href="#id55">gui/confirm-opts</a><a class="headerlink" href="#gui-confirm-opts" title="Permalink to this headline">¶</a></h2>
+<p>A basic configuration interface for the <a class="reference internal" href="../Plugins.html#confirm"><span class="std std-ref">confirm</span></a> plugin.</p>
+</section>
+<section id="gui-cp437-table">
+<span id="id12"></span><h2><a class="toc-backref" href="#id56">gui/cp437-table</a><a class="headerlink" href="#gui-cp437-table" title="Permalink to this headline">¶</a></h2>
+<p>An in-game CP437 table. Allows typing or selecting characters with the mouse.
+Input is fed directly to the parent screen when “enter” is pressed, so there
+should be a text field selected before running this script.</p>
+</section>
+<section id="gui-create-item">
+<span id="id13"></span><h2><a class="toc-backref" href="#id57">gui/create-item</a><a class="headerlink" href="#gui-create-item" title="Permalink to this headline">¶</a></h2>
+<p>A graphical interface for creating items.</p>
+<p>See also: <a class="reference internal" href="../Plugins.html#createitem"><span class="std std-ref">createitem</span></a>, <a class="reference internal" href="modtools.html#modtools-create-item"><span class="std std-ref">modtools/create-item</span></a>, <a class="reference external" href="https://github.com/DFHack/dfhack/issues/735">Issue 735</a></p>
+</section>
+<section id="gui-create-tree">
+<span id="id14"></span><h2><a class="toc-backref" href="#id58">gui/create-tree</a><a class="headerlink" href="#gui-create-tree" title="Permalink to this headline">¶</a></h2>
+<p>A graphical interface for creating trees.</p>
+<p>Place the cursor wherever you want the tree to appear and run the script.
+Then select the desired tree type from the list.
+You will then be asked to input the desired age of the tree in years.
+If omitted, the age will default to 1.</p>
+</section>
+<section id="gui-dfstatus">
+<span id="id15"></span><h2><a class="toc-backref" href="#id59">gui/dfstatus</a><a class="headerlink" href="#gui-dfstatus" title="Permalink to this headline">¶</a></h2>
+<p>Show a quick overview of critical stock quantities, including food, drinks, wood, and various bars.
+Sections can be enabled/disabled/configured by editing <code class="file docutils literal notranslate"><span class="pre">dfhack-config/dfstatus.lua</span></code>.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>I</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/Default</span></code></p>
+<p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>I</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dfhack/lua/dfstatus</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-extended-status">
+<span id="id16"></span><h2><a class="toc-backref" href="#id60">gui/extended-status</a><a class="headerlink" href="#gui-extended-status" title="Permalink to this headline">¶</a></h2>
+<p>Adds more subpages to the <code class="docutils literal notranslate"><span class="pre">z</span></code> status screen.</p>
+<p>Usage:</p>
+<div class="highlight-dfhack notranslate"><div class="highlight"><pre><span></span>gui/extended-status enable|disable|help|subpage_names
+enable|disable gui/extended-status
+</pre></div>
+</div>
+</section>
+<section id="gui-family-affairs">
+<span id="id17"></span><h2><a class="toc-backref" href="#id61">gui/family-affairs</a><a class="headerlink" href="#gui-family-affairs" title="Permalink to this headline">¶</a></h2>
+<p>A user-friendly interface to view romantic relationships,
+with the ability to add, remove, or otherwise change them at
+your whim - fantastic for depressed dwarves with a dead spouse
+(or matchmaking players…).</p>
+<p>The target/s must be alive, sane, and in fortress mode.</p>
+<img alt="../../_images/family-affairs.png" class="align-center" src="../../_images/family-affairs.png" />
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">gui/family-affairs</span> <span class="pre">[unitID]</span></code></dt><dd><p>shows GUI for the selected unit, or the specified unit ID</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gui/family-affairs</span> <span class="pre">divorce</span> <span class="pre">[unitID]</span></code></dt><dd><p>removes all spouse and lover information from the unit
+and it’s partner, bypassing almost all checks.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gui/family-affairs</span> <span class="pre">[unitID]</span> <span class="pre">[unitID]</span></code></dt><dd><p>divorces the two specified units and their partners,
+then arranges for the two units to marry, bypassing
+almost all checks.  Use with caution.</p>
+</dd>
+</dl>
+</section>
+<section id="gui-gm-editor">
+<span id="id18"></span><h2><a class="toc-backref" href="#id62">gui/gm-editor</a><a class="headerlink" href="#gui-gm-editor" title="Permalink to this headline">¶</a></h2>
+<p>This editor allows to change and modify almost anything in df. Press <kbd class="kbd docutils literal notranslate">?</kbd> for
+in-game help. There are multiple ways to open this editor:</p>
+<ul class="simple">
+<li><p>Calling <code class="docutils literal notranslate"><span class="pre">gui/gm-editor</span></code>  from a command or keybinding opens the editor
+on whatever is selected or viewed (e.g. unit/item description screen)</p></li>
+<li><p>using <code class="docutils literal notranslate"><span class="pre">gui/gm-editor</span> <span class="pre">&lt;lua</span> <span class="pre">command&gt;</span></code> - executes lua command and opens editor on
+its results (e.g. <code class="docutils literal notranslate"><span class="pre">gui/gm-editor</span> <span class="pre">&quot;df.global.world.items.all&quot;</span></code> shows all items)</p></li>
+<li><p>using <code class="docutils literal notranslate"><span class="pre">gui/gm-editor</span> <span class="pre">dialog</span></code> - shows an in game dialog to input lua command. Works
+the same as version above.</p></li>
+<li><p>using <code class="docutils literal notranslate"><span class="pre">gui/gm-editor</span> <span class="pre">toggle</span></code> - will hide (if shown) and show (if hidden) editor at
+the same position you left it</p></li>
+</ul>
+<img alt="../../_images/gm-editor.png" src="../../_images/gm-editor.png" />
+</section>
+<section id="gui-gm-unit">
+<span id="id19"></span><h2><a class="toc-backref" href="#id63">gui/gm-unit</a><a class="headerlink" href="#gui-gm-unit" title="Permalink to this headline">¶</a></h2>
+<p>An editor for various unit attributes.</p>
+</section>
+<section id="gui-guide-path">
+<span id="id20"></span><h2><a class="toc-backref" href="#id64">gui/guide-path</a><a class="headerlink" href="#gui-guide-path" title="Permalink to this headline">¶</a></h2>
+<p>Activate in the <span class="guilabel">Hauling</span> menu with the cursor over
+a <span class="guilabel">Guide</span> order.</p>
+<img alt="../../_images/guide-path.png" src="../../_images/guide-path.png" />
+<p>The script displays the cached path that will be used by the order; the game
+computes it when the order is executed for the first time.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>P</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/Hauling/DefineStop/Cond/Guide</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-hack-wish">
+<span id="id21"></span><h2><a class="toc-backref" href="#id65">gui/hack-wish</a><a class="headerlink" href="#gui-hack-wish" title="Permalink to this headline">¶</a></h2>
+<p>An alias for <a class="reference internal" href="#gui-create-item"><span class="std std-ref">gui/create-item</span></a>.  Deprecated.</p>
+</section>
+<section id="gui-hello-world">
+<span id="id22"></span><h2><a class="toc-backref" href="#id66">gui/hello-world</a><a class="headerlink" href="#gui-hello-world" title="Permalink to this headline">¶</a></h2>
+<p>A basic example for testing, or to start your own script from.</p>
+</section>
+<section id="gui-liquids">
+<span id="id23"></span><h2><a class="toc-backref" href="#id67">gui/liquids</a><a class="headerlink" href="#gui-liquids" title="Permalink to this headline">¶</a></h2>
+<p>This script is a gui front-end to <a class="reference internal" href="../Plugins.html#liquids"><span class="std std-ref">liquids</span></a> and works similarly,
+allowing you to add or remove water &amp; magma, and create obsidian walls &amp; floors.</p>
+<img alt="../../_images/liquids.png" src="../../_images/liquids.png" />
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is <strong>no undo support</strong>.  Bugs in this plugin have been
+known to create pathfinding problems and heat traps.</p>
+</div>
+<p>The <kbd class="kbd docutils literal notranslate">b</kbd> key changes how the affected area is selected. The default <span class="guilabel">Rectangle</span>
+mode works by selecting two corners like any ordinary designation. The <kbd class="kbd docutils literal notranslate">p</kbd>
+key chooses between adding water, magma, obsidian walls &amp; floors, or just
+tweaking flags.</p>
+<p>When painting liquids, it is possible to select the desired level with <kbd class="kbd docutils literal notranslate">+</kbd><kbd class="kbd docutils literal notranslate">-</kbd>,
+and choose between setting it exactly, only increasing or only decreasing
+with <kbd class="kbd docutils literal notranslate">s</kbd>.</p>
+<p>In addition, <kbd class="kbd docutils literal notranslate">f</kbd> allows disabling or enabling the flowing water computations
+for an area, and <kbd class="kbd docutils literal notranslate">r</kbd> operates on the “permanent flow” property that makes
+rivers power water wheels even when full and technically not flowing.</p>
+<p>After setting up the desired operations using the described keys, use <kbd class="kbd docutils literal notranslate">Enter</kbd> to apply them.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>L</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/LookAround</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-load-screen">
+<span id="id24"></span><h2><a class="toc-backref" href="#id68">gui/load-screen</a><a class="headerlink" href="#gui-load-screen" title="Permalink to this headline">¶</a></h2>
+<p>A replacement for the “continue game” screen.</p>
+<p>Usage: <code class="docutils literal notranslate"><span class="pre">gui/load-screen</span> <span class="pre">enable|disable</span></code></p>
+<p>The primary view is a list of saved games, much like the default list provided
+by DF. Several filter options are available:</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">s</kbd>: search for folder names containing specific text</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">t</kbd>: filter by active game type (e.g. fortress, adventurer)</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">b</kbd>: toggle display of backup folders, as created by DF’s <code class="docutils literal notranslate"><span class="pre">AUTOBACKUP</span></code>
+option (see data/init/init.txt for a detailed explanation). This defaults to
+hiding backup folders, since they can take up significant space in the list.</p></li>
+</ul>
+<p>When selecting a game with <kbd class="kbd docutils literal notranslate">Enter</kbd>, a dialog will give options to load the
+selected game (<kbd class="kbd docutils literal notranslate">Enter</kbd> again), cancel (<kbd class="kbd docutils literal notranslate">Esc</kbd>), or rename the game’s
+folder (<kbd class="kbd docutils literal notranslate">r</kbd>). See the <code class="docutils literal notranslate"><span class="pre">title-start-rename</span></code> <a class="reference internal" href="../Plugins.html#tweak"><span class="std std-ref">tweak</span></a> to rename folders in
+the “start playing” menu.</p>
+</section>
+<section id="gui-manager-quantity">
+<span id="id25"></span><h2><a class="toc-backref" href="#id69">gui/manager-quantity</a><a class="headerlink" href="#gui-manager-quantity" title="Permalink to this headline">¶</a></h2>
+<p>Sets the quantity of the selected manager job (in the j-m or u-m screens).</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>Q</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">jobmanagement/Main</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-mass-remove">
+<span id="id26"></span><h2><a class="toc-backref" href="#id70">gui/mass-remove</a><a class="headerlink" href="#gui-mass-remove" title="Permalink to this headline">¶</a></h2>
+<p>Allows removal of buildings/constructions and suspend/unsuspend using
+a box selection.</p>
+<p>The following marking modes are available.</p>
+<ul class="simple">
+<li><p>Suspend: suspends the construction of a planned building/construction</p></li>
+<li><p>Unsuspend: resumes the construction of a planned building/construction</p></li>
+<li><p>Remove Construction: designates a construction (wall, floor, etc) for removal. Similar to the native Designate-&gt;Remove Construction menu in DF</p></li>
+<li><p>Unremove Construction: cancels removal of a construction (wall, floor, etc)</p></li>
+<li><p>Remove Building: designates a building (door, workshop, etc) for removal. Similar to the native Set Building Tasks/Prefs-&gt;Remove Building menu in DF</p></li>
+<li><p>Unremove Building: cancels removal of a building (door, workshop, etc)</p></li>
+<li><p>Remove All: designates both constructions and buildings for removal, and deletes planned buildings/constructions</p></li>
+<li><p>Unremove All: cancels removal designations for both constructions and buildings</p></li>
+</ul>
+</section>
+<section id="gui-mechanisms">
+<span id="id27"></span><h2><a class="toc-backref" href="#id71">gui/mechanisms</a><a class="headerlink" href="#gui-mechanisms" title="Permalink to this headline">¶</a></h2>
+<p>Lists mechanisms connected to the building, and their links. Navigating
+the list centers the view on the relevant linked buildings.</p>
+<img alt="../../_images/mechanisms.png" src="../../_images/mechanisms.png" />
+<p>To exit, press <kbd class="kbd docutils literal notranslate">Esc</kbd> or <kbd class="kbd docutils literal notranslate">Enter</kbd>; <kbd class="kbd docutils literal notranslate">Esc</kbd> recenters on
+the original building, while <kbd class="kbd docutils literal notranslate">Enter</kbd> leaves focus on the current
+one. <kbd class="kbd docutils literal notranslate">Shift</kbd><kbd class="kbd docutils literal notranslate">Enter</kbd> has an effect equivalent to pressing
+<kbd class="kbd docutils literal notranslate">Enter</kbd>, and then re-entering the mechanisms UI.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>M</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-mod-manager">
+<span id="id28"></span><h2><a class="toc-backref" href="#id72">gui/mod-manager</a><a class="headerlink" href="#gui-mod-manager" title="Permalink to this headline">¶</a></h2>
+<p>A simple way to install and remove small mods, which are not included
+in DFHack.  Examples are <a class="reference external" href="https://github.com/warmist/df-mini-mods">available here</a>.</p>
+<img alt="../../_images/mod-manager.png" src="../../_images/mod-manager.png" />
+<p>Each mod is a lua script located in <code class="file docutils literal notranslate"><em><span class="pre">&lt;DF&gt;</span></em><span class="pre">/mods/</span></code>, which MUST define
+the following variables:</p>
+<dl class="field-list simple">
+<dt class="field-odd">name</dt>
+<dd class="field-odd"><p>a name that is displayed in list</p>
+</dd>
+<dt class="field-even">author</dt>
+<dd class="field-even"><p>mod author, also displayed</p>
+</dd>
+<dt class="field-odd">description</dt>
+<dd class="field-odd"><p>a description of the mod</p>
+</dd>
+</dl>
+<p>Of course, this doesn’t actually make a mod - so one or more of the
+following should also be defined:</p>
+<dl class="field-list simple">
+<dt class="field-odd">raws_list</dt>
+<dd class="field-odd"><p>a list (table) of file names that need to be copied over to df raws</p>
+</dd>
+<dt class="field-even">patch_entity</dt>
+<dd class="field-even"><p>a chunk of text to patch entity
+<em>TODO: add settings to which entities to add</em></p>
+</dd>
+<dt class="field-odd">patch_init</dt>
+<dd class="field-odd"><p>a chunk of lua to add to lua init</p>
+</dd>
+<dt class="field-even">patch_dofile</dt>
+<dd class="field-even"><p>a list (table) of files to add to lua init as “dofile”</p>
+</dd>
+<dt class="field-odd">patch_files</dt>
+<dd class="field-odd"><p>a table of files to patch</p>
+<dl class="field-list simple">
+<dt class="field-odd">filename</dt>
+<dd class="field-odd"><p>a filename (in raws folder) to patch</p>
+</dd>
+<dt class="field-even">patch</dt>
+<dd class="field-even"><p>what to add</p>
+</dd>
+<dt class="field-odd">after</dt>
+<dd class="field-odd"><p>a string after which to insert</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">guard</dt>
+<dd class="field-even"><p>a token that is used in raw files to find additions and remove them on uninstall</p>
+</dd>
+<dt class="field-odd">guard_init</dt>
+<dd class="field-odd"><p>a token for lua file</p>
+</dd>
+<dt class="field-even">[pre|post]_(un)install</dt>
+<dd class="field-even"><p>Callback functions, which can trigger more complicated behavior</p>
+</dd>
+</dl>
+</section>
+<section id="gui-no-dfhack-init">
+<span id="id29"></span><h2><a class="toc-backref" href="#id73">gui/no-dfhack-init</a><a class="headerlink" href="#gui-no-dfhack-init" title="Permalink to this headline">¶</a></h2>
+<p>Shows a warning at startup if no valid <code class="file docutils literal notranslate"><span class="pre">dfhack.init</span></code> file is found.</p>
+</section>
+<section id="gui-pathable">
+<span id="id30"></span><h2><a class="toc-backref" href="#id74">gui/pathable</a><a class="headerlink" href="#gui-pathable" title="Permalink to this headline">¶</a></h2>
+<p>Highlights each visible map tile to indicate whether it is possible to path to
+from the tile at the cursor - green if possible, red if not, similar to
+<a class="reference internal" href="#gui-siege-engine"><span class="std std-ref">gui/siege-engine</span></a>. A few options are available:</p>
+<ul class="simple">
+<li><p><kbd class="kbd docutils literal notranslate">l</kbd>: Lock cursor: when enabled, the movement keys move around the map
+instead of moving the cursor. This is useful to check whether parts of the map
+far away from the cursor can be pathed to from the cursor.</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">d</kbd>: Draw: allows temporarily disabling the highlighting entirely.</p></li>
+<li><p><kbd class="kbd docutils literal notranslate">u</kbd>: Skip unrevealed: when enabled, unrevealed tiles will not be
+highlighed at all. (These would otherwise be highlighted in red.)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tool uses a cache used by DF, which currently does <em>not</em> account for
+climbing. If an area of the map is only accessible by climbing, this tool
+may report it as inaccessible. Care should be taken when digging into the
+upper levels of caverns, for example.</p>
+</div>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>Shift</kbd><kbd>P</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/LookAround</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-power-meter">
+<span id="id31"></span><h2><a class="toc-backref" href="#id75">gui/power-meter</a><a class="headerlink" href="#gui-power-meter" title="Permalink to this headline">¶</a></h2>
+<p>Activate an in-game interface for <a class="reference internal" href="../Plugins.html#power-meter"><span class="std std-ref">power-meter</span></a> after selecting
+<span class="guilabel">Pressure Plate</span> in the build menu.</p>
+<img alt="../../_images/power-meter.png" src="../../_images/power-meter.png" />
+<p>The script follows the general look and feel of the regular pressure
+plate build configuration page, but configures parameters relevant to
+the modded power meter building.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>M</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/Build/Position/Trap</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-prerelease-warning">
+<span id="id32"></span><h2><a class="toc-backref" href="#id76">gui/prerelease-warning</a><a class="headerlink" href="#gui-prerelease-warning" title="Permalink to this headline">¶</a></h2>
+<p>Shows a warning on world load for pre-release builds.</p>
+<p>With no arguments passed, the warning is shown unless the “do not show again”
+option has been selected. With the <code class="docutils literal notranslate"><span class="pre">force</span></code> argument, the warning is always
+shown.</p>
+</section>
+<section id="gui-quickcmd">
+<span id="id33"></span><h2><a class="toc-backref" href="#id77">gui/quickcmd</a><a class="headerlink" href="#gui-quickcmd" title="Permalink to this headline">¶</a></h2>
+<p>A list of commands which you can edit while in-game, and which you can execute
+quickly and easily. For stuff you use often enough to not want to type it, but
+not often enough to be bothered to find a free keybinding.</p>
+</section>
+<section id="gui-quickfort">
+<span id="id34"></span><h2><a class="toc-backref" href="#id78">gui/quickfort</a><a class="headerlink" href="#gui-quickfort" title="Permalink to this headline">¶</a></h2>
+<p>In-game dialog interface for the <a class="reference internal" href="base.html#quickfort"><span class="std std-ref">quickfort</span></a> script. Any arguments passed to
+this script are passed directly to <a class="reference internal" href="base.html#quickfort"><span class="std std-ref">quickfort</span></a>. Invoking this script without
+arguments is equivalent to running <code class="docutils literal notranslate"><span class="pre">quickfort</span> <span class="pre">gui</span></code>.</p>
+<p>Examples:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>gui/quickfort</p></td>
+<td><p>opens quickfort interactive dialog</p></td>
+</tr>
+<tr class="row-odd"><td><p>gui/quickfort gui</p></td>
+<td><p>same as above</p></td>
+</tr>
+<tr class="row-even"><td><p>gui/quickfort gui -l dreamfort</p></td>
+<td><p>opens the dialog with a custom filter</p></td>
+</tr>
+<tr class="row-odd"><td><p>gui/quickfort help</p></td>
+<td><p>prints quickfort help (on the console)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gui-rename">
+<span id="id35"></span><h2><a class="toc-backref" href="#id79">gui/rename</a><a class="headerlink" href="#gui-rename" title="Permalink to this headline">¶</a></h2>
+<p>Backed by <a class="reference internal" href="../Plugins.html#rename"><span class="std std-ref">rename</span></a>, this script allows entering the desired name
+via a simple dialog in the game ui.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">gui/rename</span> <span class="pre">[building]</span></code> in <kbd class="kbd docutils literal notranslate">q</kbd> mode changes the name of a building.</p>
+<img alt="../../_images/rename-bld.png" src="../../_images/rename-bld.png" />
+<p>The selected building must be one of stockpile, workshop, furnace, trap, or siege engine.
+It is also possible to rename zones from the <kbd class="kbd docutils literal notranslate">i</kbd> menu.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gui/rename</span> <span class="pre">[unit]</span></code> with a unit selected changes the nickname.</p>
+<p>Unlike the built-in interface, this works even on enemies and animals.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gui/rename</span> <span class="pre">unit-profession</span></code> changes the selected unit’s custom profession name.</p>
+<img alt="../../_images/rename-prof.png" src="../../_images/rename-prof.png" />
+<p>Likewise, this can be applied to any unit, and when used on animals it overrides
+their species string.</p>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">building</span></code> or <code class="docutils literal notranslate"><span class="pre">unit</span></code> options are automatically assumed when in relevant UI state.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>N</kbd></p>
+<p><strong>Keybinding: </strong><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd><span> -&gt; </span><code class="guilabel docutils literal notranslate"><span class="pre">&quot;gui/rename</span> <span class="pre">unit-profession&quot;</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-room-list">
+<span id="id36"></span><h2><a class="toc-backref" href="#id80">gui/room-list</a><a class="headerlink" href="#gui-room-list" title="Permalink to this headline">¶</a></h2>
+<p>Activate in <kbd class="kbd docutils literal notranslate">q</kbd> mode, either immediately or after opening the
+assign owner page.</p>
+<img alt="../../_images/room-list.png" src="../../_images/room-list.png" />
+<p>The script lists other rooms owned by the same owner, or by the unit
+selected in the assign list, and allows unassigning them.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>R</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-settings-manager">
+<span id="id37"></span><h2><a class="toc-backref" href="#id81">gui/settings-manager</a><a class="headerlink" href="#gui-settings-manager" title="Permalink to this headline">¶</a></h2>
+<p>An in-game manager for settings defined in <code class="docutils literal notranslate"><span class="pre">init.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">d_init.txt</span></code>.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>S</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">title</span></code></p>
+<p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>S</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/Default</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-siege-engine">
+<span id="id38"></span><h2><a class="toc-backref" href="#id82">gui/siege-engine</a><a class="headerlink" href="#gui-siege-engine" title="Permalink to this headline">¶</a></h2>
+<p>Activate an in-game interface for <a class="reference internal" href="../Plugins.html#siege-engine"><span class="std std-ref">siege-engine</span></a>, after selecting
+a siege engine in <kbd class="kbd docutils literal notranslate">q</kbd> mode.</p>
+<img alt="../../_images/siege-engine.png" src="../../_images/siege-engine.png" />
+<p>The main mode displays the current target, selected ammo item
+type, linked stockpiles and the allowed operator skill range. The
+map tile color is changed to signify if it can be hit by the
+selected engine: green for fully reachable, blue for out of
+range, red for blocked, yellow for partially blocked.</p>
+<p>Pressing <kbd class="kbd docutils literal notranslate">r</kbd> changes into the target selection mode, which
+works by highlighting two points with <kbd class="kbd docutils literal notranslate">Enter</kbd> like all
+designations. When a target area is set, the engine projectiles
+are aimed at that area, or units within it (this doesn’t actually
+change the original aiming code, instead the projectile
+trajectory parameters are rewritten as soon as it appears).</p>
+<p>After setting the target in this way for one engine, you can
+‘paste’ the same area into others just by pressing <kbd class="kbd docutils literal notranslate">p</kbd> in
+the main page of this script. The area to paste is kept until you
+quit DF, or select another area manually.</p>
+<p>Pressing <kbd class="kbd docutils literal notranslate">t</kbd> switches to a mode for selecting a stockpile to
+take ammo from.</p>
+<p>Exiting from the siege engine script via <kbd class="kbd docutils literal notranslate">Esc</kbd> reverts the
+view to the state prior to starting the script.
+<kbd class="kbd docutils literal notranslate">Shift</kbd><kbd class="kbd docutils literal notranslate">Esc</kbd> retains the current viewport, and also
+exits from the <kbd class="kbd docutils literal notranslate">q</kbd> mode to main menu.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>A</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some/SiegeEngine</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-stamper">
+<span id="id39"></span><h2><a class="toc-backref" href="#id83">gui/stamper</a><a class="headerlink" href="#gui-stamper" title="Permalink to this headline">¶</a></h2>
+<p>allows manipulation of designations by transforms such as translations, reflections, rotations, and inversion.
+designations can also be used as brushes to erase other designations and cancel constructions.</p>
+</section>
+<section id="gui-stockpiles">
+<span id="id40"></span><h2><a class="toc-backref" href="#id84">gui/stockpiles</a><a class="headerlink" href="#gui-stockpiles" title="Permalink to this headline">¶</a></h2>
+<p>An in-game interface for <a class="reference internal" href="../Plugins.html#stocksettings"><span class="std std-ref">stockpiles</span></a>, to
+load and save stockpile settings from the <kbd class="kbd docutils literal notranslate">q</kbd> menu.</p>
+<p>Usage:</p>
+<dl class="field-list simple">
+<dt class="field-odd">gui/stockpiles -save</dt>
+<dd class="field-odd"><p>to save the current stockpile</p>
+</dd>
+<dt class="field-even">gui/stockpiles -load</dt>
+<dd class="field-even"><p>to load settings into the current stockpile</p>
+</dd>
+<dt class="field-odd">gui/stockpiles -dir &lt;path&gt;</dt>
+<dd class="field-odd"><p>set the default directory to save settings into</p>
+</dd>
+<dt class="field-even">gui/stockpiles -help</dt>
+<dd class="field-even"><p>to see this message</p>
+</dd>
+</dl>
+<p>Don’t forget to <code class="docutils literal notranslate"><span class="pre">enable</span> <span class="pre">stockpiles</span></code> and create the <code class="docutils literal notranslate"><span class="pre">stocksettings</span></code> directory in
+the DF folder before trying to use the GUI.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>L</kbd><span> -&gt; </span><code class="guilabel docutils literal notranslate"><span class="pre">&quot;gui/stockpiles</span> <span class="pre">-load&quot;</span></code><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some/Stockpile</span></code></p>
+<p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>S</kbd><span> -&gt; </span><code class="guilabel docutils literal notranslate"><span class="pre">&quot;gui/stockpiles</span> <span class="pre">-save&quot;</span></code><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some/Stockpile</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-teleport">
+<span id="id41"></span><h2><a class="toc-backref" href="#id85">gui/teleport</a><a class="headerlink" href="#gui-teleport" title="Permalink to this headline">¶</a></h2>
+<p>A front-end for the <a class="reference internal" href="base.html#teleport"><span class="std std-ref">teleport</span></a> script that allows choosing a unit and destination
+using the in-game cursor.</p>
+</section>
+<section id="gui-unit-info-viewer">
+<span id="id42"></span><h2><a class="toc-backref" href="#id86">gui/unit-info-viewer</a><a class="headerlink" href="#gui-unit-info-viewer" title="Permalink to this headline">¶</a></h2>
+<p>Displays age, birth, maxage, shearing, milking, grazing, egg laying, body size,
+and death info about a unit.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>I</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/ViewUnits|unitlist</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-workflow">
+<span id="id43"></span><h2><a class="toc-backref" href="#id87">gui/workflow</a><a class="headerlink" href="#gui-workflow" title="Permalink to this headline">¶</a></h2>
+<p>Bind to a key (the example config uses Alt-W), and activate with a job selected
+in a workshop in <kbd class="kbd docutils literal notranslate">q</kbd> mode.</p>
+<img alt="../../_images/workflow.png" src="../../_images/workflow.png" />
+<p>This script provides a simple interface to constraints managed by <a class="reference internal" href="../Plugins.html#workflow"><span class="std std-ref">workflow</span></a>.
+When active, it displays a list of all constraints applicable to the
+current job, and their current status.</p>
+<p>A constraint specifies a certain range to be compared against either individual
+<em>item</em> or whole <em>stack</em> count, an item type and optionally a material. When the
+current count is below the lower bound of the range, the job is resumed; if it
+is above or equal to the top bound, it will be suspended. Within the range, the
+specific constraint has no effect on the job; others may still affect it.</p>
+<p>Pressing <kbd class="kbd docutils literal notranslate">i</kbd> switches the current constraint between counting stacks or items.
+Pressing <kbd class="kbd docutils literal notranslate">r</kbd> lets you input the range directly;
+<kbd class="kbd docutils literal notranslate">e</kbd>, <kbd class="kbd docutils literal notranslate">r</kbd>, <kbd class="kbd docutils literal notranslate">d</kbd>, <kbd class="kbd docutils literal notranslate">f</kbd> adjust the
+bounds by 5, 10, or 20 depending on the direction and the <kbd class="kbd docutils literal notranslate">i</kbd> setting (counting
+items and expanding the range each gives a 2x bonus).</p>
+<p>Pressing <kbd class="kbd docutils literal notranslate">a</kbd> produces a list of possible outputs of this job as guessed by
+workflow, and lets you create a new constraint by choosing one as template. If you
+don’t see the choice you want in the list, it likely means you have to adjust
+the job material first using <a class="reference internal" href="../Plugins.html#job"><span class="std std-ref">job</span></a> <code class="docutils literal notranslate"><span class="pre">item-material</span></code> or <a class="reference internal" href="#gui-workshop-job"><span class="std std-ref">gui/workshop-job</span></a>,
+as described in the <a class="reference internal" href="../Plugins.html#workflow"><span class="std std-ref">workflow</span></a> documentation. In this manner, this feature
+can be used for troubleshooting jobs that don’t match the right constraints.</p>
+<img alt="../../_images/workflow-new1.png" src="../../_images/workflow-new1.png" />
+<p>If you select one of the outputs with <kbd class="kbd docutils literal notranslate">Enter</kbd>, the matching constraint is simply
+added to the list. If you use <kbd class="kbd docutils literal notranslate">Shift</kbd><kbd class="kbd docutils literal notranslate">Enter</kbd>, the interface proceeds to the
+next dialog, which allows you to edit the suggested constraint parameters to
+suit your need, and set the item count range.</p>
+<img alt="../../_images/workflow-new2.png" src="../../_images/workflow-new2.png" />
+<p>Pressing <kbd class="kbd docutils literal notranslate">s</kbd> (or, with the example config, Alt-W in the <kbd class="kbd docutils literal notranslate">z</kbd> stocks screen)
+opens the overall status screen:</p>
+<img alt="../../_images/workflow-status.png" src="../../_images/workflow-status.png" />
+<p>This screen shows all currently existing workflow constraints, and allows
+monitoring and/or changing them from one screen. The constraint list can
+be filtered by typing text in the field below.</p>
+<p>The color of the stock level number indicates how “healthy” the stock level
+is, based on current count and trend. Bright green is very good, green is good,
+red is bad, bright red is very bad.</p>
+<p>The limit number is also color-coded. Red means that there are currently no
+workshops producing that item (i.e. no jobs). If it’s yellow, that means the
+production has been delayed, possibly due to lack of input materials.</p>
+<p>The chart on the right is a plot of the last 14 days (28 half day plots) worth
+of stock history for the selected item, with the rightmost point representing
+the current stock value. The bright green dashed line is the target
+limit (maximum) and the dark green line is that minus the gap (minimum).</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>W</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some/Workshop/Job</span></code></p>
+<p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>W</kbd><span> -&gt; </span><code class="guilabel docutils literal notranslate"><span class="pre">&quot;gui/workflow</span> <span class="pre">status&quot;</span></code><span> in </span><code class="docutils literal notranslate"><span class="pre">overallstatus</span></code></p>
+<p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>W</kbd><span> -&gt; </span><code class="guilabel docutils literal notranslate"><span class="pre">&quot;gui/workflow</span> <span class="pre">status&quot;</span></code><span> in </span><code class="docutils literal notranslate"><span class="pre">dfhack/lua/status_overlay</span></code></p>
+</p>
+</p>
+</section>
+<section id="gui-workshop-job">
+<span id="id44"></span><h2><a class="toc-backref" href="#id88">gui/workshop-job</a><a class="headerlink" href="#gui-workshop-job" title="Permalink to this headline">¶</a></h2>
+<p>Run with a job selected in a workshop in the <kbd class="kbd docutils literal notranslate">q</kbd> mode.</p>
+<img alt="../../_images/workshop-job.png" src="../../_images/workshop-job.png" />
+<p>The script shows a list of the input reagents of the selected job, and allows changing
+them like the <a class="reference internal" href="../Plugins.html#job"><span class="std std-ref">job</span></a> <code class="docutils literal notranslate"><span class="pre">item-type</span></code> and <a class="reference internal" href="../Plugins.html#job"><span class="std std-ref">job</span></a> <code class="docutils literal notranslate"><span class="pre">item-material</span></code> commands.</p>
+<p>Specifically, pressing the <kbd class="kbd docutils literal notranslate">i</kbd> key pops up a dialog that lets you select an item
+type from a list.</p>
+<img alt="../../_images/workshop-job-item.png" src="../../_images/workshop-job-item.png" />
+<p>Pressing <kbd class="kbd docutils literal notranslate">m</kbd>, unless the item type does not allow a material,
+lets you choose a material.</p>
+<img alt="../../_images/workshop-job-material.png" src="../../_images/workshop-job-material.png" />
+<p>Since there are a lot more materials than item types, this dialog is more complex
+and uses a hierarchy of sub-menus. List choices that open a sub-menu are marked
+with an arrow on the left.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Due to the way input reagent matching works in DF, you must select an item type
+if you select a material, or the material will be matched incorrectly in some cases.
+If you press <kbd class="kbd docutils literal notranslate">m</kbd> without choosing an item type, the script will auto-choose
+if there is only one valid choice, or pop up an error message box instead of the
+material selection dialog.</p>
+</div>
+<p>Note that both materials and item types presented in the dialogs are filtered
+by the job input flags, and even the selected item type for material selection,
+or material for item type selection. Many jobs would let you select only one
+input item type.</p>
+<p>For example, if you choose a <em>plant</em> input item type for your prepare meal job,
+it will only let you select cookable materials.</p>
+<p>If you choose a <em>barrel</em> item instead (meaning things stored in barrels, like
+drink or milk), it will let you select any material, since in this case the
+material is matched against the barrel itself. Then, if you select, say, iron,
+and then try to change the input item type, now it won’t let you select <em>plant</em>;
+you have to unset the material first.</p>
+<p><p><p><strong>Keybinding: </strong><kbd>Alt</kbd><kbd>A</kbd><span> in </span><code class="docutils literal notranslate"><span class="pre">dwarfmode/QueryBuilding/Some/Workshop/Job</span></code></p>
+</p>
+</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2015-2022, The DFHack Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/docs/_auto/gui.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Memory research &#8212; DFHack 0.47.05-r4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/dfhack.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/dfhack-icon.ico"/>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Patching the DF binary" href="Binpatches.html" />
+    <link rel="prev" title="Updating DF-structures for a new DF version" href="../library/xml/how-to-update.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dfhack-logo.png" alt="Logo"/>
+    <h3 class="logo logo-name">Home</h3>
+  </a>
+</p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index-dev.html">DFHack Development Guide</a><ul>
+      <li>Previous: <a href="../library/xml/how-to-update.html" title="previous chapter">Updating DF-structures for a new DF version</a></li>
+      <li>Next: <a href="Binpatches.html" title="next chapter">Patching the DF binary</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Memory research</a><ul>
+<li><a class="reference internal" href="#cross-platform-tools">Cross-platform tools</a><ul>
+<li><a class="reference internal" href="#ghidra">Ghidra</a></li>
+<li><a class="reference internal" href="#ida-freeware-7-0">IDA Freeware 7.0</a></li>
+<li><a class="reference internal" href="#hopper">Hopper</a></li>
+<li><a class="reference internal" href="#dfhack-tools">DFHack tools</a><ul>
+<li><a class="reference internal" href="#plugins">Plugins</a></li>
+<li><a class="reference internal" href="#scripts">Scripts</a></li>
+<li><a class="reference internal" href="#sizecheck">Sizecheck</a></li>
+<li><a class="reference internal" href="#legacy-tools">Legacy tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#linux-specific-tools">Linux-specific tools</a><ul>
+<li><a class="reference internal" href="#gdb">GDB</a></li>
+<li><a class="reference internal" href="#other-analysis-tools">Other analysis tools</a></li>
+<li><a class="reference internal" href="#df-structures-gui">df-structures GUI</a></li>
+<li><a class="reference internal" href="#edb-evan-s-debugger">EDB (Evan’s debugger)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#windows-specific-tools">Windows-specific tools</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="memory-research">
+<span id="id1"></span><h1>Memory research<a class="headerlink" href="#memory-research" title="Permalink to this headline">¶</a></h1>
+<p>There are a variety of tools that can be used to analyze DF memory - some are
+listed here. Note that some of these may be old and unmaintained. If you aren’t
+sure what tool would be best for your purposes, feel free to ask for advice (on
+IRC, Bay12, etc.).</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#cross-platform-tools" id="id4">Cross-platform tools</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ghidra" id="id5">Ghidra</a></p></li>
+<li><p><a class="reference internal" href="#ida-freeware-7-0" id="id6">IDA Freeware 7.0</a></p></li>
+<li><p><a class="reference internal" href="#hopper" id="id7">Hopper</a></p></li>
+<li><p><a class="reference internal" href="#dfhack-tools" id="id8">DFHack tools</a></p>
+<ul>
+<li><p><a class="reference internal" href="#plugins" id="id9">Plugins</a></p></li>
+<li><p><a class="reference internal" href="#scripts" id="id10">Scripts</a></p></li>
+<li><p><a class="reference internal" href="#sizecheck" id="id11">Sizecheck</a></p></li>
+<li><p><a class="reference internal" href="#legacy-tools" id="id12">Legacy tools</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#linux-specific-tools" id="id13">Linux-specific tools</a></p>
+<ul>
+<li><p><a class="reference internal" href="#gdb" id="id14">GDB</a></p></li>
+<li><p><a class="reference internal" href="#other-analysis-tools" id="id15">Other analysis tools</a></p></li>
+<li><p><a class="reference internal" href="#df-structures-gui" id="id16">df-structures GUI</a></p></li>
+<li><p><a class="reference internal" href="#edb-evan-s-debugger" id="id17">EDB (Evan’s debugger)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#windows-specific-tools" id="id18">Windows-specific tools</a></p></li>
+</ul>
+</div>
+<section id="cross-platform-tools">
+<h2><a class="toc-backref" href="#id4">Cross-platform tools</a><a class="headerlink" href="#cross-platform-tools" title="Permalink to this headline">¶</a></h2>
+<section id="ghidra">
+<h3><a class="toc-backref" href="#id5">Ghidra</a><a class="headerlink" href="#ghidra" title="Permalink to this headline">¶</a></h3>
+<p>Ghidra is a cross-platform reverse-engineering framework (written in Java)
+available at <a class="reference external" href="https://ghidra-sre.org">https://ghidra-sre.org</a>. It supports analyzing both 32-bit and
+64-bit executables for all supported DF platforms. There are some custom DFHack
+Ghidra scripts available in the <a class="reference external" href="https://github.com/DFHack/df_misc">df_misc</a> repo (look for <code class="docutils literal notranslate"><span class="pre">.java</span></code> files).</p>
+</section>
+<section id="ida-freeware-7-0">
+<h3><a class="toc-backref" href="#id6">IDA Freeware 7.0</a><a class="headerlink" href="#ida-freeware-7-0" title="Permalink to this headline">¶</a></h3>
+<p>Available from <a class="reference external" href="https://www.hex-rays.com/products/ida/support/download_freeware/">Hex-Rays</a>.
+Supports analyzing both 32-bit and 64-bit executables for all supported DF platforms.
+Some <code class="docutils literal notranslate"><span class="pre">.idc</span></code> scripts for IDA are available in the <a class="reference external" href="https://github.com/DFHack/df_misc">df_misc</a> repo.</p>
+</section>
+<section id="hopper">
+<h3><a class="toc-backref" href="#id7">Hopper</a><a class="headerlink" href="#hopper" title="Permalink to this headline">¶</a></h3>
+<p>Runs on macOS and some Linux distributions; available from <a class="reference external" href="https://www.hopperapp.com/">https://www.hopperapp.com/</a>.
+<a class="reference external" href="https://github.com/mifki/df-twbt/blob/master/PATCHES.md">TWBT</a> uses this to produce some patches.</p>
+</section>
+<section id="dfhack-tools">
+<h3><a class="toc-backref" href="#id8">DFHack tools</a><a class="headerlink" href="#dfhack-tools" title="Permalink to this headline">¶</a></h3>
+<section id="plugins">
+<h4><a class="toc-backref" href="#id9">Plugins</a><a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h4>
+<p>There are a few development plugins useful for low-level memory research. They
+are not built by default, but can be built by setting the <code class="docutils literal notranslate"><span class="pre">BUILD_DEVEL</span></code>
+<a class="reference internal" href="Compile.html#compile-build-options"><span class="std std-ref">CMake option</span></a>. These include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">check-structures-sanity</span></code>, which performs sanity checks on the given DF
+object. Note that this will crash in several cases, some intentional, so using
+this with <a class="reference internal" href="#linux-gdb"><span class="std std-ref">GDB</span></a> is recommended.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">memview</span></code>, which produces a hex dump of a given memory range. It also
+highlights valid pointers, and can be configured to work with <a class="reference internal" href="#sizecheck"><span class="std std-ref">Sizecheck</span></a>
+to auto-detect object sizes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vectors</span></code>, which can identify instances of <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> in a given memory range.</p></li>
+</ul>
+</section>
+<section id="scripts">
+<h4><a class="toc-backref" href="#id10">Scripts</a><a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h4>
+<p>Several <a class="reference internal" href="_auto/devel.html#scripts-devel"><span class="std std-ref">development scripts</span></a> can be useful for memory research.
+These include (but are not limited to):</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="_auto/devel.html#devel-dump-offsets"><span class="std std-ref">devel/dump-offsets</span></a></p></li>
+<li><p><a class="reference internal" href="_auto/devel.html#devel-find-offsets"><span class="std std-ref">devel/find-offsets</span></a></p></li>
+<li><p><a class="reference internal" href="_auto/devel.html#devel-lsmem"><span class="std std-ref">devel/lsmem</span></a></p></li>
+<li><p><a class="reference internal" href="_auto/devel.html#devel-sc"><span class="std std-ref">devel/sc</span></a> (requires <a class="reference internal" href="#sizecheck"><span class="std std-ref">Sizecheck</span></a>)</p></li>
+<li><p><a class="reference internal" href="_auto/devel.html#devel-visualize-structure"><span class="std std-ref">devel/visualize-structure</span></a></p></li>
+<li><p>Generally, any script starting with <code class="docutils literal notranslate"><span class="pre">devel/find</span></code></p></li>
+</ul>
+</section>
+<section id="sizecheck">
+<span id="id2"></span><h4><a class="toc-backref" href="#id11">Sizecheck</a><a class="headerlink" href="#sizecheck" title="Permalink to this headline">¶</a></h4>
+<p>Sizecheck is a custom tool that hooks into the memory allocator and inserts a
+header indicating the size of every object. The corresponding logic to check for
+this header when freeing memory usually works, but is inherently not foolproof.
+You should not count on DF being stable when using this.</p>
+<p>DFHack’s implementation of sizecheck is currently only tested on Linux, although
+it probably also works on macOS. It can be built with the <code class="docutils literal notranslate"><span class="pre">BUILD_SIZECHECK</span></code>
+<a class="reference internal" href="Compile.html#compile-build-options"><span class="std std-ref">CMake option</span></a>, which produces a <code class="docutils literal notranslate"><span class="pre">libsizecheck</span></code>
+library installed in the <code class="docutils literal notranslate"><span class="pre">hack</span></code> folder. On Linux, passing <code class="docutils literal notranslate"><span class="pre">--sc</span></code> as the
+first argument to the <code class="docutils literal notranslate"><span class="pre">dfhack</span></code> launcher script will load this library on
+startup. On other platforms, or when passing a different argument to the
+launcher (such as for <a class="reference internal" href="#linux-gdb"><span class="std std-ref">GDB</span></a>), you will need to preload this library
+manually, by setting <code class="docutils literal notranslate"><span class="pre">PRELOAD_LIB</span></code> on Linux (or <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code> if editing the
+<code class="docutils literal notranslate"><span class="pre">dfhack</span></code> launcher script directly), or by editing the <code class="docutils literal notranslate"><span class="pre">dfhack</span></code> launcher
+script and adding the library to <code class="docutils literal notranslate"><span class="pre">DYLD_INSERT_LIBRARIES</span></code> on macOS.</p>
+<p>There is also an older sizecheck implementation by Mifki available on
+<a class="reference external" href="https://github.com/mifki/df-sizecheck">GitHub</a> (<code class="docutils literal notranslate"><span class="pre">b.cpp</span></code> is the main
+sizecheck library, and <code class="docutils literal notranslate"><span class="pre">win_patch.cpp</span></code> is used for Windows support). To use
+this with other DFHack tools, you will likely need to edit the header’s
+magic number to match what is used in <a class="reference internal" href="_auto/devel.html#devel-sc"><span class="std std-ref">devel/sc</span></a> (search for a hexadecimal
+constant starting with <code class="docutils literal notranslate"><span class="pre">0x</span></code>).</p>
+</section>
+<section id="legacy-tools">
+<h4><a class="toc-backref" href="#id12">Legacy tools</a><a class="headerlink" href="#legacy-tools" title="Permalink to this headline">¶</a></h4>
+<p>Some very old DFHack tools are available in the <a class="reference external" href="https://github.com/dfhack/dfhack/tree/legacy/tools">legacy branch on GitHub</a>.
+No attempt is made to support these.</p>
+</section>
+</section>
+</section>
+<section id="linux-specific-tools">
+<h2><a class="toc-backref" href="#id13">Linux-specific tools</a><a class="headerlink" href="#linux-specific-tools" title="Permalink to this headline">¶</a></h2>
+<section id="gdb">
+<span id="linux-gdb"></span><h3><a class="toc-backref" href="#id14">GDB</a><a class="headerlink" href="#gdb" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://www.gnu.org/software/gdb/">GDB</a> is technically cross-platform, but
+tends to work best on Linux, and DFHack currently only offers support for using
+GDB on 64-bit Linux. To start with GDB, pass <code class="docutils literal notranslate"><span class="pre">-g</span></code> to the DFHack launcher
+script:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./dfhack -g
+</pre></div>
+</div>
+<p>Some basic GDB commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">run</span></code>: starts DF from the GDB prompt. Any arguments will be passed as
+command-line arguments to DF (e.g. <a class="reference internal" href="_auto/base.html#load-save"><span class="std std-ref">load-save</span></a> may be useful).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bt</span></code> will produce a backtrace if DF crashes.</p></li>
+</ul>
+<p>See the <a class="reference external" href="https://www.gnu.org/software/gdb/documentation/">official GDB documentation</a>
+for more details.</p>
+</section>
+<section id="other-analysis-tools">
+<h3><a class="toc-backref" href="#id15">Other analysis tools</a><a class="headerlink" href="#other-analysis-tools" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">dfhack</span></code> launcher script on Linux has support for launching several other
+tools alongside DFHack, including Valgrind (as well as Callgrind and Helgrind)
+and strace. See the script for the exact command-line option to specify. Note
+that currently only one tool at a time is supported, and must be specified
+with the first argument to the script.</p>
+</section>
+<section id="df-structures-gui">
+<h3><a class="toc-backref" href="#id16">df-structures GUI</a><a class="headerlink" href="#df-structures-gui" title="Permalink to this headline">¶</a></h3>
+<p>This is a tool written by Angavrilov and available on <a class="reference external" href="https://github.com/angavrilov/cl-linux-debug">GitHub</a>.
+It only supports 32-bit DF. Some assistance may be available on IRC.</p>
+</section>
+<section id="edb-evan-s-debugger">
+<h3><a class="toc-backref" href="#id17">EDB (Evan’s debugger)</a><a class="headerlink" href="#edb-evan-s-debugger" title="Permalink to this headline">¶</a></h3>
+<p>Available on <a class="reference external" href="https://github.com/eteran/edb-debugger">GitHub</a>.</p>
+</section>
+</section>
+<section id="windows-specific-tools">
+<h2><a class="toc-backref" href="#id18">Windows-specific tools</a><a class="headerlink" href="#windows-specific-tools" title="Permalink to this headline">¶</a></h2>
+<p>Some people have used <a class="reference external" href="https://www.cheatengine.org/">Cheat Engine</a> for research in the past.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2015-2022, The DFHack Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/docs/Memory-research.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

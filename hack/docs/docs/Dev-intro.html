@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>DFHack development overview &#8212; DFHack 0.47.05-r4 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/dfhack.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/dfhack-icon.ico"/>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to contribute to DFHack" href="Contributing.html" />
+    <link rel="prev" title="DFHack Development Guide" href="index-dev.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/dfhack-logo.png" alt="Logo"/>
+    <h3 class="logo logo-name">Home</h3>
+  </a>
+</p><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index-dev.html">DFHack Development Guide</a><ul>
+      <li>Previous: <a href="index-dev.html" title="previous chapter">DFHack Development Guide</a></li>
+      <li>Next: <a href="Contributing.html" title="next chapter">How to contribute to DFHack</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">DFHack development overview</a><ul>
+<li><a class="reference internal" href="#plugins">Plugins</a></li>
+<li><a class="reference internal" href="#scripts">Scripts</a></li>
+<li><a class="reference internal" href="#core">Core</a></li>
+<li><a class="reference internal" href="#modules">Modules</a></li>
+<li><a class="reference internal" href="#remote-access-interface">Remote access interface</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dfhack-development-overview">
+<h1>DFHack development overview<a class="headerlink" href="#dfhack-development-overview" title="Permalink to this headline">¶</a></h1>
+<p>DFHack has various components; this page provides an overview of some. If you
+are looking to develop a tool for DFHack, developing a script or plugin is
+likely the most straightforward choice.</p>
+<p>Other pages that may be relevant include:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="Contributing.html#contributing"><span class="std std-ref">How to contribute to DFHack</span></a></p></li>
+<li><p><a class="reference internal" href="Documentation.html#documentation"><span class="std std-ref">DFHack Documentation System</span></a></p></li>
+<li><p><a class="reference internal" href="../LICENSE.html#license"><span class="std std-ref">Licenses</span></a></p></li>
+</ul>
+<div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#plugins" id="id1">Plugins</a></p></li>
+<li><p><a class="reference internal" href="#scripts" id="id2">Scripts</a></p></li>
+<li><p><a class="reference internal" href="#core" id="id3">Core</a></p></li>
+<li><p><a class="reference internal" href="#modules" id="id4">Modules</a></p></li>
+<li><p><a class="reference internal" href="#remote-access-interface" id="id5">Remote access interface</a></p></li>
+</ul>
+</div>
+<section id="plugins">
+<h2><a class="toc-backref" href="#id1">Plugins</a><a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<p>DFHack plugins are written in C++ and located in the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> folder.
+Currently, documentation on how to write plugins is somewhat sparse. There are
+templates that you can use to get started in the <code class="docutils literal notranslate"><span class="pre">plugins/skeleton</span></code>
+folder, and the source code of existing plugins can also be helpful.</p>
+<p>If you want to compile a plugin that you have just added, you will need to add a
+call to <code class="docutils literal notranslate"><span class="pre">DFHACK_PLUGIN</span></code> in <code class="docutils literal notranslate"><span class="pre">plugins/CMakeLists.txt</span></code>.</p>
+<p>Plugins have the ability to make one or more commands available to users of the
+DFHack console. Examples include <a class="reference internal" href="Plugins.html#dveins"><span class="std std-ref">3dveins</span></a> (which implements the <code class="docutils literal notranslate"><span class="pre">3dveins</span></code>
+command) and <a class="reference internal" href="Plugins.html#reveal"><span class="std std-ref">reveal</span></a> (which implements <code class="docutils literal notranslate"><span class="pre">reveal</span></code>, <code class="docutils literal notranslate"><span class="pre">unreveal</span></code>, and several
+other commands).</p>
+<p>Plugins can also register handlers to run on every tick, and can interface with
+the built-in <a class="reference internal" href="Core.html#enable"><span class="std std-ref">enable</span></a> and <a class="reference internal" href="Core.html#disable"><span class="std std-ref">enable</span></a> commands. For the full plugin API, see the
+skeleton plugins or <code class="docutils literal notranslate"><span class="pre">PluginManager.cpp</span></code>.</p>
+<p>Installed plugins live in the <code class="docutils literal notranslate"><span class="pre">hack/plugins</span></code> folder of a DFHack installation,
+and the <a class="reference internal" href="Core.html#load"><span class="std std-ref">load</span></a> family of commands can be used to load a recompiled plugin
+without restarting DF.</p>
+<p>See <a class="reference internal" href="Plugins.html#plugins-index"><span class="std std-ref">DFHack Plugins</span></a> for a list of all plugins included in DFHack.</p>
+</section>
+<section id="scripts">
+<h2><a class="toc-backref" href="#id2">Scripts</a><a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h2>
+<p>DFHack scripts can currently be written in Lua or Ruby. The <a class="reference internal" href="Lua%20API.html#lua-api"><span class="std std-ref">Lua API</span></a>
+is more complete and currently better-documented, however. Referring to existing
+scripts as well as the API documentation can be helpful when developing new
+scripts.</p>
+<p><a class="reference internal" href="Scripts.html#scripts-index"><span class="std std-ref">Scripts included in DFHack</span></a> live in a separate <a class="reference external" href="https://github.com/dfhack/scripts">scripts repository</a>.
+This can be found in the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> submodule if you have
+<a class="reference internal" href="Compile.html#compile-how-to-get-the-code"><span class="std std-ref">cloned DFHack</span></a>, or the <code class="docutils literal notranslate"><span class="pre">hack/scripts</span></code> folder
+of an installed copy of DFHack.</p>
+</section>
+<section id="core">
+<h2><a class="toc-backref" href="#id3">Core</a><a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="Core.html#dfhack-core"><span class="std std-ref">DFHack core</span></a> has a variety of low-level functions. It is
+responsible for hooking into DF (via SDL), providing a console, and providing an
+interface for plugins and scripts to interact with DF.</p>
+</section>
+<section id="modules">
+<h2><a class="toc-backref" href="#id4">Modules</a><a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<p>A lot of shared code to interact with DF in more complicated ways is contained
+in <strong>modules</strong>. For example, the Units module contains functions for checking
+various traits of units, changing nicknames properly, and more. Generally, code
+that is useful to multiple plugins and scripts should go in the appropriate
+module, if there is one.</p>
+<p>Several modules are also <a class="reference internal" href="Lua%20API.html#lua-cpp-func-wrappers"><span class="std std-ref">exposed to Lua</span></a>, although
+some functions (and some entire modules) are currently only available in C++.</p>
+</section>
+<section id="remote-access-interface">
+<h2><a class="toc-backref" href="#id5">Remote access interface</a><a class="headerlink" href="#remote-access-interface" title="Permalink to this headline">¶</a></h2>
+<p>DFHack provides a remote access interface that external tools can connect to and
+use to interact with DF. See <a class="reference internal" href="Remote.html#remote"><span class="std std-ref">DFHack Remote Interface</span></a> for more information.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2015-2022, The DFHack Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/docs/Dev-intro.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
