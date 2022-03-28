@@ -1,0 +1,10 @@
+item_kana_nets
+
+[OBJECT:ITEM]
+
+[ITEM_SHIELD:KANA_NET]
+	[NAME:net:nets]
+	[ARMORLEVEL:1]
+	[BLOCKCHANCE:8]
+	[UPSTEP:2]
+	[MATERIAL_SIZE:3]
