@@ -1,1 +1,0 @@
-modtools/entangler -item SHIELD:KANA_NET -throw -strike -bypassImmune true -preserveThrown true -chance 100 -power 40 -strikeChance 20 -strikePower [ 0 20 ]
