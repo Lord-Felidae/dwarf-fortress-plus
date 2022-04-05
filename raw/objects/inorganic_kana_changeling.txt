@@ -1,0 +1,24 @@
+inorganic_kana_changeling
+
+[OBJECT:INORGANIC]
+
+[INORGANIC:KANA_CHANGELING_SYNDROMES]
+	-- Dummy material that holds some of the syndromes for this mod
+	[STATE_NAME_ADJ:ALL:shifting essence:shifting essence]
+	[SPECIAL]
+
+	[SYNDROME]
+		[SYN_IDENTIFIER:KANA_CHANGELING_IS_TRANSFORMED]
+		[SYN_NO_HOSPITAL]
+		[SYN_CLASS:TRANSFORMED]
+		[CE_ADD_TAG:CAN_LEARN:START:0] -- Attempt to see if this helps preserve skills between transformations (if that's even possible/necessary)
+		[CE_ADD_TAG:NO_AGING:START:0] -- Appears in bogeyman transformation. Might protect from the creature dying of old age if they transform into a creature that they're beyond the max age of that creature?
+	
+	[SYNDROME]
+		[SYN_IDENTIFIER:KANA_CHANGELING_GIVE_SHED]
+		[SYN_NO_HOSPITAL]
+		[CE_CAN_DO_INTERACTION:START:0]
+			[CDI:INTERACTION:KANA_CHANGELING_SHED_FORM]
+			[CDI:ADV_NAME:Shed form]
+			[CDI:TARGET:A:SELF_ONLY]
+			[CDI:USAGE_HINT:ATTACK] -- Should block AI from using it

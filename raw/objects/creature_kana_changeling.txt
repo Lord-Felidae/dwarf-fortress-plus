@@ -1,0 +1,158 @@
+creature_kana_changeling
+
+[OBJECT:CREATURE]
+
+[CREATURE:KANA_CHANGELING]
+	[NAME:changeling:changelings:changeling]
+	[CASTE_NAME:changeling:changelings:changeling]
+	[CREATURE_TILE:'?'][COLOR:0:7:0]
+	
+	[PREFSTRING:feral nature]
+	[PREFSTRING:shifting form]
+	
+	[LARGE_ROAMING]
+	[LARGE_PREDATOR]
+	[SUPERNATURAL]
+	
+	[ALL_ACTIVE]
+	
+	[BIOME:ANY_FOREST]
+	[BIOME:ANY_SHRUBLAND]
+	[BIOME:ANY_SAVANNA]
+	[BIOME:ANY_GRASSLAND]
+	[BIOME:ANY_WETLAND]
+	[BIOME:TUNDRA]
+	
+	[CREATURE_CLASS:GENERAL_POISON]
+	[CREATURE_CLASS:TRANSFORMER]
+	
+	[CANOPENDOORS]
+	[CAN_LEARN]
+	-- Notably incapable of speaking - must assume forms to be able to talk!
+	
+	[FANCIFUL]
+	[PETVALUE:2000]
+	[BUILDINGDESTROYER:2]
+	
+	[EXTRAVISION][NOBREATHE][NONAUSEA]
+	[NOTHOUGHT][NO_THOUGHT_CENTER_FOR_MOVEMENT]
+
+	[BODY:BASIC_1PARTBODY]
+	
+	-- Omitted because causes a CTD when transforming using modtools/transform-unit...
+	{BODY_APPEARANCE_MODIFIER:HEIGHT:75:95:98:100:102:105:125}
+	{BODY_APPEARANCE_MODIFIER:BROADNESS:75:95:98:100:102:105:125}
+	
+	[USE_MATERIAL_TEMPLATE:MEAT:MUSCLE_TEMPLATE]
+	[USE_MATERIAL_TEMPLATE:BLOOD:BLOOD_TEMPLATE]
+	[SELECT_MATERIAL:BLOOD] -- Give them creepy black blood
+		[STATE_COLOR:ALL:BLACK]
+		[DISPLAY_COLOR:0:0:0]
+	[BLOOD:LOCAL_CREATURE_MAT:BLOOD:LIQUID]
+	
+	[TISSUE:MAIN]
+		[TISSUE_NAME:shadowy flesh:shadowy flesh]
+		[TISSUE_MATERIAL:LOCAL_CREATURE_MAT:MEAT]
+		[MUSCULAR]
+		[STRUCTURAL]
+		[RELATIVE_THICKNESS:1]
+		[CONNECTS]
+		[TISSUE_SHAPE:LAYER]
+		[HEALING_RATE:100]
+		[VASCULAR:5]
+		[PAIN_RECEPTORS:5]
+	
+	[TISSUE_LAYER:BY_CATEGORY:ALL:MAIN]
+	
+	[SET_BP_GROUP:BY_CATEGORY:BODY]
+		[BP_ADD_TYPE:GRASP]
+
+	-- The creature manifests body parts to attack, so while the attacks use their body, the contact percs will be modified to roughly represent the actual size of what the parts would be (in some cases)
+	-- 5300
+	[ATTACK:PUNCH:BODYPART:BY_CATEGORY:BODY]
+		[ATTACK_SKILL:GRASP_STRIKE]
+		[ATTACK_VERB:punch:punches]
+		[ATTACK_CONTACT_PERC:2] -- Worked out what % of a HUMANOID body a hand takes up, and used that value. 
+		[ATTACK_PREPARE_AND_RECOVER:3:3]
+		[ATTACK_PRIORITY:MAIN]
+	
+	[ATTACK:CLAW:BODYPART:BY_CATEGORY:BODY]
+		[ATTACK_SKILL:GRASP_STRIKE]
+		[ATTACK_VERB:claw:claws]
+		[ATTACK_CONTACT_PERC:5]
+		[ATTACK_PENETRATION_PERC:5]
+		[ATTACK_FLAG_EDGE]
+		[ATTACK_PREPARE_AND_RECOVER:3:3]
+		[ATTACK_PRIORITY:MAIN]
+	
+	[ATTACK:BITE:BODYPART:BY_CATEGORY:BODY]
+		[ATTACK_SKILL:BITE]
+		[ATTACK_VERB:bite:bites]
+		[ATTACK_CONTACT_PERC:5]
+		[ATTACK_PENETRATION_PERC:5]
+		[ATTACK_FLAG_EDGE]
+		[ATTACK_PREPARE_AND_RECOVER:3:3]
+		[ATTACK_PRIORITY:MAIN]
+		[ATTACK_FLAG_CANLATCH]
+	
+	-- TODO: APPEARANCE?
+	
+	[CASTE:SAVAGE]
+		[DESCRIPTION:A shadowy creature with an ever-shifting form. It has hunted and feasted upon the flesh of many savage beasts, and adopts their forms. Now you will know why you fear the night.]
+		[ATTACK_TRIGGER:20:0:0]
+		[NIGHT_CREATURE_HUNTER]
+		[SPOUSE_CONVERTER]
+		[CONVERTED_SPOUSE]
+		
+		[NATURAL_SKILL:WRESTLING:6]
+		[NATURAL_SKILL:BITE:6]
+		[NATURAL_SKILL:GRASP_STRIKE:6]
+		[NATURAL_SKILL:STANCE_STRIKE:6]
+		[NATURAL_SKILL:MELEE_COMBAT:6]
+		[NATURAL_SKILL:DODGING:6]
+		[NATURAL_SKILL:SITUATIONAL_AWARENESS:6]
+		[DIFFICULTY:1]
+		
+		[PERSONALITY:BASHFUL:0:0:0]
+		[PERSONALITY:STRESS_VULNERABILITY:0:0:0]
+		[PERSONALITY:FRIENDLINESS:0:0:0]
+		[PERSONALITY:DISDAIN_ADVICE:100:100:100]
+		[PERSONALITY:CHEER_PROPENSITY:0:0:0]
+		[PERSONALITY:GRATITUDE:0:0:0]
+		[PERSONALITY:TRUST:0:0:0]
+		[PERSONALITY:ALTRUISM:0:0:0]
+		[PERSONALITY:CRUELTY:100:100:100]
+		
+		[LAIR:SIMPLE_BURROW:50]
+		[LAIR:SIMPLE_MOUND:50]
+		
+		[TRAPAVOID]
+		
+		[POP_RATIO:1000000]
+		
+		[BODY_SIZE:0:0:70000]
+		
+		[CAN_DO_INTERACTION:KANA_CHANGELING_SAVAGE_TRANSFORM]
+			[CDI:ADV_NAME:Transform into a savage creature]
+			[CDI:TARGET:A:SELF_ONLY]
+			[CDI:USAGE_HINT:DEFEND]
+			[CDI:WAIT_PERIOD:100]
+
+	[CASTE:PLAYABLE]
+		[DESCRIPTION:A shadowy creature with an ever-shifting form. It learns to take on new forms by devouring a creature's flesh.]
+		[LOCAL_POPS_CONTROLLABLE]
+		[OUTSIDER_CONTROLLABLE]
+		[NIGHT_CREATURE_HUNTER]
+		
+		[POP_RATIO:1] -- While I don't think they're supposed to be placed, they still are (possibly because NIGHT_CREATURE_HUNTER?), so setting this to super low in hopes that stops it
+		
+		[BODY_SIZE:0:0:70000]
+		
+		-- Used by the changeling scripts to flag the caste as being able to learn new forms from eating
+		[CREATURE_CLASS:KANA_CHANGELING_CAN_LEARN_FORMS]
+		
+		[CAN_DO_INTERACTION:KANA_CHANGELING_ASSUME_FORM]
+			[CDI:ADV_NAME:Assume a learned from]
+			[CDI:TARGET:A:SELF_ONLY]
+			[CDI:USAGE_HINT:ATTACK] -- Attack so AI won't use it
+			[CDI:WAIT_PERIOD:100]

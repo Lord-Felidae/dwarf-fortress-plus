@@ -1,0 +1,12 @@
+reaction_kana_changeling
+
+[OBJECT:REACTION]
+
+-- Used by the player to make any items they hold not count as from a dead sapient
+-- (Meaning they can craft with parts made from it, eat it even if not a cannibal, etc.)
+-- The actual changes to the items are handled in `changeling_mangager.lua`
+[REACTION:KANA_CHANGELING_CORPSE_PREP]
+	[NAME:make all held sapient bodies/parts usable/edible]
+	[ADVENTURE_MODE_ENABLED]
+	
+	[PRODUCT:0:1:LIQUID_MISC:NONE:WATER:NONE] -- Need at least 1 defined product for the reaction trigger code to actually run (for whatever reason), though at 0% it should never actually happen.
