@@ -1,2 +1,0 @@
-changeling_manager -load
-keybinding add Ctrl-Shift-T@dungeonmode "changeling_manager -transform"

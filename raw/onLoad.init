@@ -1,3 +1,5 @@
 multilevel 5
 light-aquifers-only
 modtools/entangler -item SHIELD:KANA_NET -throw -strike -bypassImmune true -preserveThrown true -chance 100 -power 40 -strikeChance 20 -strikePower [ 0 20 ]
+changeling_manager -load
+keybinding add Ctrl-Shift-T@dungeonmode "changeling_manager -transform"
