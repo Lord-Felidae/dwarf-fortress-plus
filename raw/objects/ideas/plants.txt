@@ -1,6 +1,3 @@
-plant_experimental
-
-[OBJECT:PLANT]
 
 [PLANT:CATNIP] * wip
 	[NAME:catnip plant][NAME_PLURAL:catnip plants][ADJ:catnip plant]
