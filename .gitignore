@@ -1,0 +1,22 @@
+stonesense/
+hack/docs/
+
+release notes.txt
+optipng license.txt
+stdout.txt
+stderr.txt
+stdout.log
+stderr.log
+
+Microsoft.VC80.CRT.MANIFEST
+
+*.dll
+*.exe
+gamelog.txt
+
+data/sound/
+data/initial_movies/
+data/help/
+data/dipscript
+data/announcement/
+blueprints/
